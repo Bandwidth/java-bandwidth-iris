@@ -1,0 +1,10 @@
+.DS_Store
+.classpath
+.project
+target
+
+
+# Intellij
+.idea/
+*.iml
+*.iws
