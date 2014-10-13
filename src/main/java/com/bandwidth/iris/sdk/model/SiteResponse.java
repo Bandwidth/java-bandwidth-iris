@@ -16,6 +16,17 @@ public class SiteResponse {
     @XmlElement(name="Site")
     private Site site;
 
+    @XmlElement(name="ResponseStatus")
+    private ResponseStatus responseStatus;
+
+    public ResponseStatus getResponseStatus() {
+        return responseStatus;
+    }
+
+    public void setResponseStatus(ResponseStatus responseStatus) {
+        this.responseStatus = responseStatus;
+    }
+
     public Site getSite() {
         return site;
     }

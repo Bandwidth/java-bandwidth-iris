@@ -13,4 +13,5 @@ public class IrisClientException extends Exception {
     public IrisClientException(String message){
         super(message);
     }
+
 }

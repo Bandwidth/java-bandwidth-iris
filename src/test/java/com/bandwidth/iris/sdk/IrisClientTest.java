@@ -11,12 +11,15 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.junit.rules.ExpectedException;
 
 
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.delete;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import static org.junit.Assert.*;
@@ -29,6 +32,9 @@ public class IrisClientTest {
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(8090); // No-args constructor defaults to port 8080
+
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
 
 
     private IrisClient getDefaultClient(){
@@ -93,6 +99,46 @@ public class IrisClientTest {
         assertTrue(result != null);
         assertEquals(result.getName(), "Test Site");
         assertEquals(result.getAddress().getAddressType(), "Service");
+    }
+
+    @Test
+    public void testCreateNewSite() throws IrisClientException {
+        String sitesUrl = "/v1.0/accounts/accountId/sites";
+        stubFor(post(urlMatching(sitesUrl))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/xml")
+                        .withHeader("Location", "https://someUrl.com/accounts/accountId/sites/1234")));
+
+        Site s = new Site();
+        s.setName("A Test Site");
+        s.setDescription("A Test Site Description");
+        Address a = new Address();
+        a.setHouseNumber("123");
+        a.setStreetName("EZ Street");
+        a.setCity("Raleigh");
+        a.setZip("27601");
+        a.setState("NC");
+        a.setCountry("US");
+        s.setAddress(a);
+        String siteId = getDefaultClient().createSite(s);
+        System.out.println("site id: " + siteId);
+        assertNotNull(siteId);
+        assertEquals("1234", siteId);
+    }
+
+    @Test(expected=IrisClientException.class)
+    public void testInvalidSiteDelete() throws IrisClientException {
+        String sitesUrl = "/v1.0/accounts/accountId/sites/5001";
+        stubFor(delete(urlMatching(sitesUrl))
+                .willReturn(aResponse()
+                        .withStatus(404)));
+
+        getDefaultClient().deleteSite("5001");
+
+        expectedEx.expect(IrisClientException.class);
+        expectedEx.expectMessage(IrisClientTestUtils.invalidSiteDeleteResponseXml);
+
     }
 
 }

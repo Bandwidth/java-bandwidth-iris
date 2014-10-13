@@ -51,8 +51,6 @@ public class Example {
             System.out.println(String.format("Full number: %s : Rate Center: %s", number.getFullNumber(), number.getRateCenter()));
         }
         printMessage("Ending print search results");
-
-
     }
 
     private static IrisClient getClient(){
