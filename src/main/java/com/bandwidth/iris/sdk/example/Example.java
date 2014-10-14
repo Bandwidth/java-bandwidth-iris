@@ -36,7 +36,7 @@ public class Example {
 
         List<Site> sites = getClient().getSites();
         for(Site s: sites){
-            System.out.println(String.format("Site Name: %s | Description: %s", s.getName(), s.getDescription()));
+            System.out.println(String.format("Site Id: %s | Site Name: %s | Description: %s", s.getId(), s.getName(), s.getDescription()));
         }
         printMessage("Ending print sites");
     }
