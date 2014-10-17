@@ -167,22 +167,66 @@ public class IrisClient {
     }
 
     public Order createOrder(Order order) throws IrisClientException{
-        Order o = null;
+        Order result = null;
         try {
             HttpPost post = new HttpPost(buildOrdersUri());
             StringEntity entity = new StringEntity(XmlUtils.toXml(order), ContentType.APPLICATION_XML);
             post.setEntity(entity);
             IrisResponse response = executeRequest(post);
             if(response.getStatusCode() == HttpStatus.SC_OK){
-                OrderResponse orderResponse  = (OrderResponse) XmlUtils.fromXml(response.getResponseBody(), OrderResponse.class);
-                o = orderResponse.getOrder();
+                OrderResponse orderResponse  = (OrderResponse) XmlUtils.fromXml(response.getResponseBody(),
+                        OrderResponse.class);
+                result = orderResponse.getOrder();
             }
         }catch(Exception e){
             LOG.error("Error creating order: " + e.getMessage());
             throw new IrisClientException(e);
         }
-        return o;
+        return result;
     }
+
+    public DisconnectTelephoneNumberOrderResponse createDisconnectOrder(DisconnectTelephoneNumberOrder disconnectTelephoneNumberOrder)
+            throws IrisClientException {
+        DisconnectTelephoneNumberOrderResponse result = null;
+        try {
+            HttpPost post = new HttpPost(buildDisconnectUri());
+            StringEntity entity = new StringEntity(XmlUtils.toXml(disconnectTelephoneNumberOrder),
+                    ContentType.APPLICATION_XML);
+            post.setEntity(entity);
+            IrisResponse irisResponse = executeRequest(post);
+            if(irisResponse.getStatusCode() == HttpStatus.SC_OK){
+                result = (DisconnectTelephoneNumberOrderResponse) XmlUtils.fromXml(irisResponse.getResponseBody(), DisconnectTelephoneNumberOrderResponse.class);
+            }
+
+        }catch(Exception e){
+            LOG.error("Error disconnecting phone number: " + e.getMessage());
+            throw new IrisClientException(e);
+        }
+        return result;
+    }
+
+    public DisconnectTelephoneNumberOrderResponse getDisconnectOrder(String orderId) throws IrisClientException {
+        DisconnectTelephoneNumberOrderResponse result = null;
+        try {
+            HttpGet get = new HttpGet(buildDisconnectUri() + "/" + orderId);
+            IrisResponse irisResponse = executeRequest(get);
+            if(irisResponse.getStatusCode() == HttpStatus.SC_OK){
+                result = (DisconnectTelephoneNumberOrderResponse) XmlUtils.fromXml(irisResponse.getResponseBody(),
+                        DisconnectTelephoneNumberOrderResponse.class);
+            }
+        }catch(Exception e){
+            LOG.error("Error retrieving disconnect order: " + e.getMessage());
+            throw new IrisClientException(e);
+        }
+        return result;
+    }
+
+    private String buildDisconnectUri() throws URISyntaxException{
+        URIBuilder builder = new URIBuilder(this.uri);
+        builder.setPath(baseUrl + "disconnects");
+        return builder.build().toString();
+    }
+
 
     private String buildOrdersUri() throws URISyntaxException{
         URIBuilder builder = new URIBuilder(this.uri);

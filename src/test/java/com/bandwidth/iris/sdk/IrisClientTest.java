@@ -161,8 +161,8 @@ public class IrisClientTest {
 
     @Test
     public void testCreateOrder() throws IrisClientException {
-        String sitesUrl = "/v1.0/accounts/accountId/orders";
-        stubFor(post(urlMatching(sitesUrl))
+        String ordersUrl = "/v1.0/accounts/accountId/orders";
+        stubFor(post(urlMatching(ordersUrl))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/xml")
@@ -172,11 +172,51 @@ public class IrisClientTest {
         o.setName("A New Order");
         ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType = new ExistingTelephoneNumberOrderType();
         existingTelephoneNumberOrderType.getTelephoneNumberList().add("2052865046");
+        o.setExistingTelephoneNumberOrderType(existingTelephoneNumberOrderType);
 
         Order createdOrder = getDefaultClient().createOrder(o);
         assertEquals(createdOrder.getid(), "someid");
         assertEquals(createdOrder.getExistingTelephoneNumberOrderType().getTelephoneNumberList().get(0), "2052865046");
         assertEquals(createdOrder.getName(), "A New Order");
+
+    }
+
+    @Test
+    public void testCreateDisconnectOrder() throws Exception {
+        String disconnectOrdersUrl = "/v1.0/accounts/accountId/disconnects";
+        stubFor(post(urlMatching(disconnectOrdersUrl))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/xml")
+                        .withBody(IrisClientTestUtils.validCreateDisconnectTelephoneNumberOrderResponseXml)));
+
+        DisconnectTelephoneNumberOrder order = new DisconnectTelephoneNumberOrder();
+        order.setName("Disconnect");
+        DisconnectTelephoneNumberOrderType disconnectTelephoneNumberOrderType = new DisconnectTelephoneNumberOrderType();
+        disconnectTelephoneNumberOrderType.getTelephoneNumberList().add("2055551212");
+        order.setDisconnectTelephoneNumberOrderType(disconnectTelephoneNumberOrderType);
+
+        DisconnectTelephoneNumberOrderResponse createdOrder =
+                getDefaultClient().createDisconnectOrder(order);
+        assertEquals(createdOrder.getorderRequest().getid(), "disconnectId");
+        assertEquals(createdOrder.getorderRequest().getDisconnectTelephoneNumberOrderType().
+                getTelephoneNumberList().get(0), "2055551212");
+        assertEquals(createdOrder.getorderRequest().getName(), "Disconnect");
+        assertEquals(createdOrder.getErrorList().size(), 0);
+
+    }
+
+    @Test
+    public void testGetDisconnectOrderStatusWithErrors() throws Exception {
+        String disconnectOrdersUrl = "/v1.0/accounts/accountId/disconnects.*";
+        stubFor(get(urlMatching(disconnectOrdersUrl))
+            .willReturn(aResponse()
+                .withStatus(200).withBody(IrisClientTestUtils.
+                            validCreateDisconnectTelephoneNumberOrderResponseWithErrorsXml)));
+
+        DisconnectTelephoneNumberOrderResponse response = getDefaultClient().getDisconnectOrder("disconnectId");
+        assertEquals(response.getErrorList().size(), 1);
+        assertEquals(response.getOrderStatus(), "FAILED");
 
     }
 

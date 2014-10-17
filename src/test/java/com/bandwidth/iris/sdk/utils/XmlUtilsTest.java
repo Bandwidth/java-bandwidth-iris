@@ -1,5 +1,7 @@
 package com.bandwidth.iris.sdk.utils;
 
+import com.bandwidth.iris.sdk.model.DisconnectTelephoneNumberOrder;
+import com.bandwidth.iris.sdk.model.DisconnectTelephoneNumberOrderType;
 import com.bandwidth.iris.sdk.model.ExistingTelephoneNumberOrderType;
 import com.bandwidth.iris.sdk.model.Order;
 import org.apache.commons.configuration.ConfigurationException;
@@ -27,7 +29,7 @@ public class XmlUtilsTest {
 
     @Test
     public void testSerializeExistingTelephoneNumberOrderToXml()throws Exception {
-
+        String properXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Order><BackOrderRequested>false</BackOrderRequested><Name>A New Order</Name><SiteId>1234</SiteId><PartialAllowed>false</PartialAllowed><ExistingTelephoneNumberOrderType><TelephoneNumberList><TelephoneNumber>2055551212</TelephoneNumber></TelephoneNumberList></ExistingTelephoneNumberOrderType></Order>";
         Order o = new Order();
         o.setName("A New Order");
         ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType = new ExistingTelephoneNumberOrderType();
@@ -36,8 +38,20 @@ public class XmlUtilsTest {
         o.setExistingTelephoneNumberOrderType(existingTelephoneNumberOrderType);
 
         System.out.println(XmlUtils.toXml(o));
-        assertEquals(XmlUtils.toXml(o), "Test");
+        assertEquals(XmlUtils.toXml(o), properXml);
 
+    }
+
+    @Test
+    public void testSerializeDisconnectTelephoneNumberOrderToXml() throws Exception {
+        String properXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><DisconnectTelephoneNumberOrder><Name>Disconnect</Name><DisconnectTelephoneNumberOrderType><TelephoneNumberList><TelephoneNumber>2055551212</TelephoneNumber></TelephoneNumberList></DisconnectTelephoneNumberOrderType></DisconnectTelephoneNumberOrder>";
+        DisconnectTelephoneNumberOrder order = new DisconnectTelephoneNumberOrder();
+        order.setName("Disconnect");
+        DisconnectTelephoneNumberOrderType disconnectTelephoneNumberOrderType = new DisconnectTelephoneNumberOrderType();
+        disconnectTelephoneNumberOrderType.getTelephoneNumberList().add("2055551212");
+        order.setDisconnectTelephoneNumberOrderType(disconnectTelephoneNumberOrderType);
+        System.out.println(XmlUtils.toXml(order));
+        assertEquals(XmlUtils.toXml(order), properXml);
     }
 
 }

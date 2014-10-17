@@ -34,7 +34,6 @@ public class XmlUtils {
         Marshaller marshaller = jaxbContext.createMarshaller();
         StringWriter writer = new StringWriter();
         marshaller.marshal(o, writer);
-        LOG.debug("toXml: " + writer.toString());
         return writer.toString();
     }
 
