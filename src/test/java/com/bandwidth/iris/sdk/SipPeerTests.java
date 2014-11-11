@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class SipPeerTests extends BaseModelTests {
 
     @Test
-    public void testValidSipPeersResponse() throws IrisClientException {
+    public void testList() throws IrisClientException {
         String sitesUrl = "/v1.0/accounts/accountId/sites/1234/sippeers";
         stubFor(get(urlMatching(sitesUrl))
                 .willReturn(aResponse()
