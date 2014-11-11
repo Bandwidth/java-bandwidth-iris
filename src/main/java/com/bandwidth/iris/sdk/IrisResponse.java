@@ -1,5 +1,7 @@
 package com.bandwidth.iris.sdk;
 
+import org.apache.http.HttpStatus;
+
 import java.util.Map;
 
 /**
@@ -33,4 +35,9 @@ public class IrisResponse {
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
+
+    public boolean isOK() {
+        return statusCode == HttpStatus.SC_OK;
+    }
+
 }

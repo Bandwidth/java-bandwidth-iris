@@ -3,10 +3,7 @@ package com.bandwidth.iris.sdk.example;
 import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.IrisClientException;
 import com.bandwidth.iris.sdk.IrisResponse;
-import com.bandwidth.iris.sdk.model.SearchResult;
-import com.bandwidth.iris.sdk.model.Site;
-import com.bandwidth.iris.sdk.model.TelephoneNumberDetail;
-import com.bandwidth.iris.sdk.model.TelephoneNumberSearchFilters;
+import com.bandwidth.iris.sdk.model.*;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -34,7 +31,7 @@ public class Example {
     private static void printSites() throws IrisClientException {
         printMessage("Starting print sites");
 
-        List<Site> sites = getClient().getSites();
+        List<Site> sites = Site.list(getClient());
         for(Site s: sites){
             System.out.println(String.format("Site Id: %s | Site Name: %s | Description: %s", s.getId(), s.getName(), s.getDescription()));
         }
@@ -46,7 +43,7 @@ public class Example {
         TelephoneNumberSearchFilters filters = new TelephoneNumberSearchFilters();
         filters.setInAreaCode("205");
 
-        List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) getClient().getAvailableNumbers(filters);
+        List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) TelephoneNumber.getAvailableNumbers(getClient(), filters);
         for(TelephoneNumberDetail number : numbers){
             System.out.println(String.format("Full number: %s : Rate Center: %s", number.getFullNumber(), number.getRateCenter()));
         }

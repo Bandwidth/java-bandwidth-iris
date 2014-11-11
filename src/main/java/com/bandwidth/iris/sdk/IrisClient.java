@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -54,8 +55,6 @@ public class IrisClient {
     private String version;
     private XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 
-
-
     protected DefaultHttpClient httpClient;
 
     public IrisClient(String uri, String accountId,
@@ -73,193 +72,35 @@ public class IrisClient {
         this.baseUrl = "/" + version+ "/accounts/" + this.accountId + "/";
     }
 
-
-    public List<?> getAvailableNumbers(TelephoneNumberSearchFilters filters) throws IrisClientException {
-        List<?> numbersList = new ArrayList<TelephoneNumber>();
-        SearchResult result = null;
-        try {
-            String searchUri = buildSearchUri(filters);
-            HttpGet get = new HttpGet(searchUri);
-            IrisResponse response = executeRequest(get);
-            LOG.debug("response " + response.getResponseBody());
-            result = (SearchResult) XmlUtils.fromXml(response.getResponseBody(), SearchResult.class);
-            numbersList = filters.isReturnTelephoneNumberDetails() ? result.getTelephoneNumberDetailList() :
-                    result.getTelephoneNumberList();
-        }catch(Exception e){
-            LOG.error("Error in getAvailableNumbers: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return numbersList;
+    public IrisResponse get(String uri) throws Exception {
+        HttpGet get = new HttpGet(uri);
+        IrisResponse response = executeRequest(get);
+        return response;
     }
 
-    public List<Site> getSites() throws IrisClientException {
-        SitesResponse result = new SitesResponse();
-        List<Site> sites = new ArrayList<Site>();
-        try {
-            HttpGet get = new HttpGet(buildSitesUri());
-            IrisResponse irisResponse = executeRequest(get);
-            result = (SitesResponse)XmlUtils.fromXml(irisResponse.getResponseBody(), SitesResponse.class);
-            sites = result.getSites();
-        }catch(Exception e){
-            LOG.error("Error in getSites: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return sites;
+    public IrisResponse post(String uri, BaseModel data) throws Exception {
+        HttpPost post = new HttpPost(uri);
+        StringEntity postBody = new StringEntity(XmlUtils.toXml(data));
+        post.setEntity(postBody);
+        IrisResponse response  = executeRequest(post);
+        return response;
     }
 
-    public Site getSite(String siteId){
-        SiteResponse result = new SiteResponse();
-        Site site = null;
-        try {
-            HttpGet get = new HttpGet(buildSitesUri() + "/" + siteId);
-            IrisResponse irisResponse = executeRequest(get);
-            result = (SiteResponse) XmlUtils.fromXml(irisResponse.getResponseBody(), SiteResponse.class);
-            site = result.getSite();
-        }catch(Exception e){
-
-        }
-        return site;
+    public IrisResponse delete(String uri) throws Exception {
+        HttpDelete delete = new HttpDelete(uri);
+        IrisResponse response = executeRequest(delete);
+        return response;
     }
 
-    public String createSite(Site site) throws IrisClientException {
-        String siteId = null;
-        try {
-            HttpPost post = new HttpPost(buildSitesUri());
-            StringEntity entity = new StringEntity(XmlUtils.toXml(site), ContentType.APPLICATION_XML);
-            post.setEntity(entity);
-            IrisResponse response = executeRequest(post);
-            if(response.getStatusCode() == HttpStatus.SC_OK){
-                siteId = getIdFromLocationHeader(response.getHeaders().get("Location"));
-            }
-        }catch(Exception e){
-            LOG.error("Error creating new site: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return siteId;
-    }
-
-    public void deleteSite(String siteId) throws IrisClientException {
-        try {
-            HttpDelete delete = new HttpDelete(buildSitesUri() + "/" + siteId);
-            IrisResponse response = executeRequest(delete);
-            if(response.getStatusCode() != HttpStatus.SC_OK){
-                throw new IrisClientException(response.getResponseBody());
-            }
-        }catch(Exception e){
-            LOG.error("Error deleting site: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-    }
-
-    public List<SipPeer> getSipPeers(String siteId) throws IrisClientException {
-        TNSipPeersResponse result = null;
-        List<SipPeer> sipPeers = new ArrayList<SipPeer>();
-        try {
-            HttpGet get = new HttpGet(buildSipPeersUri(siteId));
-            IrisResponse irisResponse = executeRequest(get);
-            result = (TNSipPeersResponse)XmlUtils.fromXml(irisResponse.getResponseBody(), TNSipPeersResponse.class);
-            sipPeers = result.getSipPeers();
-        }catch(Exception e){
-            LOG.error("Error in getSites: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return sipPeers;
-    }
-
-    public Order createOrder(Order order) throws IrisClientException{
-        Order result = null;
-        try {
-            HttpPost post = new HttpPost(buildOrdersUri());
-            StringEntity entity = new StringEntity(XmlUtils.toXml(order), ContentType.APPLICATION_XML);
-            post.setEntity(entity);
-            IrisResponse response = executeRequest(post);
-            if(response.getStatusCode() == HttpStatus.SC_OK){
-                OrderResponse orderResponse  = (OrderResponse) XmlUtils.fromXml(response.getResponseBody(),
-                        OrderResponse.class);
-                result = orderResponse.getOrder();
-            }
-        }catch(Exception e){
-            LOG.error("Error creating order: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return result;
-    }
-
-    public DisconnectTelephoneNumberOrderResponse createDisconnectOrder(DisconnectTelephoneNumberOrder disconnectTelephoneNumberOrder)
-            throws IrisClientException {
-        DisconnectTelephoneNumberOrderResponse result = null;
-        try {
-            HttpPost post = new HttpPost(buildDisconnectUri());
-            StringEntity entity = new StringEntity(XmlUtils.toXml(disconnectTelephoneNumberOrder),
-                    ContentType.APPLICATION_XML);
-            post.setEntity(entity);
-            IrisResponse irisResponse = executeRequest(post);
-            if(irisResponse.getStatusCode() == HttpStatus.SC_OK){
-                result = (DisconnectTelephoneNumberOrderResponse) XmlUtils.fromXml(irisResponse.getResponseBody(), DisconnectTelephoneNumberOrderResponse.class);
-            }
-
-        }catch(Exception e){
-            LOG.error("Error disconnecting phone number: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return result;
-    }
-
-    public DisconnectTelephoneNumberOrderResponse getDisconnectOrder(String orderId) throws IrisClientException {
-        DisconnectTelephoneNumberOrderResponse result = null;
-        try {
-            HttpGet get = new HttpGet(buildDisconnectUri() + "/" + orderId);
-            IrisResponse irisResponse = executeRequest(get);
-            if(irisResponse.getStatusCode() == HttpStatus.SC_OK){
-                result = (DisconnectTelephoneNumberOrderResponse) XmlUtils.fromXml(irisResponse.getResponseBody(),
-                        DisconnectTelephoneNumberOrderResponse.class);
-            }
-        }catch(Exception e){
-            LOG.error("Error retrieving disconnect order: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return result;
-    }
-
-    private String buildDisconnectUri() throws URISyntaxException{
+    public String buildModelUri(String uriSuffix) throws URISyntaxException{
         URIBuilder builder = new URIBuilder(this.uri);
-        builder.setPath(baseUrl + "disconnects");
+        builder.setPath(baseUrl + uriSuffix);
         return builder.build().toString();
     }
 
-
-    private String buildOrdersUri() throws URISyntaxException{
-        URIBuilder builder = new URIBuilder(this.uri);
-        builder.setPath(baseUrl + "orders");
-        return builder.build().toString();
-    }
-    private String buildSipPeersUri(String siteId) throws URISyntaxException{
-        URIBuilder builder = new URIBuilder(this.uri);
-        builder.setPath(baseUrl + "sites/" + siteId + "/sippeers");
-        return builder.build().toString();
-    }
-
-
-
-    private String buildSitesUri() throws URISyntaxException {
-        URIBuilder builder = new URIBuilder(this.uri);
-        builder.setPath(baseUrl + "sites");
-        return builder.build().toString();
-    }
-
-
-
-    private String buildSearchUri(TelephoneNumberSearchFilters filters)throws URISyntaxException{
-        URIBuilder builder = new URIBuilder(this.uri);
-        builder.setPath(baseUrl + "availableNumbers");
-        if(!StringUtils.isEmpty(filters.getInAreaCode())){
-            builder.addParameter("areaCode", filters.getInAreaCode());
-        }
-        builder.addParameter("enableTNDetail", String.valueOf(filters.isReturnTelephoneNumberDetails()));
-        builder.addParameter("quantity", String.valueOf(filters.getQuantity()));
-
-        LOG.debug("building uri: " + builder.build().toString());
-        return builder.build().toString();
+    public String buildModelUri(String[] tokens) throws URISyntaxException {
+        String path = StringUtils.join(tokens, "/");
+        return buildModelUri(path);
     }
 
     protected IrisResponse executeRequest(HttpUriRequest request) throws IOException {
@@ -282,7 +123,7 @@ public class IrisClient {
     }
 
 
-    private String getIdFromLocationHeader(String locationHeader){
+    public String getIdFromLocationHeader(String locationHeader){
         return locationHeader.substring(locationHeader.lastIndexOf("/") + 1);
     }
 

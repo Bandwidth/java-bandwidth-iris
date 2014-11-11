@@ -1,5 +1,16 @@
 package com.bandwidth.iris.sdk.model;
 
+import com.bandwidth.iris.sdk.IrisClient;
+import com.bandwidth.iris.sdk.IrisClientException;
+import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisResponse;
+import com.bandwidth.iris.sdk.utils.XmlUtils;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.log4j.Logger;
+
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,7 +18,27 @@ import java.util.List;
 
 @XmlRootElement(name = "Order")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Order {
+public class Order extends BaseModel {
+
+    private static final Logger LOG = Logger.getLogger(Order.class);
+
+    public static Order create(IrisClient client, Order order) throws IrisClientException {
+        Order result = null;
+        try {
+            IrisResponse response = client.post(client.buildModelUri(IrisConstants.ORDERS_URI_PATH), order);
+            if(response.isOK()){
+                OrderResponse orderResponse  = (OrderResponse) XmlUtils.fromXml(response.getResponseBody(),
+                        OrderResponse.class);
+                result = orderResponse.getOrder();
+            }
+        }catch(Exception e){
+            LOG.error("Error creating order: " + e.getMessage());
+            throw new IrisClientException(e);
+        }
+        return result;
+    }
+
+
     @XmlElement(name="id")
     private String id;
 

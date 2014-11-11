@@ -1,6 +1,16 @@
 package com.bandwidth.iris.sdk.model;
 
+import com.bandwidth.iris.sdk.IrisClient;
+import com.bandwidth.iris.sdk.IrisClientException;
+import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisResponse;
+import com.bandwidth.iris.sdk.utils.XmlUtils;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.log4j.Logger;
+
 import javax.xml.bind.annotation.*;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +19,31 @@ import java.util.List;
  */
 @XmlRootElement(name = "SipPeer")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SipPeer {
+public class SipPeer extends BaseModel {
+
+    private static final Logger LOG = Logger.getLogger(SipPeer.class);
+
+
+    public static List<SipPeer> list(IrisClient client, String siteId) throws IrisClientException {
+        TNSipPeersResponse result = null;
+        List<SipPeer> sipPeers = new ArrayList<SipPeer>();
+        try {
+            String path = client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, siteId,
+                    IrisConstants.SIPPEERS_URI_PATH});
+            LOG.debug("Path: " + path);
+            IrisResponse irisResponse = client.get(client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, siteId,
+                IrisConstants.SIPPEERS_URI_PATH})) ;
+            result = (TNSipPeersResponse) XmlUtils.fromXml(irisResponse.getResponseBody(), TNSipPeersResponse.class);
+            sipPeers = result.getSipPeers();
+        }catch(Exception e){
+            LOG.error("Error in getSites: " + e.getMessage());
+            throw new IrisClientException(e);
+        }
+        return sipPeers;
+    }
+
+
+
     @XmlElement(name="PeerId")
     private String peerId;
 
@@ -45,6 +79,7 @@ public class SipPeer {
     @XmlElementWrapper(name="VoiceHostGroups")
     @XmlElement(name="VoiceHostGroup")
     private List<VoiceHostGroup> voiceHostGroups = new ArrayList<VoiceHostGroup>();
+
 
 
     public String getPeerId() {

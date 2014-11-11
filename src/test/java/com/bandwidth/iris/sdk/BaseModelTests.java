@@ -1,6 +1,6 @@
 package com.bandwidth.iris.sdk;
 
-import com.bandwidth.iris.sdk.model.*;
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
@@ -8,25 +8,12 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
-
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.rules.ExpectedException;
 
-
-import java.util.List;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.post;
-import static com.github.tomakehurst.wiremock.client.WireMock.delete;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
-import static org.junit.Assert.*;
-
-
-public class IrisClientTest {
-
+/**
+ * Created by sbarstow on 11/11/14.
+ */
+public class BaseModelTests {
 
     protected String message;
 
@@ -37,7 +24,7 @@ public class IrisClientTest {
     public ExpectedException expectedEx = ExpectedException.none();
 
 
-    private IrisClient getDefaultClient(){
+    protected IrisClient getDefaultClient(){
         return new IrisClient("http://localhost:8090", "accountId", "siteId", "username", "password", "v1.0");
     }
 
@@ -55,12 +42,5 @@ public class IrisClientTest {
     public void setMessage(String s){
         this.message = s;
     }
-
-
-
-
-
-
-
 
 }
