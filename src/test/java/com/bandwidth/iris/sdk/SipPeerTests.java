@@ -28,6 +28,4 @@ public class SipPeerTests extends BaseModelTests {
         assertEquals(s.getPeerName(), "SIP Peer 1");
         assertEquals(s.getPeerId(), "12345");
     }
-
-
 }

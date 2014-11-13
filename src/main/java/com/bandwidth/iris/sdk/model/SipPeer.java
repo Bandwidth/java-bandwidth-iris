@@ -23,6 +23,24 @@ public class SipPeer extends BaseModel {
 
     private static final Logger LOG = Logger.getLogger(SipPeer.class);
 
+    public static SipPeer create(IrisClient client, String siteId, SipPeer sipPeer) throws IrisClientException {
+        SipPeer peer = null;
+        try {
+            IrisResponse response = client.post(client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, siteId,
+                IrisConstants.SIPPEERS_URI_PATH}), sipPeer);
+            if(response.isOK()){
+                SipPeerResponse sipPeerResponse = (SipPeerResponse) XmlUtils.fromXml(response.getResponseBody(),
+                        SipPeerResponse.class);
+                peer = sipPeerResponse.getSipPeer();
+            }else {
+                //TODO: throw exception?
+            }
+        }catch(Exception e){
+
+        }
+        return peer;
+    }
+
 
     public static List<SipPeer> list(IrisClient client, String siteId) throws IrisClientException {
         TNSipPeersResponse result = null;
@@ -36,7 +54,7 @@ public class SipPeer extends BaseModel {
             result = (TNSipPeersResponse) XmlUtils.fromXml(irisResponse.getResponseBody(), TNSipPeersResponse.class);
             sipPeers = result.getSipPeers();
         }catch(Exception e){
-            LOG.error("Error in getSites: " + e.getMessage());
+            LOG.error("Error in list sip peers: " + e.getMessage());
             throw new IrisClientException(e);
         }
         return sipPeers;
