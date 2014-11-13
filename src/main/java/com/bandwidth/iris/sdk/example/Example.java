@@ -42,9 +42,12 @@ public class Example {
     private static void printSearchResults() throws IrisClientException {
         printMessage("Starting print search results");
         Map<String, Object> query = new HashMap<String, Object>();
+        query.put("areaCode", "205");
+        query.put("enableTNDetail", true);
+        query.put("quantity", 2);
 
         List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) TelephoneNumber.getAvailableNumbers(
-                getClient(), query, true);
+                getClient(), query);
         for(TelephoneNumberDetail number : numbers){
             System.out.println(String.format("Full number: %s : Rate Center: %s", number.getFullNumber(), number.getRateCenter()));
         }

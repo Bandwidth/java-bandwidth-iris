@@ -27,8 +27,9 @@ public class SearchNumberTests extends BaseModelTests {
                         .withStatus(200).withBody(IrisClientTestUtils.localAreaSearchResultXml)));
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("areaCode", "201");
+        query.put("enableTNDetail", true);
         List<TelephoneNumberDetail> result = (List<TelephoneNumberDetail>)
-                TelephoneNumber.getAvailableNumbers(getDefaultClient(), query, true);
+                TelephoneNumber.getAvailableNumbers(getDefaultClient(), query);
         assertTrue(result != null);
         assertEquals(result.size(), 2);
     }

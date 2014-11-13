@@ -26,10 +26,12 @@ public class TelephoneNumber {
 
     private static final Logger LOG = Logger.getLogger(TelephoneNumber.class);
 
-    public static List<?> getAvailableNumbers(IrisClient client, Map<String,Object> query, boolean returnDetails) throws IrisClientException {
+    public static List<?> getAvailableNumbers(IrisClient client, Map<String,Object> query) throws IrisClientException {
         List<?> numbersList = new ArrayList<TelephoneNumber>();
         SearchResult result = null;
         try {
+            boolean returnDetails = query.get("enableTNDetail") != null ?
+                    Boolean.valueOf(query.get("enableTNDetail").toString()) : false;
             String searchUri = client.buildModelUri(new String[]{IrisConstants.AVAILABLE_NUMBERS_URI_PATH}, query);
             IrisResponse response = client.get(searchUri);
             result = (SearchResult) XmlUtils.fromXml(response.getResponseBody(), SearchResult.class);

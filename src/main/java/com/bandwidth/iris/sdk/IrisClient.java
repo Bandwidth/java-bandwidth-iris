@@ -106,6 +106,7 @@ public class IrisClient {
                 builder.addParameter(key, params.get(key).toString());
             }
         }
+        LOG.info("Request URI: " + builder.build().toString());
         return builder.build().toString();
     }
 
