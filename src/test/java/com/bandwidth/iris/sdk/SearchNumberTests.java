@@ -5,7 +5,9 @@ import com.bandwidth.iris.sdk.model.TelephoneNumberDetail;
 import com.bandwidth.iris.sdk.model.TelephoneNumberSearchFilters;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
@@ -23,9 +25,10 @@ public class SearchNumberTests extends BaseModelTests {
         stubFor(get(urlMatching(queryUrl))
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.localAreaSearchResultXml)));
-        TelephoneNumberSearchFilters filters = new TelephoneNumberSearchFilters();
-        filters.setInAreaCode("201");
-        List<TelephoneNumberDetail> result = (List<TelephoneNumberDetail>) TelephoneNumber.getAvailableNumbers(getDefaultClient(), filters);
+        Map<String, Object> query = new HashMap<String, Object>();
+        query.put("areaCode", "201");
+        List<TelephoneNumberDetail> result = (List<TelephoneNumberDetail>)
+                TelephoneNumber.getAvailableNumbers(getDefaultClient(), query, true);
         assertTrue(result != null);
         assertEquals(result.size(), 2);
     }

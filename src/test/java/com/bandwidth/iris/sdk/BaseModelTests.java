@@ -25,7 +25,7 @@ public class BaseModelTests {
 
 
     protected IrisClient getDefaultClient(){
-        return new IrisClient("http://localhost:8090", "accountId", "siteId", "username", "password", "v1.0");
+        return new IrisClient("http://localhost:8090", "accountId", "username", "password", "v1.0");
     }
 
 

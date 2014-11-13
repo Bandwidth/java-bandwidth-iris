@@ -23,7 +23,14 @@ public class SiteTests extends BaseModelTests {
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/xml")
-                        .withHeader("Location", "https://someUrl.com/accounts/accountId/sites/1234")));
+                        .withHeader("Location", "https://someUrl.com/accounts/accountId/sites/2858")));
+
+        String sitesGetUrl = "/v1.0/accounts/accountId/sites/2858";
+
+        stubFor(get(urlMatching(sitesGetUrl))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.validSiteResponseXml)));
+
 
         Site s = new Site();
         s.setName("A Test Site");
@@ -36,20 +43,27 @@ public class SiteTests extends BaseModelTests {
         a.setState("NC");
         a.setCountry("US");
         s.setAddress(a);
-        String siteId = Site.create(getDefaultClient(),s);
-        assertNotNull(siteId);
-        assertEquals("1234", siteId);
+        Site createdSite = Site.create(getDefaultClient(),s);
+        assertNotNull(createdSite);
+        assertEquals("2858", createdSite.getId());
     }
 
     @Test(expected=IrisClientException.class)
     public void testInvalidSiteDelete() throws IrisClientException {
-        String sitesUrl = "/v1.0/accounts/accountId/sites/5001";
+        String sitesUrl = "/v1.0/accounts/accountId/sites/2858";
         stubFor(delete(urlMatching(sitesUrl))
                 .willReturn(aResponse()
                         .withStatus(404)
                         .withBody(IrisClientTestUtils.invalidSiteDeleteResponseXml)));
 
-        Site.delete(getDefaultClient(), "5001");
+        stubFor(get(urlMatching(sitesUrl))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withBody(IrisClientTestUtils.validSiteResponseXml)));
+
+        Site s = Site.get(getDefaultClient(), "1234");
+        s.delete();
+
         expectedEx.expect(IrisClientException.class);
         expectedEx.expectMessage(IrisClientTestUtils.invalidSiteDeleteResponseXml);
     }
@@ -80,8 +94,5 @@ public class SiteTests extends BaseModelTests {
         Site s = result.get(0);
         assertEquals(s.getName(), "Test Site");
     }
-
-
-
 
 }

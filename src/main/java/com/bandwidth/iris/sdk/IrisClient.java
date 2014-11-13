@@ -49,19 +49,19 @@ public class IrisClient {
     private String baseUrl;
     private String accountId;
     private String uri;
-    private String siteId;
     private String userName;
     private String password;
     private String version;
     private XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+    private static String defaultUri = "https://api.inetwork.com/v1.0";
+    private static String defaultVersion = "v1.0";
 
     protected DefaultHttpClient httpClient;
 
     public IrisClient(String uri, String accountId,
-                      String siteId, String userName, String password, String version){
+                      String userName, String password, String version){
         this.uri = uri;
         this.accountId = accountId;
-        this.siteId = siteId;
         this.userName = userName;
         this.password = password;
         this.version = version;
@@ -70,6 +70,10 @@ public class IrisClient {
         Credentials credentials = new UsernamePasswordCredentials(userName, password);
         httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, credentials);
         this.baseUrl = "/" + version+ "/accounts/" + this.accountId + "/";
+    }
+
+    public IrisClient(String accountId, String userName, String password){
+        this(defaultUri, accountId, userName, password, defaultVersion);
     }
 
     public IrisResponse get(String uri) throws Exception {
@@ -94,15 +98,23 @@ public class IrisClient {
         return executeRequest(put);
     }
 
-    public String buildModelUri(String uriSuffix) throws URISyntaxException{
+    public String buildModelUri(String uriSuffix, Map<String, Object> params) throws URISyntaxException{
         URIBuilder builder = new URIBuilder(this.uri);
         builder.setPath(baseUrl + uriSuffix);
+        if(params != null){
+            for(String key : params.keySet()){
+                builder.addParameter(key, params.get(key).toString());
+            }
+        }
         return builder.build().toString();
     }
 
     public String buildModelUri(String[] tokens) throws URISyntaxException {
-        String path = StringUtils.join(tokens, "/");
-        return buildModelUri(path);
+        return buildModelUri(StringUtils.join(tokens, "/"), null);
+    }
+
+    public String buildModelUri(String[] tokens, Map<String, Object> params) throws URISyntaxException{
+        return buildModelUri(StringUtils.join(tokens, "/"), params);
     }
 
     protected IrisResponse executeRequest(HttpUriRequest request) throws IOException {

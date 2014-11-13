@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @XmlRootElement(name = "TelephoneNumber")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -25,14 +26,14 @@ public class TelephoneNumber {
 
     private static final Logger LOG = Logger.getLogger(TelephoneNumber.class);
 
-    public static List<?> getAvailableNumbers(IrisClient client, TelephoneNumberSearchFilters filters) throws IrisClientException {
+    public static List<?> getAvailableNumbers(IrisClient client, Map<String,Object> query, boolean returnDetails) throws IrisClientException {
         List<?> numbersList = new ArrayList<TelephoneNumber>();
         SearchResult result = null;
         try {
-            String searchUri = buildSearchUri(client.buildModelUri(IrisConstants.AVAILABLE_NUMBERS_URI_PATH), filters);
+            String searchUri = client.buildModelUri(new String[]{IrisConstants.AVAILABLE_NUMBERS_URI_PATH}, query);
             IrisResponse response = client.get(searchUri);
             result = (SearchResult) XmlUtils.fromXml(response.getResponseBody(), SearchResult.class);
-            numbersList = filters.isReturnTelephoneNumberDetails() ? result.getTelephoneNumberDetailList() :
+            numbersList = returnDetails ? result.getTelephoneNumberDetailList() :
                     result.getTelephoneNumberList();
         }catch(Exception e){
             LOG.error("Error in getAvailableNumbers: " + e.getMessage());
@@ -41,17 +42,17 @@ public class TelephoneNumber {
         return numbersList;
     }
 
-    private static String buildSearchUri(String searchUri, TelephoneNumberSearchFilters filters)throws URISyntaxException {
-        URIBuilder builder = new URIBuilder(searchUri);
-        if(!StringUtils.isEmpty(filters.getInAreaCode())){
-            builder.addParameter("areaCode", filters.getInAreaCode());
-        }
-        builder.addParameter("enableTNDetail", String.valueOf(filters.isReturnTelephoneNumberDetails()));
-        builder.addParameter("quantity", String.valueOf(filters.getQuantity()));
-
-        LOG.debug("building uri: " + builder.build().toString());
-        return builder.build().toString();
-    }
+//    private static String buildSearchUri(String searchUri, TelephoneNumberSearchFilters filters)throws URISyntaxException {
+//        URIBuilder builder = new URIBuilder(searchUri);
+//        if(!StringUtils.isEmpty(filters.getInAreaCode())){
+//            builder.addParameter("areaCode", filters.getInAreaCode());
+//        }
+//        builder.addParameter("enableTNDetail", String.valueOf(filters.isReturnTelephoneNumberDetails()));
+//        builder.addParameter("quantity", String.valueOf(filters.getQuantity()));
+//
+//        LOG.debug("building uri: " + builder.build().toString());
+//        return builder.build().toString();
+//    }
 
 
 

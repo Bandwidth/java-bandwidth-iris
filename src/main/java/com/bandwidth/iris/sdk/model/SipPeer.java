@@ -235,7 +235,7 @@ public class SipPeer extends BaseModel {
 
     public void updateTn(SipPeerTelephoneNumber number) throws IrisClientException {
         try {
-            IrisResponse response = client.put(client.buildModelUri(buildTnUri(number.getFullNumber())), number);
+            IrisResponse response = client.put(buildTnUri(number.getFullNumber()), number);
             if(!response.isOK()){
                 throw new IrisClientException(response.getResponseBody());
             }

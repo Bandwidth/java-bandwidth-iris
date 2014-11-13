@@ -25,7 +25,7 @@ public class Order extends BaseModel {
     public static Order create(IrisClient client, Order order) throws IrisClientException {
         Order result = null;
         try {
-            IrisResponse response = client.post(client.buildModelUri(IrisConstants.ORDERS_URI_PATH), order);
+            IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.ORDERS_URI_PATH}), order);
             if(response.isOK()){
                 OrderResponse orderResponse  = (OrderResponse) XmlUtils.fromXml(response.getResponseBody(),
                         OrderResponse.class);

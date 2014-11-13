@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,10 +41,10 @@ public class Example {
 
     private static void printSearchResults() throws IrisClientException {
         printMessage("Starting print search results");
-        TelephoneNumberSearchFilters filters = new TelephoneNumberSearchFilters();
-        filters.setInAreaCode("205");
+        Map<String, Object> query = new HashMap<String, Object>();
 
-        List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) TelephoneNumber.getAvailableNumbers(getClient(), filters);
+        List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) TelephoneNumber.getAvailableNumbers(
+                getClient(), query, true);
         for(TelephoneNumberDetail number : numbers){
             System.out.println(String.format("Full number: %s : Rate Center: %s", number.getFullNumber(), number.getRateCenter()));
         }
@@ -52,14 +53,11 @@ public class Example {
 
     private static IrisClient getClient(){
         Map<String, String> env = System.getenv();
-        String uri = env.get("BANDWIDTH_IRIS_URI");
         String accountId = env.get("BANDWIDTH_IRIS_ACCOUNTID");
-        String siteId = env.get("BANDWIDTH_IRIS_SITEID");
         String username = env.get("BANDWIDTH_IRIS_USERNAME");
         String password = env.get("BANDWIDTH_IRIS_PASSWORD");
-        String version = env.get("BANDWIDTH_IRIS_VERSION");
 
-        return new IrisClient(uri, accountId, siteId, username, password, version);
+        return new IrisClient(accountId,username, password);
     }
 
 

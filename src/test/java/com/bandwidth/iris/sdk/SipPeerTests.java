@@ -169,7 +169,7 @@ public class SipPeerTests extends BaseModelTests {
         numbers.getFullNumbers().add("9195551212");
 
         String moveUrl = sipPeerUrl + "/movetns";
-        stubFor(post(urlMatching(sipPeerUrl))
+        stubFor(post(urlMatching(moveUrl))
                 .willReturn(aResponse()
                         .withStatus(200)));
 

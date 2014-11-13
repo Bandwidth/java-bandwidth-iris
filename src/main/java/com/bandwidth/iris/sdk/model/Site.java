@@ -30,8 +30,9 @@ public class Site extends BaseModel {
     public static Site get(IrisClient client, String siteId) throws IrisClientException {
         Site s = null;
         try {
-            IrisResponse response = client.get(client.buildModelUri(IrisConstants.SITES_URI_PATH + "/" + siteId));
+            IrisResponse response = client.get(client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, siteId}));
             s = ((SiteResponse) XmlUtils.fromXml(response.getResponseBody(), SiteResponse.class)).getSite();
+            s.setClient(client);
         }catch(Exception e){
             LOG.error("Could not retrieve site: " + e.getMessage());
             throw new IrisClientException(e);
@@ -39,39 +40,31 @@ public class Site extends BaseModel {
         return s;
     }
 
-    public static String create(IrisClient client, Site site)throws IrisClientException {
-        String siteId = null;
+    public static Site create(IrisClient client, Site site)throws IrisClientException {
+        Site result = null;
         try {
-            IrisResponse response = client.post(client.buildModelUri(IrisConstants.SITES_URI_PATH), site);
+            IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH}), site);
             if(response.isOK()){
-                siteId = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
+                String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
+                result = get(client, id);
             }
         }catch(Exception e){
             LOG.error("Error creating site: " + e.getMessage());
             throw new IrisClientException(e);
         }
-        return siteId;
-    }
-
-    public static void delete(IrisClient client, String siteId) throws IrisClientException {
-        try {
-            IrisResponse response = client.delete(client.buildModelUri(IrisConstants.SITES_URI_PATH + "/" + siteId));
-            if(!response.isOK()){
-                throw new IrisClientException(response.getResponseBody());
-            }
-        }catch(Exception e){
-            LOG.error("Error deleting site: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
+        return result;
     }
 
     public static List<Site> list(IrisClient client) throws IrisClientException {
         SitesResponse result = new SitesResponse();
         List<Site> sites = new ArrayList<Site>();
         try {
-            IrisResponse irisResponse = client.get(client.buildModelUri(IrisConstants.SITES_URI_PATH));
+            IrisResponse irisResponse = client.get(client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH}));
             result = (SitesResponse)XmlUtils.fromXml(irisResponse.getResponseBody(), SitesResponse.class);
             sites = result.getSites();
+            for(Site s : sites){
+                s.setClient(client);
+            }
         }catch(Exception e){
             LOG.error("Error in getSites: " + e.getMessage());
             throw new IrisClientException(e);
@@ -123,4 +116,14 @@ public class Site extends BaseModel {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public void delete()throws IrisClientException {
+        try {
+            client.delete(client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH, id}));
+        }catch(Exception e){
+            LOG.error("Error deleting Sip Peer: " + e.getMessage());
+            throw new IrisClientException(e);
+        }
+    }
+
 }
