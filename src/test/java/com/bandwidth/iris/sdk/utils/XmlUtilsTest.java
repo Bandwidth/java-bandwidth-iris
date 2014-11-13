@@ -1,9 +1,6 @@
 package com.bandwidth.iris.sdk.utils;
 
-import com.bandwidth.iris.sdk.model.DisconnectTelephoneNumberOrder;
-import com.bandwidth.iris.sdk.model.DisconnectTelephoneNumberOrderType;
-import com.bandwidth.iris.sdk.model.ExistingTelephoneNumberOrderType;
-import com.bandwidth.iris.sdk.model.Order;
+import com.bandwidth.iris.sdk.model.*;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
@@ -52,6 +49,15 @@ public class XmlUtilsTest {
         order.setDisconnectTelephoneNumberOrderType(disconnectTelephoneNumberOrderType);
         System.out.println(XmlUtils.toXml(order));
         assertEquals(XmlUtils.toXml(order), properXml);
+    }
+
+    @Test
+    public void testDeserializeSipPeerTelephoneNumbers() throws Exception {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><SipPeerTelephoneNumbers><FullNumber>2055551212</FullNumber><FullNumber>2055551213</FullNumber></SipPeerTelephoneNumbers>";
+        SipPeerTelephoneNumbers numbers = (SipPeerTelephoneNumbers) XmlUtils.fromXml(xml, SipPeerTelephoneNumbers.class);
+        assertNotNull(numbers);
+        assertEquals("2055551212", numbers.getFullNumbers().get(0));
+        assertEquals("2055551213", numbers.getFullNumbers().get(1));
     }
 
 }

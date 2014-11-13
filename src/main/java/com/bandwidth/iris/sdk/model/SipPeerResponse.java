@@ -10,21 +10,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "SipPeerResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SipPeerResponse {
-
-    @XmlElement(name="ResponseStatus")
-    private ResponseStatus responseStatus;
+public class SipPeerResponse extends BaseResponse {
 
     @XmlElement(name="SipPeer")
     private SipPeer sipPeer;
-
-    public ResponseStatus getResponseStatus() {
-        return responseStatus;
-    }
-
-    public void setResponseStatus(ResponseStatus responseStatus) {
-        this.responseStatus = responseStatus;
-    }
 
     public SipPeer getSipPeer() {
         return sipPeer;

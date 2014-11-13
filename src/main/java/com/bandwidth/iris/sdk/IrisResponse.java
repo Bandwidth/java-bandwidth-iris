@@ -37,7 +37,7 @@ public class IrisResponse {
     }
 
     public boolean isOK() {
-        return statusCode == HttpStatus.SC_OK;
+        return (statusCode == HttpStatus.SC_OK);
     }
 
 }

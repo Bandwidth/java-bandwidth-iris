@@ -36,5 +36,4 @@ public class XmlUtils {
         marshaller.marshal(o, writer);
         return writer.toString();
     }
-
 }

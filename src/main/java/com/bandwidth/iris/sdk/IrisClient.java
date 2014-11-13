@@ -74,22 +74,24 @@ public class IrisClient {
 
     public IrisResponse get(String uri) throws Exception {
         HttpGet get = new HttpGet(uri);
-        IrisResponse response = executeRequest(get);
-        return response;
+        return executeRequest(get);
     }
 
     public IrisResponse post(String uri, BaseModel data) throws Exception {
         HttpPost post = new HttpPost(uri);
         StringEntity postBody = new StringEntity(XmlUtils.toXml(data));
         post.setEntity(postBody);
-        IrisResponse response  = executeRequest(post);
-        return response;
+        return executeRequest(post);
     }
 
     public IrisResponse delete(String uri) throws Exception {
         HttpDelete delete = new HttpDelete(uri);
-        IrisResponse response = executeRequest(delete);
-        return response;
+        return executeRequest(delete);
+    }
+
+    public IrisResponse put(String uri, BaseModel data) throws Exception {
+        HttpPut put = new HttpPut(uri);
+        return executeRequest(put);
     }
 
     public String buildModelUri(String uriSuffix) throws URISyntaxException{
@@ -122,9 +124,15 @@ public class IrisClient {
         return irisResponse;
     }
 
-
     public String getIdFromLocationHeader(String locationHeader){
         return locationHeader.substring(locationHeader.lastIndexOf("/") + 1);
+    }
+
+    public void checkResponse(BaseResponse response) throws IrisClientException{
+        if(response.getResponseStatus()!= null){
+            throw new IrisClientException(response.getResponseStatus().getErrorCode(),
+                    response.getResponseStatus().getDescription());
+        }
     }
 
 
