@@ -81,9 +81,10 @@ public class IrisClient {
         return executeRequest(get);
     }
 
-    public IrisResponse post(String uri, BaseModel data) throws Exception {
+    public IrisResponse post(String uri, BaseModel data) throws JAXBException, IOException {
         HttpPost post = new HttpPost(uri);
         StringEntity postBody = new StringEntity(XmlUtils.toXml(data));
+        post.addHeader("Content-Type", "application/xml");
         post.setEntity(postBody);
         return executeRequest(post);
     }

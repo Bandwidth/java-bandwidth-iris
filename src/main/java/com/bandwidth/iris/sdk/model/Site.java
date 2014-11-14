@@ -44,9 +44,11 @@ public class Site extends BaseModel {
         Site result = null;
         try {
             IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH}), site);
-            if(response.isOK()){
+            if(response.isOK()) {
                 String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
                 result = get(client, id);
+            } else {
+                throw new IrisClientException(response.getResponseBody());
             }
         }catch(Exception e){
             LOG.error("Error creating site: " + e.getMessage());

@@ -26,7 +26,7 @@ public class XmlUtilsTest {
 
     @Test
     public void testSerializeExistingTelephoneNumberOrderToXml()throws Exception {
-        String properXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Order><BackOrderRequested>false</BackOrderRequested><Name>A New Order</Name><SiteId>1234</SiteId><PartialAllowed>false</PartialAllowed><ExistingTelephoneNumberOrderType><TelephoneNumberList><TelephoneNumber>2055551212</TelephoneNumber></TelephoneNumberList></ExistingTelephoneNumberOrderType></Order>";
+        String properXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Order><BackOrderRequested>false</BackOrderRequested><Name>A New Order</Name><SiteId>1234</SiteId><PartialAllowed>false</PartialAllowed><ExistingTelephoneNumberOrderType><TelephoneNumberList><TelephoneNumber>2055551212</TelephoneNumber></TelephoneNumberList><ReservationIdList/></ExistingTelephoneNumberOrderType></Order>";
         Order o = new Order();
         o.setName("A New Order");
         ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType = new ExistingTelephoneNumberOrderType();

@@ -14,6 +14,10 @@ public class ExistingTelephoneNumberOrderType {
     @XmlElement(name="TelephoneNumber")
     private List<String> telephoneNumberList = new ArrayList<String>();
 
+    @XmlElementWrapper(name="ReservationIdList")
+    @XmlElement(name="ReservationId", nillable=true)
+    private List<String> reservationIdList = new ArrayList<String>();
+
     public List<String> getTelephoneNumberList() {
         return telephoneNumberList;
     }
@@ -22,4 +26,11 @@ public class ExistingTelephoneNumberOrderType {
         this.telephoneNumberList = telephoneNumberList;
     }
 
+    public List<String> getReservationIdList() {
+        return reservationIdList;
+    }
+
+    public void setReservationIdList(List<String> reservationIdList) {
+        this.reservationIdList = reservationIdList;
+    }
 }
