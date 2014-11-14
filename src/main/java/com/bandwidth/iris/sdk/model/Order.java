@@ -63,6 +63,33 @@ public class Order extends BaseModel {
     @XmlElement(name="ExistingTelephoneNumberOrderType")
     private ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType;
 
+    @XmlElement(name="AreaCodeSearchAndOrderType")
+    private AreaCodeSearchAndOrderType areaCodeSearchAndOrderType;
+
+    @XmlElement(name="CitySearchAndOrderType")
+    private CitySearchAndOrderType citySearchAndOrderType;
+
+    @XmlElement(name="LATASearchAndOrderType")
+    private LATASearchAndOrderType lataSearchAndOrderType;
+
+    @XmlElement(name="NPANXXSearchAndOrderType")
+    private NPANXXSearchAndOrderType npanxxSearchAndOrderType;
+
+    @XmlElement(name="RateCenterSearchAndOrderType")
+    private RateCenterSearchAndOrderType rateCenterSearchAndOrderType;
+
+    @XmlElement(name="StateSearchAndOrderType")
+    private StateSearchAndOrderType stateSearchAndOrderType;
+
+    @XmlElement(name="TollFreeVanitySearchAndOrderType")
+    private TollFreeVanitySearchAndOrderType tollFreeVanitySearchAndOrderType;
+
+    @XmlElement(name="TollFreeWildCharSearchAndOrderType")
+    private TollFreeWildCharSearchAndOrderType tollFreeWildCharSearchAndOrderType;
+
+    @XmlElement(name="ZIPSearchAndOrderType")
+    private ZIPSearchAndOrderType zipSearchAndOrderType;
+
     public String getid() {
         return id;
     }
@@ -125,5 +152,77 @@ public class Order extends BaseModel {
 
     public void setExistingTelephoneNumberOrderType(ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType) {
         this.existingTelephoneNumberOrderType = existingTelephoneNumberOrderType;
+    }
+
+    public AreaCodeSearchAndOrderType getAreaCodeSearchAndOrderType() {
+        return areaCodeSearchAndOrderType;
+    }
+
+    public void setAreaCodeSearchAndOrderType(AreaCodeSearchAndOrderType areaCodeSearchAndOrderType) {
+        this.areaCodeSearchAndOrderType = areaCodeSearchAndOrderType;
+    }
+
+    public CitySearchAndOrderType getCitySearchAndOrderType() {
+        return citySearchAndOrderType;
+    }
+
+    public void setCitySearchAndOrderType(CitySearchAndOrderType citySearchAndOrderType) {
+        this.citySearchAndOrderType = citySearchAndOrderType;
+    }
+
+    public LATASearchAndOrderType getLataSearchAndOrderType() {
+        return lataSearchAndOrderType;
+    }
+
+    public void setLataSearchAndOrderType(LATASearchAndOrderType lataSearchAndOrderType) {
+        this.lataSearchAndOrderType = lataSearchAndOrderType;
+    }
+
+    public NPANXXSearchAndOrderType getNpanxxSearchAndOrderType() {
+        return npanxxSearchAndOrderType;
+    }
+
+    public void setNpanxxSearchAndOrderType(NPANXXSearchAndOrderType npanxxSearchAndOrderType) {
+        this.npanxxSearchAndOrderType = npanxxSearchAndOrderType;
+    }
+
+    public RateCenterSearchAndOrderType getRateCenterSearchAndOrderType() {
+        return rateCenterSearchAndOrderType;
+    }
+
+    public void setRateCenterSearchAndOrderType(RateCenterSearchAndOrderType rateCenterSearchAndOrderType) {
+        this.rateCenterSearchAndOrderType = rateCenterSearchAndOrderType;
+    }
+
+    public StateSearchAndOrderType getStateSearchAndOrderType() {
+        return stateSearchAndOrderType;
+    }
+
+    public void setStateSearchAndOrderType(StateSearchAndOrderType stateSearchAndOrderType) {
+        this.stateSearchAndOrderType = stateSearchAndOrderType;
+    }
+
+    public TollFreeVanitySearchAndOrderType getTollFreeVanitySearchAndOrderType() {
+        return tollFreeVanitySearchAndOrderType;
+    }
+
+    public void setTollFreeVanitySearchAndOrderType(TollFreeVanitySearchAndOrderType tollFreeVanitySearchAndOrderType) {
+        this.tollFreeVanitySearchAndOrderType = tollFreeVanitySearchAndOrderType;
+    }
+
+    public TollFreeWildCharSearchAndOrderType getTollFreeWildCharSearchAndOrderType() {
+        return tollFreeWildCharSearchAndOrderType;
+    }
+
+    public void setTollFreeWildCharSearchAndOrderType(TollFreeWildCharSearchAndOrderType tollFreeWildCharSearchAndOrderType) {
+        this.tollFreeWildCharSearchAndOrderType = tollFreeWildCharSearchAndOrderType;
+    }
+
+    public ZIPSearchAndOrderType getZipSearchAndOrderType() {
+        return zipSearchAndOrderType;
+    }
+
+    public void setZipSearchAndOrderType(ZIPSearchAndOrderType zipSearchAndOrderType) {
+        this.zipSearchAndOrderType = zipSearchAndOrderType;
     }
 }
