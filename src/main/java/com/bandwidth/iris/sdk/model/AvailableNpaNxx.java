@@ -1,0 +1,101 @@
+package com.bandwidth.iris.sdk.model;
+
+import com.bandwidth.iris.sdk.IrisClient;
+import com.bandwidth.iris.sdk.IrisClientException;
+import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisResponse;
+import com.bandwidth.iris.sdk.utils.XmlUtils;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by sbarstow on 11/17/14.
+ */
+@XmlRootElement(name="AvailableNpaNxx")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class AvailableNpaNxx {
+
+    public static List<AvailableNpaNxx> list(IrisClient client, String areaCode)
+        throws IrisClientException{
+        Map<String, Object> query = new HashMap<String, Object>();
+        query.put("areaCode", areaCode);
+
+        SearchResultForAvailableNpaNxx searchResult = null;
+        List<AvailableNpaNxx> availableNpaNxxList = null;
+        try {
+            IrisResponse irisResponse = client.get(client.buildModelUri(new String[] {IrisConstants.AVAILABLE_NPANXX_URI_PATH}, query));
+            if(irisResponse.isOK()){
+                searchResult = (SearchResultForAvailableNpaNxx) XmlUtils.fromXml(irisResponse.getResponseBody(),
+                        SearchResultForAvailableNpaNxx.class);
+                availableNpaNxxList = searchResult.getAvailableNpaNxxList();
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return availableNpaNxxList;
+    }
+
+    @XmlElement(name="City")
+    private String city;
+
+    @XmlElement(name="Npa")
+    private String npa;
+
+    @XmlElement(name="Nxx")
+    private String nxx;
+
+    @XmlElement(name="Quantity")
+    private int quantity;
+
+    @XmlElement(name="State")
+    private int state;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getNpa() {
+        return npa;
+    }
+
+    public void setNpa(String npa) {
+        this.npa = npa;
+    }
+
+    public String getNxx() {
+        return nxx;
+    }
+
+    public void setNxx(String nxx) {
+        this.nxx = nxx;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+}
