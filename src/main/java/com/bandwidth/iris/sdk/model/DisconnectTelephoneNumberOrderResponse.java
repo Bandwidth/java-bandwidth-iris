@@ -9,7 +9,7 @@ import java.util.List;
  */
 @XmlRootElement(name="DisconnectTelephoneNumberOrderResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DisconnectTelephoneNumberOrderResponse {
+public class DisconnectTelephoneNumberOrderResponse extends BaseResponse {
     @XmlElement(name="orderRequest")
     private OrderRequest orderRequest;
 

@@ -19,31 +19,15 @@ import java.util.Map;
 public class LnpChecker {
 
     public static NumberPortabilityResponse checkLnp(IrisClient client,
-            NumberPortabilityRequest request, boolean fullCheck) throws IrisClientException {
+            NumberPortabilityRequest request, boolean fullCheck) throws Exception {
 
-        NumberPortabilityResponse numberPortabilityResponse = null;
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("fullCheck", fullCheck);
 
-        try {
-            IrisResponse irisResponse = client.post(client.buildModelUri(IrisConstants.LNPCHECKER_URI_PATH, query), request);
-            if(irisResponse.isOK()){
-                numberPortabilityResponse = (NumberPortabilityResponse) XmlUtils.fromXml(irisResponse.getResponseBody(),
-                        NumberPortabilityResponse.class);
-
-            }else {
-
-            }
-        }catch(URISyntaxException uri){
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-        }
-
+        IrisResponse irisResponse = client.post(client.buildModelUri(IrisConstants.LNPCHECKER_URI_PATH, query), request);
+        NumberPortabilityResponse numberPortabilityResponse = (NumberPortabilityResponse) XmlUtils.fromXml(
+                irisResponse.getResponseBody(),NumberPortabilityResponse.class);
+        client.checkResponse(numberPortabilityResponse);
         return numberPortabilityResponse;
     }
 

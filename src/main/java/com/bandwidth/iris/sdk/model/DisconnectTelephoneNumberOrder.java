@@ -24,40 +24,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DisconnectTelephoneNumberOrder extends BaseModel {
 
-    private static final Logger LOG = Logger.getLogger(DisconnectTelephoneNumberOrder.class);
-
     public static DisconnectTelephoneNumberOrderResponse create(IrisClient client,
             DisconnectTelephoneNumberOrder disconnectTelephoneNumberOrder)
-            throws IrisClientException {
-        DisconnectTelephoneNumberOrderResponse result = null;
-        try {
-            IrisResponse response = client.post(client.buildModelUri(
-                    new String[]{IrisConstants.DISCONNECTS_URI_PATH}), disconnectTelephoneNumberOrder);
-            if(response.isOK()){
-                result = (DisconnectTelephoneNumberOrderResponse) XmlUtils.fromXml(response.getResponseBody(),
-                        DisconnectTelephoneNumberOrderResponse.class);
-            }
-        }catch(Exception e){
-            LOG.error("Error disconnecting phone number: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return result;
+            throws Exception {
+        IrisResponse response = client.post(client.buildModelUri(
+                new String[] { IrisConstants.DISCONNECTS_URI_PATH }), disconnectTelephoneNumberOrder);
+        DisconnectTelephoneNumberOrderResponse orderResponse = XmlUtils.fromXml(response.getResponseBody(),
+                DisconnectTelephoneNumberOrderResponse.class);
+        client.checkResponse(orderResponse);
+        return orderResponse;
     }
 
-    public static DisconnectTelephoneNumberOrderResponse get(IrisClient client, String orderId) throws IrisClientException {
-        DisconnectTelephoneNumberOrderResponse result = null;
-        try {
-            IrisResponse response = client.get(client.buildModelUri(
-                    new String[]{IrisConstants.DISCONNECTS_URI_PATH, orderId}));
-            if(response.isOK()){
-                result = (DisconnectTelephoneNumberOrderResponse) XmlUtils.fromXml(response.getResponseBody(),
-                        DisconnectTelephoneNumberOrderResponse.class);
-            }
-        }catch(Exception e){
-            LOG.error("Error retrieving disconnect order: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return result;
+    public static DisconnectTelephoneNumberOrderResponse get(IrisClient client, String orderId) throws Exception {
+        IrisResponse response = client.get(client.buildModelUri(
+                new String[] { IrisConstants.DISCONNECTS_URI_PATH, orderId }));
+        DisconnectTelephoneNumberOrderResponse orderResponse = XmlUtils.fromXml(response.getResponseBody(),
+                DisconnectTelephoneNumberOrderResponse.class);
+        client.checkResponse(orderResponse);
+        return orderResponse;
     }
 
 

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public class ReservationTests extends BaseModelTests {
     @Test
-    public void testGet() throws IrisClientException{
+    public void testGet() throws Exception{
         String url = "/v1.0/accounts/accountId/tnreservation/1234";
         stubFor(get(urlMatching(url))
                 .willReturn(aResponse()
@@ -27,7 +27,7 @@ public class ReservationTests extends BaseModelTests {
     }
 
     @Test
-    public void testCreate() throws IrisClientException {
+    public void testCreate() throws Exception {
         String url = "/v1.0/accounts/accountId/tnreservation";
 
         stubFor(post(urlMatching(url))
@@ -48,7 +48,7 @@ public class ReservationTests extends BaseModelTests {
     }
 
     @Test
-    public void testDelete() throws IrisClientException {
+    public void testDelete() throws Exception {
         String url = "/v1.0/accounts/accountId/tnreservation/1234";
         stubFor(get(urlMatching(url))
                 .willReturn(aResponse()

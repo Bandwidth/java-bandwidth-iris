@@ -6,7 +6,7 @@ import java.util.List;
 
 @XmlRootElement(name = "SitesResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SitesResponse {
+public class SitesResponse extends BaseResponse {
 
     @XmlElementWrapper(name = "Sites")
     @XmlElement(name = "Site")

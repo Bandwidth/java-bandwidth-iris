@@ -23,59 +23,35 @@ public class SipPeer extends BaseModel {
 
     private static final Logger LOG = Logger.getLogger(SipPeer.class);
 
-    public static SipPeer create(IrisClient client, String siteId, SipPeer sipPeer) throws IrisClientException {
-        SipPeer peer = null;
-        try {
-            IrisResponse response = client.post(client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH}), sipPeer);
-            if(response.isOK()){
-                String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
-                return get(client, siteId, id);
-            }
-        }catch(Exception e){
-            throw new IrisClientException(e);
-        }
-        return peer;
+    public static SipPeer create(IrisClient client, String siteId, SipPeer sipPeer) throws Exception {
+        IrisResponse response = client.post(client.buildModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
+                IrisConstants.SIPPEERS_URI_PATH }), sipPeer);
+        String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
+        return get(client, siteId, id);
     }
 
-    public static SipPeer get(IrisClient client, String siteId, String sipPeerId) throws IrisClientException {
-        SipPeer peer = null;
-        try {
-            IrisResponse response = client.get(client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH, sipPeerId}));
-            if(response.isOK()){
-                SipPeerResponse sipPeerResponse = (SipPeerResponse) XmlUtils.fromXml(response.getResponseBody(),
-                        SipPeerResponse.class);
-                client.checkResponse(sipPeerResponse);
-                peer = sipPeerResponse.getSipPeer();
-                peer.setSiteId(siteId);
-                peer.setClient(client);
-            }
-        }catch(Exception e){
-            LOG.error("Error getting sip peer: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
+    public static SipPeer get(IrisClient client, String siteId, String sipPeerId) throws Exception {
+        IrisResponse response = client.get(client.buildModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
+                IrisConstants.SIPPEERS_URI_PATH, sipPeerId }));
+        SipPeerResponse sipPeerResponse = XmlUtils.fromXml(response.getResponseBody(),
+                SipPeerResponse.class);
+        client.checkResponse(sipPeerResponse);
+        SipPeer peer = sipPeerResponse.getSipPeer();
+        peer.setSiteId(siteId);
+        peer.setClient(client);
         return peer;
     }
 
 
-    public static List<SipPeer> list(IrisClient client, String siteId) throws IrisClientException {
-        TNSipPeersResponse result = null;
+    public static List<SipPeer> list(IrisClient client, String siteId) throws Exception {
         List<SipPeer> sipPeers = new ArrayList<SipPeer>();
-        try {
-            String path = client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, siteId,
-                    IrisConstants.SIPPEERS_URI_PATH});
-            LOG.debug("Path: " + path);
-            IrisResponse irisResponse = client.get(client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH})) ;
-            result = (TNSipPeersResponse) XmlUtils.fromXml(irisResponse.getResponseBody(), TNSipPeersResponse.class);
-            sipPeers = result.getSipPeers();
-            for(SipPeer peer : sipPeers){
-                peer.setClient(client);
-            }
-        }catch(Exception e){
-            LOG.error("Error in list sip peers: " + e.getMessage());
-            throw new IrisClientException(e);
+        IrisResponse irisResponse = client.get(client.buildModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
+                IrisConstants.SIPPEERS_URI_PATH }));
+        TNSipPeersResponse tnSipPeersResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), TNSipPeersResponse.class);
+        client.checkResponse(tnSipPeersResponse);
+        sipPeers = tnSipPeersResponse.getSipPeers();
+        for (SipPeer peer : sipPeers) {
+            peer.setClient(client);
         }
         return sipPeers;
     }
@@ -224,55 +200,26 @@ public class SipPeer extends BaseModel {
         this.finalDestinationUri = finalDestinationUri;
     }
 
-    public void delete()throws IrisClientException {
-        try {
-            client.delete(client.buildModelUri(new String[]{IrisConstants.SIPPEERS_URI_PATH, this.getPeerId()}));
-        }catch(Exception e){
-            LOG.error("Error deleting Sip Peer: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
+    public void delete()throws Exception {
+        client.delete(client.buildModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
+                IrisConstants.SIPPEERS_URI_PATH, peerId }));
     }
 
-    public void updateTn(SipPeerTelephoneNumber number) throws IrisClientException {
-        try {
-            IrisResponse response = client.put(buildTnUri(number.getFullNumber()), number);
-            if(!response.isOK()){
-                throw new IrisClientException(response.getResponseBody());
-            }
-        }catch(Exception e) {
-            LOG.error("Error updating TN for sip peer: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
+    public void updateTn(SipPeerTelephoneNumber number) throws Exception {
+        client.put(buildTnUri(number.getFullNumber()), number);
     }
 
-    public SipPeerTelephoneNumber getTn(String number) throws IrisClientException {
-        SipPeerTelephoneNumber telephoneNumber = null;
-        try {
-            IrisResponse response = client.get(buildTnUri(number));
-            if(response.isOK()){
-                SipPeerTelephoneNumberResponse sipPeerTelephoneNumberResponse = (SipPeerTelephoneNumberResponse)
-                        XmlUtils.fromXml(response.getResponseBody(), SipPeerTelephoneNumberResponse.class);
-                client.checkResponse(sipPeerTelephoneNumberResponse);
-                telephoneNumber = sipPeerTelephoneNumberResponse.getSipPeerTelephoneNumber();
-            }
-        }catch(Exception e){
-            LOG.error("Error getting tn: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return telephoneNumber;
+    public SipPeerTelephoneNumber getTn(String number) throws Exception {
+        IrisResponse response = client.get(buildTnUri(number));
+        SipPeerTelephoneNumberResponse sipPeerTelephoneNumberResponse =
+                XmlUtils.fromXml(response.getResponseBody(), SipPeerTelephoneNumberResponse.class);
+        client.checkResponse(sipPeerTelephoneNumberResponse);
+        return sipPeerTelephoneNumberResponse.getSipPeerTelephoneNumber();
     }
 
-    public void moveTns(SipPeerTelephoneNumbers numbers) throws IrisClientException {
-        try {
-            IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH, peerId, "movetns"}),numbers);
-            if(!response.isOK()){
-                throw new IrisClientException(response.getResponseBody());
-            }
-        }catch(Exception e){
-            LOG.error("Error moving TNs: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
+    public void moveTns(SipPeerTelephoneNumbers numbers) throws Exception {
+        IrisResponse response = client.post(client.buildModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
+                IrisConstants.SIPPEERS_URI_PATH, peerId, "movetns" }), numbers);
     }
 
     private String buildTnUri(String number) throws URISyntaxException{

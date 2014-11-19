@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class SiteTests extends BaseModelTests {
 
     @Test
-    public void createNewSite() throws IrisClientException {
+    public void createNewSite() throws Exception {
         String sitesUrl = "/v1.0/accounts/accountId/sites";
         stubFor(post(urlMatching(sitesUrl))
                 .willReturn(aResponse()
@@ -49,7 +49,7 @@ public class SiteTests extends BaseModelTests {
     }
 
     @Test(expected=IrisClientException.class)
-    public void testInvalidSiteDelete() throws IrisClientException {
+    public void testInvalidSiteDelete() throws Exception {
         String sitesUrl = "/v1.0/accounts/accountId/sites/2858";
         stubFor(delete(urlMatching(sitesUrl))
                 .willReturn(aResponse()
@@ -69,7 +69,7 @@ public class SiteTests extends BaseModelTests {
     }
 
     @Test
-    public void testValidSiteResponse() throws IrisClientException {
+    public void testValidSiteResponse() throws Exception {
         String sitesUrl = "/v1.0/accounts/accountId/sites/2858";
         stubFor(get(urlMatching(sitesUrl))
                 .willReturn(aResponse()
@@ -82,7 +82,7 @@ public class SiteTests extends BaseModelTests {
     }
 
     @Test
-    public void testValidSitesResponse() throws IrisClientException {
+    public void testValidSitesResponse() throws Exception {
         String sitesUrl = "/v1.0/accounts/accountId/sites";
         stubFor(get(urlMatching(sitesUrl))
                 .willReturn(aResponse()

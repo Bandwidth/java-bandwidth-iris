@@ -24,15 +24,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.commons.lang3.StringUtils;
 
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -81,7 +79,7 @@ public class IrisClient {
         return executeRequest(get);
     }
 
-    public IrisResponse post(String uri, BaseModel data) throws JAXBException, IOException {
+    public IrisResponse post(String uri, BaseModel data) throws Exception {
         HttpPost post = new HttpPost(uri);
         StringEntity postBody = new StringEntity(XmlUtils.toXml(data));
         post.addHeader("Content-Type", "application/xml");
@@ -97,6 +95,18 @@ public class IrisClient {
     public IrisResponse put(String uri, BaseModel data) throws Exception {
         HttpPut put = new HttpPut(uri);
         return executeRequest(put);
+    }
+
+    public void postFile(String uri, File file, String contentType) throws Exception {
+        HttpPost post = new HttpPost(uri);
+        post.setEntity(contentType == null ? new FileEntity(file) : new FileEntity(file, ContentType.parse(contentType)));
+        executeRequest(post);
+    }
+
+    public void putFile(String uri, File file, String contentType) throws Exception {
+        HttpPut put = new HttpPut(uri);
+        put.setEntity(contentType == null ? new FileEntity(file) : new FileEntity(file, ContentType.parse(contentType)));
+        executeRequest(put);
     }
 
     public String buildModelUri(String uriSuffix, Map<String, Object> params) throws URISyntaxException{
@@ -119,7 +129,7 @@ public class IrisClient {
         return buildModelUri(StringUtils.join(tokens, "/"), params);
     }
 
-    protected IrisResponse executeRequest(HttpUriRequest request) throws IOException {
+    protected IrisResponse executeRequest(HttpUriRequest request) throws Exception {
         HttpResponse response;
         Map<String, String> headers = new HashMap<String, String>();
         IrisResponse irisResponse = new IrisResponse();
@@ -131,6 +141,10 @@ public class IrisClient {
                 headers.put(h.getName(), h.getValue());
             }
             irisResponse.setHeaders(headers);
+
+            if(!irisResponse.isOK()){
+                throw new IrisClientException(irisResponse.getResponseBody());
+            }
         }catch(ClientProtocolException cpe){
             LOG.error("Error in execute request: " + cpe.getMessage());
             throw new IOException(cpe);

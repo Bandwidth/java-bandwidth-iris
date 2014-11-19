@@ -20,7 +20,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
  */
 public class LnpCheckerTests extends BaseModelTests {
     @Test
-    public void testLnpCheckNoErrors() throws IrisClientException {
+    public void testLnpCheckNoErrors() throws Exception {
         String url = "/v1.0/accounts/accountId/lnpchecker.*";
         stubFor(post(urlMatching(url))
                 .willReturn(aResponse()
@@ -37,7 +37,7 @@ public class LnpCheckerTests extends BaseModelTests {
     }
 
     @Test
-    public void testLnpCheckWithErrors() throws IrisClientException {
+    public void testLnpCheckWithErrors() throws Exception {
         String url = "/v1.0/accounts/accountId/lnpchecker.*";
         stubFor(post(urlMatching(url))
                 .willReturn(aResponse()

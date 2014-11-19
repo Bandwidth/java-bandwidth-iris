@@ -21,19 +21,20 @@ public class XmlUtils {
 
     private static XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 
-    public static Object fromXml(String responseBody, Class c) throws JAXBException, XMLStreamException {
+    public static <T> T fromXml(String responseBody, Class<T> c) throws JAXBException, XMLStreamException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(responseBody.getBytes());
         JAXBContext jaxbContext = JAXBContext.newInstance(c);
         XMLStreamReader xsr = xmlInputFactory.createXMLStreamReader(inputStream);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        return jaxbUnmarshaller.unmarshal(xsr);
+        return (T) jaxbUnmarshaller.unmarshal(xsr);
     }
 
-    public static String toXml(Object o) throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(o.getClass());
+    public static <T> String toXml(T object) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
         Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         StringWriter writer = new StringWriter();
-        marshaller.marshal(o, writer);
+        marshaller.marshal(object, writer);
         return writer.toString();
     }
 }

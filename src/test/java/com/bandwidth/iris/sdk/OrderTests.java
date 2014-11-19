@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class OrderTests extends BaseModelTests {
 
     @Test
-    public void testCreate() throws IrisClientException {
+    public void testCreate() throws Exception {
         String ordersUrl = "/v1.0/accounts/accountId/orders";
         stubFor(post(urlMatching(ordersUrl))
                 .willReturn(aResponse()

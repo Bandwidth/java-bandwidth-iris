@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="FileMetaData")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class FileMetaData {
+public class FileMetaData extends BaseModel {
     @XmlElement(name="DocumentName")
     private String documentName;
 

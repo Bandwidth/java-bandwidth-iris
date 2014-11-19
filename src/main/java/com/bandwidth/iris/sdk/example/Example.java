@@ -29,7 +29,7 @@ public class Example {
         printReservations();
 
     }
-    private static void printSites() throws IrisClientException {
+    private static void printSites() throws Exception {
         printMessage("Starting print sites");
 
         List<Site> sites = Site.list(getClient());
@@ -41,14 +41,14 @@ public class Example {
         printMessage("Ending print sites");
     }
 
-    private static void printSearchResults() throws IrisClientException {
+    private static void printSearchResults() throws Exception {
         printMessage("Starting print search results");
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("areaCode", "205");
         query.put("enableTNDetail", true);
         query.put("quantity", 2);
 
-        List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) TelephoneNumber.getAvailableNumbers(
+        List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) AvailableNumbers.search(
                 getClient(), query);
         for(TelephoneNumberDetail number : numbers){
             System.out.println(String.format("Full number: %s : Rate Center: %s", number.getFullNumber(), number.getRateCenter()));
@@ -64,7 +64,7 @@ public class Example {
         query.put("quantity", 2);
         try {
 
-            List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) TelephoneNumber.getAvailableNumbers(
+            List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) AvailableNumbers.search(
                     getClient(), query);
 
             Reservation reservation = new Reservation();
@@ -72,9 +72,7 @@ public class Example {
             reservation = Reservation.create(getClient(), reservation);
             System.out.println(String.format("Reservation Id: %s : Reserved For: %s", reservation.getReservationId(),
                     reservation.getReservationExpires()));
-        }catch(IrisClientException ice){
-            System.out.println(String.format("Error Code: %s, Description: %s",
-                    ice.getErrorCode(), ice.getDescription()));
+        }catch(Exception e){
         }
 
         printMessage("Ending print reservations");

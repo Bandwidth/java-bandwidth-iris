@@ -22,20 +22,10 @@ public class Order extends BaseModel {
 
     private static final Logger LOG = Logger.getLogger(Order.class);
 
-    public static Order create(IrisClient client, Order order) throws IrisClientException {
-        Order result = null;
-        try {
-            IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.ORDERS_URI_PATH}), order);
-            if(response.isOK()){
-                OrderResponse orderResponse  = (OrderResponse) XmlUtils.fromXml(response.getResponseBody(),
-                        OrderResponse.class);
-                result = orderResponse.getOrder();
-            }
-        }catch(Exception e){
-            LOG.error("Error creating order: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
-        return result;
+    public static Order create(IrisClient client, Order order) throws Exception {
+        IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.ORDERS_URI_PATH}), order);
+        OrderResponse orderResponse  = XmlUtils.fromXml(response.getResponseBody(), OrderResponse.class);
+        return orderResponse.getOrder();
     }
 
 

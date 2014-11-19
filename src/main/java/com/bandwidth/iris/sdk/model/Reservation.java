@@ -28,47 +28,29 @@ public class Reservation extends BaseModel {
 
     private static final Logger LOG = Logger.getLogger(Site.class);
 
-    public static Reservation create(IrisClient client, Reservation reservation) throws IrisClientException {
+    public static Reservation create(IrisClient client, Reservation reservation) throws Exception {
         Reservation result = null;
-        try {
-            IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.RESERVATIONS_URI_PATH}),
+        IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.RESERVATIONS_URI_PATH}),
                     reservation);
-            if(response.isOK()){
-                String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
-                result = get(client, id);
-            }else if(response.getStatusCode() == HttpStatus.ORDINAL_400_Bad_Request) {
-                ReservationResponse reservationResponse = (ReservationResponse)
-                        XmlUtils.fromXml(response.getResponseBody(), ReservationResponse.class);
-                client.checkResponse(reservationResponse);
-            }
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
+        result = get(client, id);
+        if (response.getStatusCode() == HttpStatus.ORDINAL_400_Bad_Request) {
+            ReservationResponse reservationResponse =
+                    XmlUtils.fromXml(response.getResponseBody(), ReservationResponse.class);
+            client.checkResponse(reservationResponse);
         }
         return result;
     }
 
-    public static Reservation get(IrisClient client, String reservationId) throws IrisClientException {
+    public static Reservation get(IrisClient client, String reservationId) throws Exception {
         Reservation reservation = null;
-        try {
-            IrisResponse response = client.get(client.buildModelUri(
+        IrisResponse response = client.get(client.buildModelUri(
                     new String[] {IrisConstants.RESERVATIONS_URI_PATH, reservationId}));
-            if(response.isOK()){
-                ReservationResponse reservationResponse = (ReservationResponse) XmlUtils.fromXml(response.getResponseBody(),
+        ReservationResponse reservationResponse = XmlUtils.fromXml(response.getResponseBody(),
                         ReservationResponse.class);
-                client.checkResponse(reservationResponse);
-                reservation = reservationResponse.getReservation();
-                reservation.setClient(client);
-            }
-        }catch(Exception e){
-            LOG.error("Could not retrieve reservation: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
+        client.checkResponse(reservationResponse);
+        reservation = reservationResponse.getReservation();
+        reservation.setClient(client);
         return reservation;
     }
 
@@ -117,12 +99,7 @@ public class Reservation extends BaseModel {
         this.reservationExpires = reservationExpires;
     }
 
-    public void delete() throws IrisClientException{
-        try {
-            client.delete(client.buildModelUri(new String[]{IrisConstants.RESERVATIONS_URI_PATH, reservationId}));
-        }catch(Exception e){
-            LOG.error("Error deleting Reservation: " + e.getMessage());
-            throw new IrisClientException(e);
-        }
+    public void delete() throws Exception {
+        client.delete(client.buildModelUri(new String[]{IrisConstants.RESERVATIONS_URI_PATH, reservationId}));
     }
 }

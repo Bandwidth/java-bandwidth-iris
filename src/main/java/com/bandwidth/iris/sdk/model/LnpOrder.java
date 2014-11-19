@@ -2,8 +2,16 @@ package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.IrisClientException;
+import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisResponse;
+import com.bandwidth.iris.sdk.utils.XmlUtils;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.*;
+import javax.xml.stream.XMLStreamException;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,13 +21,18 @@ import java.util.List;
  */
 @XmlRootElement(name="LnpOrder")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class LnpOrder {
+public class LnpOrder extends BaseModel {
 
-    public static LnpOrderResponse create(IrisClient client, LnpOrder order) throws IrisClientException {
-        LnpOrderResponse lnpOrderResponse = null;
+    public static LnpOrderResponse create(IrisClient client, LnpOrder order) throws Exception {
+        IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.LNP_URI_PATH}), order);
+        LnpOrderResponse lnpOrderResponse = (LnpOrderResponse) XmlUtils.fromXml(response.getResponseBody(), LnpOrderResponse.class);
+        client.checkResponse(lnpOrderResponse);
         return lnpOrderResponse;
     }
 
+
+    @XmlElement(name="OrderId")
+    private String orderId;
 
     @XmlElement(name="BillingTelephoneNumber")
     private String billingTelephoneNumber;
@@ -55,6 +68,14 @@ public class LnpOrder {
     @XmlElement(name="WirelessInfo")
     private String wirelessInfo;
 
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
     public String getBillingTelephoneNumber() {
         return billingTelephoneNumber;
     }
@@ -62,6 +83,7 @@ public class LnpOrder {
     public void setBillingTelephoneNumber(String billingTelephoneNumber) {
         this.billingTelephoneNumber = billingTelephoneNumber;
     }
+
 
     public Subscriber getSubscriber() {
         return subscriber;
@@ -141,5 +163,42 @@ public class LnpOrder {
 
     public void setWirelessInfo(String wirelessInfo) {
         this.wirelessInfo = wirelessInfo;
+    }
+
+    public void uploadLoa(File file, LoaFileType fileType) throws Exception {
+        client.postFile(client.buildModelUri(new String[]{IrisConstants.LNP_URI_PATH, orderId, "loas"}),
+            file, fileType.toString());
+    }
+
+    public void updateLoa(File file, LoaFileType fileType) throws Exception {
+        client.putFile(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH,
+            orderId, "loas", file.getName()}), file, fileType.toString());
+    }
+
+    public void deleteLoa(String fileName) throws Exception {
+        client.delete(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH, orderId,fileName}));
+    }
+
+    public FileMetaData getLoaMetaData(String fileName) throws Exception {
+        IrisResponse irisResponse = client.get(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH, orderId,
+                fileName, "metadata"}));
+        return (FileMetaData) XmlUtils.fromXml(irisResponse.getResponseBody(), FileMetaData.class);
+    }
+
+    public void updateLoaMetaData(String fileName, FileMetaData metaData) throws Exception {
+        client.put(client.buildModelUri(new String[]{IrisConstants.LNP_URI_PATH, orderId,
+                fileName, "metadata"}), metaData);
+    }
+
+    public void deleteLoaMetaData(String fileName) throws Exception {
+        client.delete(client.buildModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId, fileName }));
+    }
+
+    public void update(LnpOrderSupp orderSupp) throws Exception {
+        client.put(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH, orderId}), orderSupp);
+    }
+
+    public void delete() throws Exception {
+        client.delete(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH, orderId}));
     }
 }

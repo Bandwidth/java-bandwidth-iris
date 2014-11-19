@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class SipPeerTests extends BaseModelTests {
 
     @Test
-    public void testList() throws IrisClientException {
+    public void testList() throws Exception {
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers";
         stubFor(get(urlMatching(url))
                 .willReturn(aResponse()
@@ -34,7 +34,7 @@ public class SipPeerTests extends BaseModelTests {
     }
 
     @Test
-    public void testGet() throws IrisClientException{
+    public void testGet() throws Exception{
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(url))
                 .willReturn(aResponse()
@@ -48,7 +48,7 @@ public class SipPeerTests extends BaseModelTests {
     }
 
     @Test(expected=IrisClientException.class)
-    public void testGetWithInvalidId() throws IrisClientException {
+    public void testGetWithInvalidId() throws Exception {
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5555";
         stubFor(get(urlMatching(url))
                 .willReturn(aResponse()
@@ -59,7 +59,7 @@ public class SipPeerTests extends BaseModelTests {
     }
 
     @Test
-    public void testCreate() throws IrisClientException {
+    public void testCreate() throws Exception {
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers";
         stubFor(post(urlMatching(url))
                 .willReturn(aResponse()
@@ -83,13 +83,13 @@ public class SipPeerTests extends BaseModelTests {
     }
 
     @Test
-    public void testDelete() throws IrisClientException {
+    public void testDelete() throws Exception {
         String getUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(getUrl))
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
 
-        String deleteUrl = "/v1.0/accounts/accountId/1234/sippeers/5678";
+        String deleteUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(delete(urlMatching(deleteUrl))
                 .willReturn(aResponse()
                         .withStatus(200)));
@@ -99,7 +99,7 @@ public class SipPeerTests extends BaseModelTests {
     }
 
     @Test
-    public void testGetTn() throws IrisClientException {
+    public void testGetTn() throws Exception {
         String sipPeerUrl =  "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
                 .willReturn(aResponse()
@@ -118,7 +118,7 @@ public class SipPeerTests extends BaseModelTests {
     }
 
     @Test(expected=IrisClientException.class)
-    public void testGetInvalidTn() throws IrisClientException {
+    public void testGetInvalidTn() throws Exception {
         String sipPeerUrl =  "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
                 .willReturn(aResponse()
@@ -139,7 +139,7 @@ public class SipPeerTests extends BaseModelTests {
     }
 
     @Test
-    public void testUpdateTn() throws IrisClientException {
+    public void testUpdateTn() throws Exception {
         String sipPeerUrl =  "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
                 .willReturn(aResponse()
@@ -158,7 +158,7 @@ public class SipPeerTests extends BaseModelTests {
     }
 
     @Test
-    public void testMoveTns() throws IrisClientException {
+    public void testMoveTns() throws Exception {
         String sipPeerUrl =  "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
                 .willReturn(aResponse()
