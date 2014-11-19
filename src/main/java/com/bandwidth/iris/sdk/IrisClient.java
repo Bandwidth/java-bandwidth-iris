@@ -1,48 +1,33 @@
 package com.bandwidth.iris.sdk;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
-import com.bandwidth.iris.sdk.model.*;
+import com.bandwidth.iris.sdk.model.BaseModel;
+import com.bandwidth.iris.sdk.model.BaseResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.auth.Credentials;
-import org.apache.http.Header;
-import org.apache.http.client.HttpClient;
-import org.apache.commons.lang3.StringUtils;
-
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import javax.xml.stream.XMLInputFactory;
+import java.io.File;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
  * Created by sbarstow on 9/22/14.
  */
 public class IrisClient {
-
-    private static final Logger LOG = Logger.getLogger(IrisClient.class);
 
     private String baseUrl;
     private String accountId;
@@ -117,7 +102,6 @@ public class IrisClient {
                 builder.addParameter(key, params.get(key).toString());
             }
         }
-        LOG.info("Request URI: " + builder.build().toString());
         return builder.build().toString();
     }
 
@@ -133,21 +117,16 @@ public class IrisClient {
         HttpResponse response;
         Map<String, String> headers = new HashMap<String, String>();
         IrisResponse irisResponse = new IrisResponse();
-        try {
-            response = httpClient.execute(request);
-            irisResponse.setResponseBody(response.getEntity() != null ? EntityUtils.toString(response.getEntity()) : "");
-            irisResponse.setStatusCode(response.getStatusLine().getStatusCode());
-            for(Header h : response.getHeaders("Location")){
-                headers.put(h.getName(), h.getValue());
-            }
-            irisResponse.setHeaders(headers);
+        response = httpClient.execute(request);
+        irisResponse.setResponseBody(response.getEntity() != null ? EntityUtils.toString(response.getEntity()) : "");
+        irisResponse.setStatusCode(response.getStatusLine().getStatusCode());
+        for (Header h : response.getHeaders("Location")) {
+            headers.put(h.getName(), h.getValue());
+        }
+        irisResponse.setHeaders(headers);
 
-            if(!irisResponse.isOK()){
-                throw new IrisClientException(irisResponse.getResponseBody());
-            }
-        }catch(ClientProtocolException cpe){
-            LOG.error("Error in execute request: " + cpe.getMessage());
-            throw new IOException(cpe);
+        if (!irisResponse.isOK()) {
+            throw new IrisClientException(irisResponse.getResponseBody());
         }
         return irisResponse;
     }

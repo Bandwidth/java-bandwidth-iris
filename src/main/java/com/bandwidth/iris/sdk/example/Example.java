@@ -1,17 +1,18 @@
 package com.bandwidth.iris.sdk.example;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisClientException;
-import com.bandwidth.iris.sdk.IrisResponse;
-import com.bandwidth.iris.sdk.model.*;
-import com.bandwidth.iris.sdk.utils.XmlUtils;
+import com.bandwidth.iris.sdk.model.AvailableNumbers;
+import com.bandwidth.iris.sdk.model.Reservation;
+import com.bandwidth.iris.sdk.model.Site;
+import com.bandwidth.iris.sdk.model.TelephoneNumberDetail;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sbarstow on 10/8/14.

@@ -1,13 +1,9 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisClientException;
 import com.bandwidth.iris.sdk.IrisConstants;
 import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.*;
 import java.net.URISyntaxException;
@@ -20,8 +16,6 @@ import java.util.List;
 @XmlRootElement(name = "SipPeer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SipPeer extends BaseModel {
-
-    private static final Logger LOG = Logger.getLogger(SipPeer.class);
 
     public static SipPeer create(IrisClient client, String siteId, SipPeer sipPeer) throws Exception {
         IrisResponse response = client.post(client.buildModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,

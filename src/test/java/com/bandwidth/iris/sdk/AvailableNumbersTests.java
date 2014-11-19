@@ -1,9 +1,7 @@
 package com.bandwidth.iris.sdk;
 
 import com.bandwidth.iris.sdk.model.AvailableNumbers;
-import com.bandwidth.iris.sdk.model.TelephoneNumber;
 import com.bandwidth.iris.sdk.model.TelephoneNumberDetail;
-import com.bandwidth.iris.sdk.model.TelephoneNumberSearchFilters;
 import org.junit.Test;
 
 import java.util.HashMap;

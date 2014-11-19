@@ -1,8 +1,6 @@
 package com.bandwidth.iris.sdk;
 
-import com.bandwidth.iris.sdk.model.BaseModel;
 import com.bandwidth.iris.sdk.model.Reservation;
-import com.bandwidth.iris.sdk.model.SipPeer;
 import org.junit.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;

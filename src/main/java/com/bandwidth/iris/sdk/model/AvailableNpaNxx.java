@@ -1,7 +1,6 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisClientException;
 import com.bandwidth.iris.sdk.IrisConstants;
 import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
@@ -10,7 +9,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,24 +21,17 @@ import java.util.Map;
 public class AvailableNpaNxx {
 
     public static List<AvailableNpaNxx> list(IrisClient client, String areaCode)
-        throws IrisClientException{
+        throws Exception{
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("areaCode", areaCode);
 
         SearchResultForAvailableNpaNxx searchResult = null;
         List<AvailableNpaNxx> availableNpaNxxList = null;
-        try {
-            IrisResponse irisResponse = client.get(client.buildModelUri(new String[] {IrisConstants.AVAILABLE_NPANXX_URI_PATH}, query));
-            if(irisResponse.isOK()){
-                searchResult = (SearchResultForAvailableNpaNxx) XmlUtils.fromXml(irisResponse.getResponseBody(),
-                        SearchResultForAvailableNpaNxx.class);
-                availableNpaNxxList = searchResult.getAvailableNpaNxxList();
-            }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        IrisResponse irisResponse = client
+                .get(client.buildModelUri(new String[] { IrisConstants.AVAILABLE_NPANXX_URI_PATH }, query));
+        searchResult = XmlUtils.fromXml(irisResponse.getResponseBody(),
+                SearchResultForAvailableNpaNxx.class);
+        availableNpaNxxList = searchResult.getAvailableNpaNxxList();
         return availableNpaNxxList;
     }
 

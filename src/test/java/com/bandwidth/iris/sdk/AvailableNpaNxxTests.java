@@ -7,7 +7,6 @@ import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public class AvailableNpaNxxTests extends BaseModelTests {
     @Test
-    public void testSearchNpaNxx() throws IrisClientException {
+    public void testSearchNpaNxx() throws Exception {
         String url = "/v1.0/accounts/accountId/availableNpaNxx.*";
         stubFor(get(urlMatching(url))
                 .willReturn(aResponse()

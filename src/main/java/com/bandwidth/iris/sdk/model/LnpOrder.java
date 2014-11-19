@@ -1,17 +1,12 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisClientException;
 import com.bandwidth.iris.sdk.IrisConstants;
 import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.*;
-import javax.xml.stream.XMLStreamException;
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,8 +20,15 @@ public class LnpOrder extends BaseModel {
 
     public static LnpOrderResponse create(IrisClient client, LnpOrder order) throws Exception {
         IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.LNP_URI_PATH}), order);
-        LnpOrderResponse lnpOrderResponse = (LnpOrderResponse) XmlUtils.fromXml(response.getResponseBody(), LnpOrderResponse.class);
-        client.checkResponse(lnpOrderResponse);
+        LnpOrderResponse lnpOrderResponse = XmlUtils.fromXml(response.getResponseBody(), LnpOrderResponse.class);
+        lnpOrderResponse.setClient(client);
+        return lnpOrderResponse;
+    }
+
+    public static LnpOrderResponse get(IrisClient client, String orderId) throws Exception {
+        IrisResponse irisResponse = client.get(client.buildModelUri(new String[]{IrisConstants.LNP_URI_PATH, orderId}));
+        LnpOrderResponse lnpOrderResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), LnpOrderResponse.class);
+        lnpOrderResponse.setClient(client);
         return lnpOrderResponse;
     }
 
@@ -176,26 +178,29 @@ public class LnpOrder extends BaseModel {
     }
 
     public void deleteLoa(String fileName) throws Exception {
-        client.delete(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH, orderId,fileName}));
+        client.delete(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH, orderId,"loas", fileName}));
     }
 
     public FileMetaData getLoaMetaData(String fileName) throws Exception {
         IrisResponse irisResponse = client.get(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH, orderId,
-                fileName, "metadata"}));
-        return (FileMetaData) XmlUtils.fromXml(irisResponse.getResponseBody(), FileMetaData.class);
+                "loas", fileName, "metadata"}));
+        return XmlUtils.fromXml(irisResponse.getResponseBody(), FileMetaData.class);
     }
 
     public void updateLoaMetaData(String fileName, FileMetaData metaData) throws Exception {
         client.put(client.buildModelUri(new String[]{IrisConstants.LNP_URI_PATH, orderId,
-                fileName, "metadata"}), metaData);
+                "loas", fileName, "metadata"}), metaData);
     }
 
     public void deleteLoaMetaData(String fileName) throws Exception {
-        client.delete(client.buildModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId, fileName }));
+        client.delete(client.buildModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId, "loas", fileName, "metadata" }));
     }
 
-    public void update(LnpOrderSupp orderSupp) throws Exception {
-        client.put(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH, orderId}), orderSupp);
+    public LnpOrderResponse update (LnpOrderSupp orderSupp) throws Exception {
+        IrisResponse irisResponse = client.put(client.buildModelUri(new String[] {IrisConstants.LNP_URI_PATH, orderId}),
+                orderSupp);
+        LnpOrderResponse lnpOrderResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), LnpOrderResponse.class);
+        return lnpOrderResponse;
     }
 
     public void delete() throws Exception {
