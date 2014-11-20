@@ -174,4 +174,27 @@ public class SipPeerTests extends BaseModelTests {
 
         peer.moveTns(numbers);
     }
+
+    @Test
+    public void testGetTns() throws Exception {
+        String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678/tns";
+        stubFor(get(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.validSipPeerTnsResponseXml)));
+
+        String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
+        stubFor(get(urlMatching(sipPeerUrl))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
+
+        SipPeer peer = SipPeer.get(getDefaultClient(), "1234", "5678");
+
+        List<SipPeerTelephoneNumber> numbers = peer.getTns();
+        assertNotNull(numbers);
+        assertEquals(2, numbers.size());
+        assertEquals("9195551212", numbers.get(0).getFullNumber());
+
+
+
+    }
 }

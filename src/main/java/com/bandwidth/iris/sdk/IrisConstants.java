@@ -13,5 +13,6 @@ public class IrisConstants {
     public static final String LNPCHECKER_URI_PATH = "lnpchecker";
     public static final String AVAILABLE_NPANXX_URI_PATH = "availableNpaNxx";
     public static final String LNP_URI_PATH = "portins";
+    public static final String SUBSCRIPTIONS_URI_PATH = "subscriptions";
 
 }

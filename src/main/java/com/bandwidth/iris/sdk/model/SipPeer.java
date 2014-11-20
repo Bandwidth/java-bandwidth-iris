@@ -220,4 +220,13 @@ public class SipPeer extends BaseModel {
         return client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH, siteId,
                 IrisConstants.SIPPEERS_URI_PATH, peerId, "tns", number});
     }
+
+    public List<SipPeerTelephoneNumber> getTns() throws Exception {
+        IrisResponse response = client.get(client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH, siteId,
+                IrisConstants.SIPPEERS_URI_PATH, peerId, "tns"}));
+        SipPeerTelephoneNumbersResponse sipPeerTelephoneNumbersResponse = XmlUtils.fromXml(response.getResponseBody(),
+                SipPeerTelephoneNumbersResponse.class);
+        client.checkResponse(sipPeerTelephoneNumbersResponse);
+        return sipPeerTelephoneNumbersResponse.getSipPeerTelephoneNumbers();
+    }
 }

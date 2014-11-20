@@ -59,4 +59,12 @@ public class XmlUtilsTest {
         assertEquals("2055551213", numbers.getFullNumbers().get(1));
     }
 
+    @Test
+    public void testDeserializeNotes() throws Exception {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Notes><Note><Id>178468</Id><UserId>bwlabs</UserId><Description>Adding a note</Description><LastDateModifier>2014-11-19T21:02:26.000Z</LastDateModifier></Note></Notes>";
+        Notes notes = XmlUtils.fromXml(xml, Notes.class);
+        assertEquals(1, notes.getNotes().size());
+        assertEquals("178468", notes.getNotes().get(0).getId());
+    }
+
 }

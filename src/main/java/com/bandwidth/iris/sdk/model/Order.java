@@ -10,20 +10,27 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @XmlRootElement(name = "Order")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Order extends BaseModel {
 
-    private static final Logger LOG = Logger.getLogger(Order.class);
-
-    public static Order create(IrisClient client, Order order) throws Exception {
-        IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.ORDERS_URI_PATH}), order);
-        OrderResponse orderResponse  = XmlUtils.fromXml(response.getResponseBody(), OrderResponse.class);
-        return orderResponse.getOrder();
+    public static OrderResponse create(IrisClient client, Order order) throws Exception {
+        IrisResponse irisResponse = client.post(client.buildModelUri(new String[]{IrisConstants.ORDERS_URI_PATH}), order);
+        OrderResponse orderResponse  = XmlUtils.fromXml(irisResponse.getResponseBody(), OrderResponse.class);
+        orderResponse.getOrder().setClient(client);
+        return orderResponse;
     }
 
+    public static OrderResponse get(IrisClient client, String orderId) throws Exception {
+        IrisResponse irisResponse = client.get(client.buildModelUri(new String[]{IrisConstants.ORDERS_URI_PATH, orderId}));
+        OrderResponse orderResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), OrderResponse.class);
+        orderResponse.getOrder().setClient(client);
+        return orderResponse;
+    }
 
     @XmlElement(name="id")
     private String id;
@@ -210,5 +217,14 @@ public class Order extends BaseModel {
 
     public void setZipSearchAndOrderType(ZIPSearchAndOrderType zipSearchAndOrderType) {
         this.zipSearchAndOrderType = zipSearchAndOrderType;
+    }
+
+    public void addNote(Note note) throws Exception {
+        client.put(client.buildModelUri(new String[] {IrisConstants.ORDERS_URI_PATH, id, "notes"}), note);
+    }
+
+    public Notes getNotes() throws Exception {
+        IrisResponse response = client.get(client.buildModelUri(new String[] {IrisConstants.ORDERS_URI_PATH, id, "notes"}));
+        return XmlUtils.fromXml(response.getResponseBody(), Notes.class);
     }
 }
