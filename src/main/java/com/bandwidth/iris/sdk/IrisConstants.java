@@ -14,5 +14,8 @@ public class IrisConstants {
     public static final String AVAILABLE_NPANXX_URI_PATH = "availableNpaNxx";
     public static final String LNP_URI_PATH = "portins";
     public static final String SUBSCRIPTIONS_URI_PATH = "subscriptions";
+    public static final String CITIES_URI_PATH = "cities";
+    public static final String RATECENTERS_URI_PATH = "rateCenters";
+    public static final String TNS_URI_PATH = "tns";
 
 }

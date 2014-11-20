@@ -15,20 +15,29 @@ import java.util.Map;
 /**
  * Created by sbarstow on 11/19/14.
  */
-@XmlRootElement(name="Subscription")
+@XmlRootElement(name = "Subscription")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Subscription extends BaseModel {
 
+    @XmlElement(name = "SubscriptionId")
+    private String subscriptionId;
+    @XmlElement(name = "OrderType")
+    private String orderType;
+    @XmlElement(name = "OrderId")
+    private String orderId;
+    @XmlElement(name = "EmailSubscription")
+    private EmailSubscription emailSubscription;
+
     public static Subscription create(IrisClient client, Subscription subscription) throws Exception {
-        IrisResponse irisResponse = client.post(client.buildModelUri(new String[]{ IrisConstants.SUBSCRIPTIONS_URI_PATH}),
+        IrisResponse irisResponse = client.post(client.buildUserModelUri(new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH }),
                 subscription);
         String id = client.getIdFromLocationHeader(irisResponse.getHeaders().get("Location"));
-        return get(client,id);
+        return get(client, id);
     }
 
     public static Subscription get(IrisClient client, String subscriptionId) throws Exception {
-        IrisResponse irisResponse = client.get(client.buildModelUri(new String[]{IrisConstants.SUBSCRIPTIONS_URI_PATH,
-                subscriptionId}));
+        IrisResponse irisResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH,
+                subscriptionId }));
         SubscriptionsResponse subscriptionsResponse = XmlUtils.fromXml(irisResponse.getResponseBody(),
                 SubscriptionsResponse.class);
         client.checkResponse(subscriptionsResponse);
@@ -39,26 +48,13 @@ public class Subscription extends BaseModel {
 
     public static List<Subscription> list(IrisClient client, Map<String, Object> query) throws Exception {
         IrisResponse irisResponse = client.get(
-                client.buildModelUri(new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH }, query));
+                client.buildUserModelUri(new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH }, query));
         SubscriptionsResponse subscriptions = XmlUtils.fromXml(irisResponse.getResponseBody(), SubscriptionsResponse.class);
-        for(Subscription s : subscriptions.getSubscriptions()){
+        for (Subscription s : subscriptions.getSubscriptions()) {
             s.setClient(client);
         }
         return subscriptions.getSubscriptions();
     }
-
-
-    @XmlElement(name="SubscriptionId")
-    private String subscriptionId;
-
-    @XmlElement(name="OrderType")
-    private String orderType;
-
-    @XmlElement(name="OrderId")
-    private String orderId;
-
-    @XmlElement(name="EmailSubscription")
-    private EmailSubscription emailSubscription;
 
     public String getSubscriptionId() {
         return subscriptionId;
@@ -93,10 +89,10 @@ public class Subscription extends BaseModel {
     }
 
     public void update() throws Exception {
-        client.put(client.buildModelUri(new String[] {IrisConstants.SUBSCRIPTIONS_URI_PATH, subscriptionId}), this);
+        client.put(client.buildUserModelUri(new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH, subscriptionId }), this);
     }
 
     public void delete() throws Exception {
-        client.delete(client.buildModelUri(new String[]{IrisConstants.SUBSCRIPTIONS_URI_PATH, subscriptionId}));
+        client.delete(client.buildUserModelUri(new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH, subscriptionId }));
     }
 }

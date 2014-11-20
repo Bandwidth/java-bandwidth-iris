@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SipPeerResponse extends BaseResponse {
 
-    @XmlElement(name="SipPeer")
+    @XmlElement(name = "SipPeer")
     private SipPeer sipPeer;
 
     public SipPeer getSipPeer() {

@@ -7,14 +7,14 @@ import java.util.List;
 /**
  * Created by sbarstow on 10/17/14.
  */
-@XmlRootElement(name="DisconnectTelephoneNumberOrderType")
+@XmlRootElement(name = "DisconnectTelephoneNumberOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DisconnectTelephoneNumberOrderType {
-    @XmlElementWrapper(name="TelephoneNumberList")
-    @XmlElement(name="TelephoneNumber")
+    @XmlElementWrapper(name = "TelephoneNumberList")
+    @XmlElement(name = "TelephoneNumber")
     private List<String> telephoneNumberList = new ArrayList<String>();
 
-    @XmlElement(name="DisconnectMode")
+    @XmlElement(name = "DisconnectMode")
     private String disconnectMode;
 
     public List<String> getTelephoneNumberList() {

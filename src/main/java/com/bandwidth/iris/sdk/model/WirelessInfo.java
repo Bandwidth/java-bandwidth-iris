@@ -8,13 +8,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="WirelessInfo")
+@XmlRootElement(name = "WirelessInfo")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WirelessInfo {
-    @XmlElement(name="AccountNumber")
+    @XmlElement(name = "AccountNumber")
     private String accountNumber;
 
-    @XmlElement(name="PinNumber")
+    @XmlElement(name = "PinNumber")
     private String pinNumber;
 
     public String getAccountNumber() {

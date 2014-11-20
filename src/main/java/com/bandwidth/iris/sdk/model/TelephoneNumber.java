@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TelephoneNumber {
 
-
     @XmlElement(name = "FullNumber")
     protected String fullNumber;
 

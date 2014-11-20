@@ -11,29 +11,28 @@ import java.util.List;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="LnpOrderResponse")
+@XmlRootElement(name = "LnpOrderResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LnpOrderResponse extends LnpOrder {
-    @XmlElement(name="OrderId")
+    @XmlElement(name = "OrderId")
     private String orderId;
 
-    @XmlElement(name="ProcessingStatus")
+    @XmlElement(name = "ProcessingStatus")
     private String processingStatus;
 
-    @XmlElement(name="Status")
+    @XmlElement(name = "Status")
     private Status status;
 
-    @XmlElement(name="Errors")
+    @XmlElement(name = "Errors")
     private List<Error> errors = new ArrayList<Error>();
 
-
-    @XmlElement(name="LosingCarrierName")
+    @XmlElement(name = "LosingCarrierName")
     private String losingCarrierName;
 
-    @XmlElement(name="LastModifiedDate")
+    @XmlElement(name = "LastModifiedDate")
     private Date lastModifiedDate;
 
-    @XmlElement(name="userId")
+    @XmlElement(name = "userId")
     private String userId;
 
     public String getProcessingStatus() {

@@ -9,7 +9,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-
 /**
  * Created by sbarstow on 11/19/14.
  */
@@ -48,11 +47,11 @@ public class LnpOrderTests extends BaseModelTests {
     }
 
     @Test
-    public void testGet() throws Exception{
+    public void testGet() throws Exception {
         String url = "/v1.0/accounts/accountId/portins/1234";
         stubFor(get(urlMatching(url)).willReturn(aResponse()
-            .withStatus(200)
-            .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withStatus(200)
+                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
 
         LnpOrderResponse response = LnpOrder.get(getDefaultClient(), "1234");
         assertEquals("1234", response.getOrderId());
@@ -76,14 +75,13 @@ public class LnpOrderTests extends BaseModelTests {
     public void testUpdate() throws Exception {
         String url = "/v1.0/accounts/accountId/portins/1234";
         stubFor(put(urlMatching(url)).willReturn(aResponse()
-                .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpSuppOrderResponseXml)
+                        .withStatus(200)
+                        .withBody(IrisClientTestUtils.validLnpSuppOrderResponseXml)
         ));
 
         stubFor(get(urlMatching(url)).willReturn(aResponse()
                 .withStatus(200)
                 .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
-
 
         LnpOrderSupp orderSupp = new LnpOrderSupp();
         orderSupp.setLoaAuthorizingPerson("Jane Doe");

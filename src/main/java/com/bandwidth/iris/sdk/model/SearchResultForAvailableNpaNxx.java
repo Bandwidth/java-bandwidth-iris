@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="SearchResultForAvailableNpaNxx")
+@XmlRootElement(name = "SearchResultForAvailableNpaNxx")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SearchResultForAvailableNpaNxx extends BaseModel {
-    @XmlElementWrapper(name="AvailableNpaNxxList")
-    @XmlElement(name="AvailableNpaNxx")
+    @XmlElementWrapper(name = "AvailableNpaNxxList")
+    @XmlElement(name = "AvailableNpaNxx")
     private List<AvailableNpaNxx> availableNpaNxxList = new ArrayList<AvailableNpaNxx>();
 
     public List<AvailableNpaNxx> getAvailableNpaNxxList() {

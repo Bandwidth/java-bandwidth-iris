@@ -23,12 +23,15 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * Created by sbarstow on 9/22/14.
  */
 public class IrisClient {
 
+    private static String defaultUri = "https://api.inetwork.com/v1.0";
+    private static String defaultVersion = "v1.0";
+    protected DefaultHttpClient httpClient;
+    private String baseUserUrl;
     private String baseUrl;
     private String accountId;
     private String uri;
@@ -36,13 +39,9 @@ public class IrisClient {
     private String password;
     private String version;
     private XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-    private static String defaultUri = "https://api.inetwork.com/v1.0";
-    private static String defaultVersion = "v1.0";
-
-    protected DefaultHttpClient httpClient;
 
     public IrisClient(String uri, String accountId,
-                      String userName, String password, String version){
+            String userName, String password, String version) {
         this.uri = uri;
         this.accountId = accountId;
         this.userName = userName;
@@ -52,10 +51,12 @@ public class IrisClient {
         httpClient = new DefaultHttpClient();
         Credentials credentials = new UsernamePasswordCredentials(userName, password);
         httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, credentials);
-        this.baseUrl = "/" + version+ "/accounts/" + this.accountId + "/";
+        this.baseUrl = "/" + version + "/";
+        this.baseUserUrl = this.baseUrl + "accounts/" + this.accountId + "/";
+
     }
 
-    public IrisClient(String accountId, String userName, String password){
+    public IrisClient(String accountId, String userName, String password) {
         this(defaultUri, accountId, userName, password, defaultVersion);
     }
 
@@ -94,23 +95,38 @@ public class IrisClient {
         executeRequest(put);
     }
 
-    public String buildModelUri(String uriSuffix, Map<String, Object> params) throws URISyntaxException{
+    public String buildUserModelUri(String uriSuffix, Map<String, Object> query) throws URISyntaxException {
         URIBuilder builder = new URIBuilder(this.uri);
-        builder.setPath(baseUrl + uriSuffix);
-        if(params != null){
-            for(String key : params.keySet()){
-                builder.addParameter(key, params.get(key).toString());
+        builder.setPath(baseUserUrl + uriSuffix);
+        if (query != null) {
+            for (String key : query.keySet()) {
+                builder.addParameter(key, query.get(key).toString());
+            }
+        }
+        return builder.build().toString();
+    }
+
+    public String buildUserModelUri(String[] tokens) throws URISyntaxException {
+        return buildUserModelUri(StringUtils.join(tokens, "/"), null);
+    }
+
+    public String buildUserModelUri(String[] tokens, Map<String, Object> query) throws URISyntaxException {
+        return buildUserModelUri(StringUtils.join(tokens, "/"), query);
+    }
+
+    public String buildModelUri(String[] tokens, Map<String, Object> query) throws URISyntaxException {
+        URIBuilder builder = new URIBuilder(this.uri);
+        builder.setPath(baseUrl + StringUtils.join(tokens, "/"));
+        if (query != null) {
+            for (String key : query.keySet()) {
+                builder.addParameter(key, query.get(key).toString());
             }
         }
         return builder.build().toString();
     }
 
     public String buildModelUri(String[] tokens) throws URISyntaxException {
-        return buildModelUri(StringUtils.join(tokens, "/"), null);
-    }
-
-    public String buildModelUri(String[] tokens, Map<String, Object> params) throws URISyntaxException{
-        return buildModelUri(StringUtils.join(tokens, "/"), params);
+        return buildModelUri(tokens, null);
     }
 
     protected IrisResponse executeRequest(HttpUriRequest request) throws Exception {
@@ -131,16 +147,15 @@ public class IrisClient {
         return irisResponse;
     }
 
-    public String getIdFromLocationHeader(String locationHeader){
+    public String getIdFromLocationHeader(String locationHeader) {
         return locationHeader.substring(locationHeader.lastIndexOf("/") + 1);
     }
 
-    public void checkResponse(BaseResponse response) throws IrisClientException{
-        if(response.getResponseStatus()!= null){
+    public void checkResponse(BaseResponse response) throws IrisClientException {
+        if (response.getResponseStatus() != null) {
             throw new IrisClientException(response.getResponseStatus().getErrorCode(),
                     response.getResponseStatus().getDescription());
         }
     }
-
 
 }

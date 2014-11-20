@@ -8,10 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/14/14.
  */
-@XmlRootElement(name="ZIPSearchAndOrderType")
+@XmlRootElement(name = "ZIPSearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ZIPSearchAndOrderType extends BaseOrderType {
-    @XmlElement(name="Zip")
+    @XmlElement(name = "Zip")
     private String zip;
 
     public String getZip() {

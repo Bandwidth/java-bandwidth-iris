@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/14/14.
  */
-@XmlRootElement(name="NPANXXSearchAndOrderType")
+@XmlRootElement(name = "NPANXXSearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NPANXXSearchAndOrderType extends BaseOrderType {
-    @XmlElement(name="NpaNxx")
+    @XmlElement(name = "NpaNxx")
     private String npaNxx;
 
-    @XmlElement(name="EnableTNDetail")
+    @XmlElement(name = "EnableTNDetail")
     private boolean enableTNDetail;
 
-    @XmlElement(name="EnableLCA")
+    @XmlElement(name = "EnableLCA")
     private boolean enableLCA;
 
     public String getNpaNxx() {

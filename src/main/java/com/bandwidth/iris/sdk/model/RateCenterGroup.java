@@ -7,27 +7,27 @@ import java.util.List;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="RateCenterGroup")
+@XmlRootElement(name = "RateCenterGroup")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RateCenterGroup {
-    @XmlElement(name="RateCenter")
+    @XmlElement(name = "RateCenter")
     private String rateCenter;
 
-    @XmlElement(name="City")
+    @XmlElement(name = "City")
     private String city;
 
-    @XmlElement(name="State")
+    @XmlElement(name = "State")
     private String state;
 
-    @XmlElement(name="LATA")
+    @XmlElement(name = "LATA")
     private String LATA;
 
-    @XmlElementWrapper(name="Tiers")
-    @XmlElement(name="Tier")
+    @XmlElementWrapper(name = "Tiers")
+    @XmlElement(name = "Tier")
     private List<String> tiers = new ArrayList<String>();
 
-    @XmlElementWrapper(name="TnList")
-    @XmlElement(name="Tn")
+    @XmlElementWrapper(name = "TnList")
+    @XmlElement(name = "Tn")
     private List<String> tnList = new ArrayList<String>();
 
     public String getRateCenter() {

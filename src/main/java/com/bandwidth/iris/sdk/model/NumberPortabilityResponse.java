@@ -7,30 +7,30 @@ import java.util.List;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="NumberPortabilityResponse")
+@XmlRootElement(name = "NumberPortabilityResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NumberPortabilityResponse extends BaseResponse {
-    @XmlElementWrapper(name="PortableNumbers")
-    @XmlElement(name="Tn")
+    @XmlElementWrapper(name = "PortableNumbers")
+    @XmlElement(name = "Tn")
     private List<String> portableNumbers = new ArrayList<String>();
 
-    @XmlElementWrapper(name="SupportedRateCenters")
-    @XmlElement(name="RateCenterGroup")
+    @XmlElementWrapper(name = "SupportedRateCenters")
+    @XmlElement(name = "RateCenterGroup")
     private List<RateCenterGroup> supportedRateCenters = new ArrayList<RateCenterGroup>();
 
-    @XmlElementWrapper(name="UnsupportedRateCenters")
-    @XmlElement(name="RateCenterGroup")
+    @XmlElementWrapper(name = "UnsupportedRateCenters")
+    @XmlElement(name = "RateCenterGroup")
     private List<RateCenterGroup> unsupportedRateCenters = new ArrayList<RateCenterGroup>();
 
-    @XmlElement(name="Errors")
+    @XmlElement(name = "Errors")
     private List<Error> errors = new ArrayList<Error>();
 
-    @XmlElementWrapper(name="UnsupportedLosingCarriers")
-    @XmlElement(name="LosingCarrierTnList")
+    @XmlElementWrapper(name = "UnsupportedLosingCarriers")
+    @XmlElement(name = "LosingCarrierTnList")
     private List<LosingCarrierTnList> unsupportedLosingCarriers = new ArrayList<LosingCarrierTnList>();
 
-    @XmlElementWrapper(name="SupportedLosingCarriers")
-    @XmlElement(name="LosingCarrierTnList")
+    @XmlElementWrapper(name = "SupportedLosingCarriers")
+    @XmlElement(name = "LosingCarrierTnList")
     private List<LosingCarrierTnList> supportedLosingCarriers = new ArrayList<LosingCarrierTnList>();
 
     public List<String> getPortableNumbers() {

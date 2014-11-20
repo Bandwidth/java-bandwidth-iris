@@ -8,10 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "CallingName")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CallingName {
-    @XmlElement(name="Display")
+    @XmlElement(name = "Display")
     private boolean display;
 
-    @XmlElement(name="Enforced")
+    @XmlElement(name = "Enforced")
     private boolean enforced;
 
     public boolean isDisplay() {

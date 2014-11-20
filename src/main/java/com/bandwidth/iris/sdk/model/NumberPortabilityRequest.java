@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="NumberPortabilityRequest")
+@XmlRootElement(name = "NumberPortabilityRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NumberPortabilityRequest extends BaseModel {
-    @XmlElementWrapper(name="TnList")
-    @XmlElement(name="Tn")
+    @XmlElementWrapper(name = "TnList")
+    @XmlElement(name = "Tn")
     private List<String> tnList = new ArrayList<String>();
 
     public List<String> getTnList() {

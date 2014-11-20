@@ -19,8 +19,17 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Site extends BaseModel {
 
+    @XmlElement(name = "Id")
+    private String id;
+    @XmlElement(name = "Name")
+    private String name;
+    @XmlElement(name = "Description")
+    private String description;
+    @XmlElement(name = "Address")
+    private Address address;
+
     public static Site get(IrisClient client, String siteId) throws Exception {
-        IrisResponse response = client.get(client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, siteId}));
+        IrisResponse response = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId }));
         SiteResponse siteResponse = XmlUtils.fromXml(response.getResponseBody(), SiteResponse.class);
         client.checkResponse(siteResponse);
         Site s = siteResponse.getSite();
@@ -28,36 +37,23 @@ public class Site extends BaseModel {
         return s;
     }
 
-    public static Site create(IrisClient client, Site site)throws Exception {
-        IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH}), site);
+    public static Site create(IrisClient client, Site site) throws Exception {
+        IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH }), site);
         String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
-        return get(client,id);
+        return get(client, id);
     }
 
     public static List<Site> list(IrisClient client) throws Exception {
         List<Site> sites = new ArrayList<Site>();
-        IrisResponse irisResponse = client.get(client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH}));
+        IrisResponse irisResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH }));
         SitesResponse sitesResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), SitesResponse.class);
         client.checkResponse(sitesResponse);
         sites = sitesResponse.getSites();
-        for(Site s : sites){
+        for (Site s : sites) {
             s.setClient(client);
         }
         return sites;
     }
-
-
-    @XmlElement(name="Id")
-    private String id;
-
-    @XmlElement(name="Name")
-    private String name;
-
-    @XmlElement(name="Description")
-    private String description;
-
-    @XmlElement(name="Address")
-    private Address address;
 
     public String getId() {
         return id;
@@ -91,8 +87,8 @@ public class Site extends BaseModel {
         this.address = address;
     }
 
-    public void delete()throws Exception {
-        client.delete(client.buildModelUri(new String[]{IrisConstants.SITES_URI_PATH, id}));
+    public void delete() throws Exception {
+        client.delete(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, id }));
     }
 
 }

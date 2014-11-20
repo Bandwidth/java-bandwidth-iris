@@ -8,10 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/14/14.
  */
-@XmlRootElement(name="StateSearchAndOrderType")
+@XmlRootElement(name = "StateSearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StateSearchAndOrderType {
-    @XmlElement(name="State")
+    @XmlElement(name = "State")
     private String state;
 
     public String getState() {

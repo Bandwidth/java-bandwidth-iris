@@ -8,13 +8,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="Status")
+@XmlRootElement(name = "Status")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Status {
-    @XmlElement(name="Code")
+    @XmlElement(name = "Code")
     private String code;
 
-    @XmlElement(name="Description")
+    @XmlElement(name = "Description")
     private String description;
 
     public String getCode() {

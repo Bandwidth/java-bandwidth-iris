@@ -8,11 +8,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/14/14.
  */
-@XmlRootElement(name="ReservationResponse")
+@XmlRootElement(name = "ReservationResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ReservationResponse extends BaseResponse {
 
-    @XmlElement(name="Reservation")
+    @XmlElement(name = "Reservation")
     private Reservation reservation;
 
     public Reservation getReservation() {

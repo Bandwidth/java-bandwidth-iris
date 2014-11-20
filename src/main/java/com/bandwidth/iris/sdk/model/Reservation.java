@@ -17,16 +17,24 @@ import java.util.List;
 /**
  * Created by sbarstow on 11/14/14.
  */
-@XmlRootElement(name="Reservation")
+@XmlRootElement(name = "Reservation")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Reservation extends BaseModel {
 
     private static final Logger LOG = Logger.getLogger(Site.class);
+    @XmlElement(name = "ReservationId")
+    private String reservationId;
+    @XmlElement(name = "AccountId")
+    private String accountId;
+    @XmlElement(name = "ReservationExpires")
+    private String reservationExpires;
+    @XmlElement(name = "ReservedTn")
+    private List<String> reservedTn = new ArrayList<String>();
 
     public static Reservation create(IrisClient client, Reservation reservation) throws Exception {
         Reservation result = null;
-        IrisResponse response = client.post(client.buildModelUri(new String[]{IrisConstants.RESERVATIONS_URI_PATH}),
-                    reservation);
+        IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.RESERVATIONS_URI_PATH }),
+                reservation);
         String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
         result = get(client, id);
         if (response.getStatusCode() == HttpStatus.ORDINAL_400_Bad_Request) {
@@ -39,28 +47,15 @@ public class Reservation extends BaseModel {
 
     public static Reservation get(IrisClient client, String reservationId) throws Exception {
         Reservation reservation = null;
-        IrisResponse response = client.get(client.buildModelUri(
-                    new String[] {IrisConstants.RESERVATIONS_URI_PATH, reservationId}));
+        IrisResponse response = client.get(client.buildUserModelUri(
+                new String[] { IrisConstants.RESERVATIONS_URI_PATH, reservationId }));
         ReservationResponse reservationResponse = XmlUtils.fromXml(response.getResponseBody(),
-                        ReservationResponse.class);
+                ReservationResponse.class);
         client.checkResponse(reservationResponse);
         reservation = reservationResponse.getReservation();
         reservation.setClient(client);
         return reservation;
     }
-
-    @XmlElement(name="ReservationId")
-    private String reservationId;
-
-    @XmlElement(name="AccountId")
-    private String accountId;
-
-    @XmlElement(name="ReservationExpires")
-    private String reservationExpires;
-
-
-    @XmlElement(name="ReservedTn")
-    private List<String> reservedTn = new ArrayList<String>();
 
     public List<String> getReservedTn() {
         return reservedTn;
@@ -95,6 +90,6 @@ public class Reservation extends BaseModel {
     }
 
     public void delete() throws Exception {
-        client.delete(client.buildModelUri(new String[]{IrisConstants.RESERVATIONS_URI_PATH, reservationId}));
+        client.delete(client.buildUserModelUri(new String[] { IrisConstants.RESERVATIONS_URI_PATH, reservationId }));
     }
 }

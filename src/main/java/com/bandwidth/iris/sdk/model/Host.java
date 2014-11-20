@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Host")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Host {
-    @XmlElement(name="HostName")
+    @XmlElement(name = "HostName")
     private String hostName;
 
     public String getHostName() {

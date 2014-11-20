@@ -10,10 +10,10 @@ import java.util.List;
 /**
  * Created by sbarstow on 11/13/14.
  */
-@XmlRootElement(name="SipPeerTelephoneNumbers")
+@XmlRootElement(name = "SipPeerTelephoneNumbers")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SipPeerTelephoneNumbers extends BaseModel {
-    @XmlElement(name="FullNumber")
+    @XmlElement(name = "FullNumber")
     private List<String> fullNumbers = new ArrayList<String>();
 
     public List<String> getFullNumbers() {

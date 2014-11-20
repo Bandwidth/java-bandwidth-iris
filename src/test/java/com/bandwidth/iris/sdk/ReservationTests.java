@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public class ReservationTests extends BaseModelTests {
     @Test
-    public void testGet() throws Exception{
+    public void testGet() throws Exception {
         String url = "/v1.0/accounts/accountId/tnreservation/1234";
         stubFor(get(urlMatching(url))
                 .willReturn(aResponse()

@@ -13,14 +13,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 10/17/14.
  */
-@XmlRootElement(name="DisconnectTelephoneNumberOrder")
+@XmlRootElement(name = "DisconnectTelephoneNumberOrder")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DisconnectTelephoneNumberOrder extends BaseModel {
+
+    @XmlElement(name = "Name")
+    private String name;
+    @XmlElement(name = "DisconnectTelephoneNumberOrderType")
+    private DisconnectTelephoneNumberOrderType disconnectTelephoneNumberOrderType;
 
     public static DisconnectTelephoneNumberOrderResponse create(IrisClient client,
             DisconnectTelephoneNumberOrder disconnectTelephoneNumberOrder)
             throws Exception {
-        IrisResponse response = client.post(client.buildModelUri(
+        IrisResponse response = client.post(client.buildUserModelUri(
                 new String[] { IrisConstants.DISCONNECTS_URI_PATH }), disconnectTelephoneNumberOrder);
         DisconnectTelephoneNumberOrderResponse orderResponse = XmlUtils.fromXml(response.getResponseBody(),
                 DisconnectTelephoneNumberOrderResponse.class);
@@ -29,20 +34,13 @@ public class DisconnectTelephoneNumberOrder extends BaseModel {
     }
 
     public static DisconnectTelephoneNumberOrderResponse get(IrisClient client, String orderId) throws Exception {
-        IrisResponse response = client.get(client.buildModelUri(
+        IrisResponse response = client.get(client.buildUserModelUri(
                 new String[] { IrisConstants.DISCONNECTS_URI_PATH, orderId }));
         DisconnectTelephoneNumberOrderResponse orderResponse = XmlUtils.fromXml(response.getResponseBody(),
                 DisconnectTelephoneNumberOrderResponse.class);
         client.checkResponse(orderResponse);
         return orderResponse;
     }
-
-
-    @XmlElement(name="Name")
-    private String name;
-
-    @XmlElement(name="DisconnectTelephoneNumberOrderType")
-    private DisconnectTelephoneNumberOrderType disconnectTelephoneNumberOrderType;
 
     public String getName() {
         return name;

@@ -9,19 +9,19 @@ import java.util.Date;
 /**
  * Created by sbarstow on 11/19/14.
  */
-@XmlRootElement(name="Note")
+@XmlRootElement(name = "Note")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Note extends BaseModel {
-    @XmlElement(name="UserId")
+    @XmlElement(name = "UserId")
     private String userId;
 
-    @XmlElement(name="Id")
+    @XmlElement(name = "Id")
     private String id;
 
-    @XmlElement(name="Description")
+    @XmlElement(name = "Description")
     private String description;
 
-    @XmlElement(name="LastDateModifier")
+    @XmlElement(name = "LastDateModifier")
     private Date lastDateModifier;
 
     public String getUserId() {

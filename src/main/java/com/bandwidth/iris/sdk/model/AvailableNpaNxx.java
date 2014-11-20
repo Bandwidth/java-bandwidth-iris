@@ -16,39 +16,35 @@ import java.util.Map;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="AvailableNpaNxx")
+@XmlRootElement(name = "AvailableNpaNxx")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AvailableNpaNxx {
 
+    @XmlElement(name = "City")
+    private String city;
+    @XmlElement(name = "Npa")
+    private String npa;
+    @XmlElement(name = "Nxx")
+    private String nxx;
+    @XmlElement(name = "Quantity")
+    private int quantity;
+    @XmlElement(name = "State")
+    private int state;
+
     public static List<AvailableNpaNxx> list(IrisClient client, String areaCode)
-        throws Exception{
+            throws Exception {
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("areaCode", areaCode);
 
         SearchResultForAvailableNpaNxx searchResult = null;
         List<AvailableNpaNxx> availableNpaNxxList = null;
         IrisResponse irisResponse = client
-                .get(client.buildModelUri(new String[] { IrisConstants.AVAILABLE_NPANXX_URI_PATH }, query));
+                .get(client.buildUserModelUri(new String[] { IrisConstants.AVAILABLE_NPANXX_URI_PATH }, query));
         searchResult = XmlUtils.fromXml(irisResponse.getResponseBody(),
                 SearchResultForAvailableNpaNxx.class);
         availableNpaNxxList = searchResult.getAvailableNpaNxxList();
         return availableNpaNxxList;
     }
-
-    @XmlElement(name="City")
-    private String city;
-
-    @XmlElement(name="Npa")
-    private String npa;
-
-    @XmlElement(name="Nxx")
-    private String nxx;
-
-    @XmlElement(name="Quantity")
-    private int quantity;
-
-    @XmlElement(name="State")
-    private int state;
 
     public String getCity() {
         return city;

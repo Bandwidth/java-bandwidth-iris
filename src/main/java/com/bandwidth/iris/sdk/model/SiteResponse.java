@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class SiteResponse extends BaseResponse {
 
-    @XmlElement(name="Site")
+    @XmlElement(name = "Site")
     private Site site;
 
     public Site getSite() {

@@ -11,13 +11,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "TerminationHost")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TerminationHost extends Host {
-    @XmlElement(name="Port")
+    @XmlElement(name = "Port")
     private String port;
 
-    @XmlElement(name="CustomerTrafficAllowed")
+    @XmlElement(name = "CustomerTrafficAllowed")
     private String customerTrafficAllowed;
 
-    @XmlElement(name="DataAllowed")
+    @XmlElement(name = "DataAllowed")
     private boolean dataAllowed;
 
     public String getPort() {

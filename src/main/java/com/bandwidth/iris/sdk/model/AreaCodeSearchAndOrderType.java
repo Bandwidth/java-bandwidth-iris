@@ -8,10 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/14/14.
  */
-@XmlRootElement(name="AreaCodeSearchAndOrderType")
+@XmlRootElement(name = "AreaCodeSearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AreaCodeSearchAndOrderType extends BaseOrderType {
-    @XmlElement(name="AreaCode")
+    @XmlElement(name = "AreaCode")
     private String areaCode;
 
     public String getAreaCode() {

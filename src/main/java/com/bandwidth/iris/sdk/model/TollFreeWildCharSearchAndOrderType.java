@@ -8,10 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/14/14.
  */
-@XmlRootElement(name="TollFreeWildCharSearchAndOrderType")
+@XmlRootElement(name = "TollFreeWildCharSearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TollFreeWildCharSearchAndOrderType extends BaseOrderType {
-    @XmlElement(name="TollFreeWildCharPattern")
+    @XmlElement(name = "TollFreeWildCharPattern")
     private String tollFreeWildCharPattern;
 
     public String getTollFreeWildCharPattern() {

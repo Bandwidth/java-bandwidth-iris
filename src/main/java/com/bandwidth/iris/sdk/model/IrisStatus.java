@@ -5,10 +5,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by sbarstow on 11/19/14.
+ * Created by sbarstow on 11/20/14.
  */
-@XmlRootElement(name = "LnpOrderSupp")
+@XmlRootElement(name = "irisStatus")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class LnpOrderSupp extends LnpOrder {
-
+public class IrisStatus extends Error {
 }

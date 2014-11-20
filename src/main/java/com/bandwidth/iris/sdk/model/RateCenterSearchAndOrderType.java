@@ -8,13 +8,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/14/14.
  */
-@XmlRootElement(name="RateCenterSearchAndOrderType")
+@XmlRootElement(name = "RateCenterSearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RateCenterSearchAndOrderType extends BaseOrderType {
-    @XmlElement(name="RateCenter")
+    @XmlElement(name = "RateCenter")
     private String rateCenter;
 
-    @XmlElement(name="State")
+    @XmlElement(name = "State")
     private String state;
 
     public String getRateCenter() {

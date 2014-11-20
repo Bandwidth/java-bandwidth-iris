@@ -12,12 +12,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class ResponseStatus {
-    @XmlElement(name="ErrorCode")
+    @XmlElement(name = "ErrorCode")
     private String errorCode;
 
-    @XmlElement(name="Description")
+    @XmlElement(name = "Description")
     private String description;
-
 
     public String getErrorCode() {
         return errorCode;

@@ -7,15 +7,15 @@ import java.util.List;
 /**
  * Created by sbarstow on 10/14/14.
  */
-@XmlRootElement(name="ExistingTelephoneNumberOrderType")
+@XmlRootElement(name = "ExistingTelephoneNumberOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ExistingTelephoneNumberOrderType {
-    @XmlElementWrapper(name="TelephoneNumberList")
-    @XmlElement(name="TelephoneNumber")
+    @XmlElementWrapper(name = "TelephoneNumberList")
+    @XmlElement(name = "TelephoneNumber")
     private List<String> telephoneNumberList = new ArrayList<String>();
 
-    @XmlElementWrapper(name="ReservationIdList")
-    @XmlElement(name="ReservationId", nillable=true)
+    @XmlElementWrapper(name = "ReservationIdList")
+    @XmlElement(name = "ReservationId", nillable = true)
     private List<String> reservationIdList = new ArrayList<String>();
 
     public List<String> getTelephoneNumberList() {

@@ -8,13 +8,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/19/14.
  */
-@XmlRootElement(name="EmailSubscription")
+@XmlRootElement(name = "EmailSubscription")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EmailSubscription {
-    @XmlElement(name="Email")
+    @XmlElement(name = "Email")
     private String email;
 
-    @XmlElement(name="DigestRequested")
+    @XmlElement(name = "DigestRequested")
     private String digestRequested;
 
     public String getEmail() {

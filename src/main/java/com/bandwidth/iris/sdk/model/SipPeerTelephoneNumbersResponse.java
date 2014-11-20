@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * Created by sbarstow on 11/19/14.
  */
-@XmlRootElement(name="SipPeerTelephoneNumbersResponse")
+@XmlRootElement(name = "SipPeerTelephoneNumbersResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SipPeerTelephoneNumbersResponse extends BaseResponse {
-    @XmlElementWrapper(name="SipPeerTelephoneNumbers")
-    @XmlElement(name="SipPeerTelephoneNumber")
+    @XmlElementWrapper(name = "SipPeerTelephoneNumbers")
+    @XmlElement(name = "SipPeerTelephoneNumber")
     private List<SipPeerTelephoneNumber> sipPeerTelephoneNumbers = new ArrayList<SipPeerTelephoneNumber>();
 
     public List<SipPeerTelephoneNumber> getSipPeerTelephoneNumbers() {

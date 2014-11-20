@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseOrderType {
-    @XmlElement(name="Quantity")
+    @XmlElement(name = "Quantity")
     private int quantity;
 
     public int getQuantity() {

@@ -11,6 +11,8 @@ public class TelephoneNumberSearchFilters {
     private boolean isTollFree;
     private int quantity = 5;
     private boolean returnTelephoneNumberDetails = true;
+    private String inRateCenter;
+    private String inLata;
 
     public boolean isReturnTelephoneNumberDetails() {
         return returnTelephoneNumberDetails;
@@ -83,7 +85,4 @@ public class TelephoneNumberSearchFilters {
     public void setInLata(String inLata) {
         this.inLata = inLata;
     }
-
-    private String inRateCenter;
-    private String inLata;
 }

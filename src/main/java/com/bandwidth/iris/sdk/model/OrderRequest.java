@@ -9,19 +9,19 @@ import java.util.Date;
 /**
  * Created by sbarstow on 10/17/14.
  */
-@XmlRootElement(name="orderRequest")
+@XmlRootElement(name = "orderRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OrderRequest {
-    @XmlElement(name="Name")
+    @XmlElement(name = "Name")
     private String name;
 
-    @XmlElement(name="OrderCreateDate")
+    @XmlElement(name = "OrderCreateDate")
     private Date orderCreateDate;
 
-    @XmlElement(name="id")
+    @XmlElement(name = "id")
     private String id;
 
-    @XmlElement(name="DisconnectTelephoneNumberOrderType")
+    @XmlElement(name = "DisconnectTelephoneNumberOrderType")
     private DisconnectTelephoneNumberOrderType disconnectTelephoneNumberOrderType;
 
     public String getName() {

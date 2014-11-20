@@ -8,25 +8,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="Subscriber")
+@XmlRootElement(name = "Subscriber")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Subscriber {
-    @XmlElement(name="SubscriberType")
+    @XmlElement(name = "SubscriberType")
     private String subscriberType;
 
-    @XmlElement(name="BusinessName")
+    @XmlElement(name = "BusinessName")
     private String businessName;
 
-    @XmlElement(name="ServiceAddress")
+    @XmlElement(name = "ServiceAddress")
     private ServiceAddress serviceAddress;
 
-    @XmlElement(name="FirstName")
+    @XmlElement(name = "FirstName")
     private String firstName;
 
-    @XmlElement(name="LastName")
+    @XmlElement(name = "LastName")
     private String lastName;
 
-    @XmlElement(name="MiddleInitial")
+    @XmlElement(name = "MiddleInitial")
     private String middleInitial;
 
     public String getSubscriberType() {

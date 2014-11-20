@@ -9,35 +9,35 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@XmlRootElement(name="OrderResponse")
+@XmlRootElement(name = "OrderResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OrderResponse {
-    @XmlElement(name="Order")
+    @XmlElement(name = "Order")
     private Order order;
 
-    @XmlElement(name="CompletedQuantity")
+    @XmlElement(name = "CompletedQuantity")
     private int completedQuantity;
 
-    @XmlElement(name="CreatedByUser")
+    @XmlElement(name = "CreatedByUser")
     private String createdByUser;
 
-    @XmlElement(name="FailedQuantity")
+    @XmlElement(name = "FailedQuantity")
     private int failedQuantity;
 
-    @XmlElement(name="PendingQuantity")
+    @XmlElement(name = "PendingQuantity")
     private int pendingQuantity;
 
-    @XmlElement(name="OrderCompletedDate")
+    @XmlElement(name = "OrderCompletedDate")
     private Date orderCompletedDate;
 
-    @XmlElement(name="LastModifiedDate")
+    @XmlElement(name = "LastModifiedDate")
     private Date lastModifiedDate;
 
-    @XmlElement(name="OrderStatus")
+    @XmlElement(name = "OrderStatus")
     private String orderStatus;
 
-    @XmlElementWrapper(name="CompletedNumbers")
-    @XmlElement(name="TelephoneNumber")
+    @XmlElementWrapper(name = "CompletedNumbers")
+    @XmlElement(name = "TelephoneNumber")
     private List<TelephoneNumber> telephoneNumbers = new ArrayList<TelephoneNumber>();
 
     public Order getOrder() {

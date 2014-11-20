@@ -11,19 +11,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "SipPeerTelephoneNumber")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SipPeerTelephoneNumber extends BaseModel {
-    @XmlElement(name="FullNumber")
+    @XmlElement(name = "FullNumber")
     private String fullNumber;
 
-    @XmlElement(name="CallForward")
+    @XmlElement(name = "CallForward")
     private String callForward;
 
-    @XmlElement(name="NumberFormat")
+    @XmlElement(name = "NumberFormat")
     private String numberFormat;
 
-    @XmlElement(name="RewriteUser")
+    @XmlElement(name = "RewriteUser")
     private String rewriteUser;
 
-    @XmlElement(name="RPIDFormat")
+    @XmlElement(name = "RPIDFormat")
     private String rPIDFormat;
 
     public String getFullNumber() {

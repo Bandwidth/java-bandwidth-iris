@@ -4,84 +4,67 @@ import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.IrisConstants;
 import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
-import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @XmlRootElement(name = "Order")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Order extends BaseModel {
 
-    public static OrderResponse create(IrisClient client, Order order) throws Exception {
-        IrisResponse irisResponse = client.post(client.buildModelUri(new String[]{IrisConstants.ORDERS_URI_PATH}), order);
-        OrderResponse orderResponse  = XmlUtils.fromXml(irisResponse.getResponseBody(), OrderResponse.class);
-        orderResponse.getOrder().setClient(client);
-        return orderResponse;
-    }
+    @XmlElement(name = "id")
+    private String id;
+    @XmlElement(name = "BackOrderRequested")
+    private boolean backOrderRequested;
+    @XmlElement(name = "OrderCreateDate")
+    private Date orderCreateDate;
+    @XmlElement(name = "Name")
+    private String name;
+    @XmlElement(name = "SiteId")
+    private String siteId;
+    @XmlElement(name = "CustomerOrderId")
+    private String customerOrderId;
+    @XmlElement(name = "PartialAllowed")
+    private boolean partialAllowed = false;
+    @XmlElement(name = "ExistingTelephoneNumberOrderType")
+    private ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType;
+    @XmlElement(name = "AreaCodeSearchAndOrderType")
+    private AreaCodeSearchAndOrderType areaCodeSearchAndOrderType;
+    @XmlElement(name = "CitySearchAndOrderType")
+    private CitySearchAndOrderType citySearchAndOrderType;
+    @XmlElement(name = "LATASearchAndOrderType")
+    private LATASearchAndOrderType lataSearchAndOrderType;
+    @XmlElement(name = "NPANXXSearchAndOrderType")
+    private NPANXXSearchAndOrderType npanxxSearchAndOrderType;
+    @XmlElement(name = "RateCenterSearchAndOrderType")
+    private RateCenterSearchAndOrderType rateCenterSearchAndOrderType;
+    @XmlElement(name = "StateSearchAndOrderType")
+    private StateSearchAndOrderType stateSearchAndOrderType;
+    @XmlElement(name = "TollFreeVanitySearchAndOrderType")
+    private TollFreeVanitySearchAndOrderType tollFreeVanitySearchAndOrderType;
+    @XmlElement(name = "TollFreeWildCharSearchAndOrderType")
+    private TollFreeWildCharSearchAndOrderType tollFreeWildCharSearchAndOrderType;
+    @XmlElement(name = "ZIPSearchAndOrderType")
+    private ZIPSearchAndOrderType zipSearchAndOrderType;
 
-    public static OrderResponse get(IrisClient client, String orderId) throws Exception {
-        IrisResponse irisResponse = client.get(client.buildModelUri(new String[]{IrisConstants.ORDERS_URI_PATH, orderId}));
+    public static OrderResponse create(IrisClient client, Order order) throws Exception {
+        IrisResponse irisResponse = client
+                .post(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH }), order);
         OrderResponse orderResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), OrderResponse.class);
         orderResponse.getOrder().setClient(client);
         return orderResponse;
     }
 
-    @XmlElement(name="id")
-    private String id;
-
-    @XmlElement(name="BackOrderRequested")
-    private boolean backOrderRequested;
-
-    @XmlElement(name="OrderCreateDate")
-    private Date orderCreateDate;
-
-    @XmlElement(name="Name")
-    private String name;
-
-    @XmlElement(name="SiteId")
-    private String siteId;
-
-    @XmlElement(name="CustomerOrderId")
-    private String customerOrderId;
-
-    @XmlElement(name="PartialAllowed")
-    private boolean partialAllowed = false;
-
-    @XmlElement(name="ExistingTelephoneNumberOrderType")
-    private ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType;
-
-    @XmlElement(name="AreaCodeSearchAndOrderType")
-    private AreaCodeSearchAndOrderType areaCodeSearchAndOrderType;
-
-    @XmlElement(name="CitySearchAndOrderType")
-    private CitySearchAndOrderType citySearchAndOrderType;
-
-    @XmlElement(name="LATASearchAndOrderType")
-    private LATASearchAndOrderType lataSearchAndOrderType;
-
-    @XmlElement(name="NPANXXSearchAndOrderType")
-    private NPANXXSearchAndOrderType npanxxSearchAndOrderType;
-
-    @XmlElement(name="RateCenterSearchAndOrderType")
-    private RateCenterSearchAndOrderType rateCenterSearchAndOrderType;
-
-    @XmlElement(name="StateSearchAndOrderType")
-    private StateSearchAndOrderType stateSearchAndOrderType;
-
-    @XmlElement(name="TollFreeVanitySearchAndOrderType")
-    private TollFreeVanitySearchAndOrderType tollFreeVanitySearchAndOrderType;
-
-    @XmlElement(name="TollFreeWildCharSearchAndOrderType")
-    private TollFreeWildCharSearchAndOrderType tollFreeWildCharSearchAndOrderType;
-
-    @XmlElement(name="ZIPSearchAndOrderType")
-    private ZIPSearchAndOrderType zipSearchAndOrderType;
+    public static OrderResponse get(IrisClient client, String orderId) throws Exception {
+        IrisResponse irisResponse = client
+                .get(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, orderId }));
+        OrderResponse orderResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), OrderResponse.class);
+        orderResponse.getOrder().setClient(client);
+        return orderResponse;
+    }
 
     public String getid() {
         return id;
@@ -220,11 +203,12 @@ public class Order extends BaseModel {
     }
 
     public void addNote(Note note) throws Exception {
-        client.put(client.buildModelUri(new String[] {IrisConstants.ORDERS_URI_PATH, id, "notes"}), note);
+        client.put(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, id, "notes" }), note);
     }
 
     public Notes getNotes() throws Exception {
-        IrisResponse response = client.get(client.buildModelUri(new String[] {IrisConstants.ORDERS_URI_PATH, id, "notes"}));
+        IrisResponse response = client
+                .get(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, id, "notes" }));
         return XmlUtils.fromXml(response.getResponseBody(), Notes.class);
     }
 }

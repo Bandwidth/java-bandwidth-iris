@@ -29,7 +29,6 @@ public class SiteTests extends BaseModelTests {
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.validSiteResponseXml)));
 
-
         Site s = new Site();
         s.setName("A Test Site");
         s.setDescription("A Test Site Description");
@@ -41,12 +40,12 @@ public class SiteTests extends BaseModelTests {
         a.setState("NC");
         a.setCountry("US");
         s.setAddress(a);
-        Site createdSite = Site.create(getDefaultClient(),s);
+        Site createdSite = Site.create(getDefaultClient(), s);
         assertNotNull(createdSite);
         assertEquals("2858", createdSite.getId());
     }
 
-    @Test(expected=IrisClientException.class)
+    @Test(expected = IrisClientException.class)
     public void testInvalidSiteDelete() throws Exception {
         String sitesUrl = "/v1.0/accounts/accountId/sites/2858";
         stubFor(delete(urlMatching(sitesUrl))
@@ -55,9 +54,9 @@ public class SiteTests extends BaseModelTests {
                         .withBody(IrisClientTestUtils.invalidSiteDeleteResponseXml)));
 
         stubFor(get(urlMatching(sitesUrl))
-            .willReturn(aResponse()
-                .withStatus(200)
-                .withBody(IrisClientTestUtils.validSiteResponseXml)));
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody(IrisClientTestUtils.validSiteResponseXml)));
 
         Site s = Site.get(getDefaultClient(), "1234");
         s.delete();

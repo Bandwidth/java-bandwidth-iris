@@ -11,25 +11,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Address")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Address {
-    @XmlElement(name="HouseNumber")
+    @XmlElement(name = "HouseNumber")
     private String houseNumber;
 
-    @XmlElement(name="StreetName")
+    @XmlElement(name = "StreetName")
     private String streetName;
 
-    @XmlElement(name="City")
+    @XmlElement(name = "City")
     private String city;
 
-    @XmlElement(name="StateCode")
+    @XmlElement(name = "StateCode")
     private String state;
 
-    @XmlElement(name="Zip")
+    @XmlElement(name = "Zip")
     private String zip;
 
-    @XmlElement(name="Country")
+    @XmlElement(name = "Country")
     private String country;
 
-    @XmlElement(name="AddressType")
+    @XmlElement(name = "AddressType")
     private String addressType;
 
     public String getHouseNumber() {

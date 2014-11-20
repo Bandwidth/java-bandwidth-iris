@@ -4,10 +4,8 @@ import com.bandwidth.iris.sdk.model.*;
 import org.junit.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
-
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by sbarstow on 11/11/14.
@@ -31,7 +29,8 @@ public class OrderTests extends BaseModelTests {
 
         OrderResponse createdOrder = Order.create(getDefaultClient(), o);
         assertEquals(createdOrder.getOrder().getid(), "someid");
-        assertEquals(createdOrder.getOrder().getExistingTelephoneNumberOrderType().getTelephoneNumberList().get(0), "2052865046");
+        assertEquals(createdOrder.getOrder().getExistingTelephoneNumberOrderType().getTelephoneNumberList().get(0),
+                "2052865046");
         assertEquals(createdOrder.getOrder().getName(), "A New Order");
 
     }
@@ -40,13 +39,14 @@ public class OrderTests extends BaseModelTests {
     public void testGet() throws Exception {
         String url = "/v1.0/accounts/accountId/orders/someid";
         stubFor(get(urlMatching(url))
-            .willReturn(aResponse()
-            .withStatus(200)
-            .withBody(IrisClientTestUtils.validOrderResponseXml)));
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody(IrisClientTestUtils.validOrderResponseXml)));
 
         OrderResponse orderResponse = Order.get(getDefaultClient(), "someid");
         assertEquals(orderResponse.getOrder().getid(), "someid");
-        assertEquals(orderResponse.getOrder().getExistingTelephoneNumberOrderType().getTelephoneNumberList().get(0), "2052865046");
+        assertEquals(orderResponse.getOrder().getExistingTelephoneNumberOrderType().getTelephoneNumberList().get(0),
+                "2052865046");
         assertEquals(orderResponse.getOrder().getName(), "A New Order");
 
     }
@@ -92,9 +92,6 @@ public class OrderTests extends BaseModelTests {
         assertNotNull(notes);
         assertEquals(1, notes.getNotes().size());
         assertEquals("Adding a note", notes.getNotes().get(0).getDescription());
-
-
-
 
     }
 

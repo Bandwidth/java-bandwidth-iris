@@ -6,11 +6,11 @@ import java.util.List;
 
 /**
  * The root entity returned by IRIS for a local or toll-free number search.
- * <p>
+ * <p/>
  * If number details were desired (only works for local queries),
  * {@link #telephoneNumberDetailList} will be populated and
  * {@link #telephoneNumberList} will be empty.
- * <p>
+ * <p/>
  * If details were not desired, the plain list of numbers can be found in
  * {@link #telephoneNumberList} and {@link #telephoneNumberDetailList} will be
  * empty.

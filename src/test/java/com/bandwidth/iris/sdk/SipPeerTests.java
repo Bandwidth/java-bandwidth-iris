@@ -33,20 +33,20 @@ public class SipPeerTests extends BaseModelTests {
     }
 
     @Test
-    public void testGet() throws Exception{
+    public void testGet() throws Exception {
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(url))
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
 
-        SipPeer result = SipPeer.get(getDefaultClient(),"1234","5678");
+        SipPeer result = SipPeer.get(getDefaultClient(), "1234", "5678");
         assertNotNull(result != null);
         assertEquals("5678", result.getPeerId());
         assertEquals("SIP Peer 1", result.getPeerName());
 
     }
 
-    @Test(expected=IrisClientException.class)
+    @Test(expected = IrisClientException.class)
     public void testGetWithInvalidId() throws Exception {
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5555";
         stubFor(get(urlMatching(url))
@@ -71,12 +71,11 @@ public class SipPeerTests extends BaseModelTests {
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
 
-
         SipPeer sipPeer = new SipPeer();
         sipPeer.setPeerName("A Test Peer");
         sipPeer.setDescription("Description");
 
-        SipPeer createdPeer  = SipPeer.create(getDefaultClient(), "1234", sipPeer);
+        SipPeer createdPeer = SipPeer.create(getDefaultClient(), "1234", sipPeer);
         assertEquals("5678", createdPeer.getPeerId());
         assertEquals("1234", createdPeer.getSiteId());
     }
@@ -99,7 +98,7 @@ public class SipPeerTests extends BaseModelTests {
 
     @Test
     public void testGetTn() throws Exception {
-        String sipPeerUrl =  "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
+        String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
@@ -109,16 +108,15 @@ public class SipPeerTests extends BaseModelTests {
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.validSipPeerTnResponseXml)));
 
-
         SipPeer peer = SipPeer.get(getDefaultClient(), "1234", "5678");
         SipPeerTelephoneNumber number = peer.getTn("9195551212");
         assertNotNull(number);
         assertEquals(number.getFullNumber(), "9195551212");
     }
 
-    @Test(expected=IrisClientException.class)
+    @Test(expected = IrisClientException.class)
     public void testGetInvalidTn() throws Exception {
-        String sipPeerUrl =  "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
+        String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
@@ -128,18 +126,18 @@ public class SipPeerTests extends BaseModelTests {
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.invalidSipPeerTnResponseXml)));
 
-
         SipPeer peer = SipPeer.get(getDefaultClient(), "1234", "5678");
         SipPeerTelephoneNumber number = peer.getTn("9195551213");
         assertNull(number);
         expectedEx.expect(IrisClientException.class);
-        expectedEx.expectMessage("Telephone number 9195551213 does not exist on Account accountId, Site 1234, and Sip Peer 5678");
+        expectedEx
+                .expectMessage("Telephone number 9195551213 does not exist on Account accountId, Site 1234, and Sip Peer 5678");
 
     }
 
     @Test
     public void testUpdateTn() throws Exception {
-        String sipPeerUrl =  "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
+        String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
@@ -158,7 +156,7 @@ public class SipPeerTests extends BaseModelTests {
 
     @Test
     public void testMoveTns() throws Exception {
-        String sipPeerUrl =  "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
+        String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
@@ -193,8 +191,6 @@ public class SipPeerTests extends BaseModelTests {
         assertNotNull(numbers);
         assertEquals(2, numbers.size());
         assertEquals("9195551212", numbers.get(0).getFullNumber());
-
-
 
     }
 }

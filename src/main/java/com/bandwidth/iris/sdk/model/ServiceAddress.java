@@ -8,43 +8,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by sbarstow on 11/17/14.
  */
-@XmlRootElement(name="ServiceAddress")
+@XmlRootElement(name = "ServiceAddress")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ServiceAddress {
-    @XmlElement(name="HouseNumber")
+    @XmlElement(name = "HouseNumber")
     private String houseNumber;
 
-    @XmlElement(name="HousePrefix")
+    @XmlElement(name = "HousePrefix")
     private String housePrefix;
 
-    @XmlElement(name="HouseSuffix")
+    @XmlElement(name = "HouseSuffix")
     private String houseSuffix;
 
-    @XmlElement(name="PreDirectional")
+    @XmlElement(name = "PreDirectional")
     private String preDirectional;
 
-    @XmlElement(name="StreetName")
+    @XmlElement(name = "StreetName")
     private String streetName;
 
-    @XmlElement(name="StreetSuffix")
+    @XmlElement(name = "StreetSuffix")
     private String streetSuffix;
 
-    @XmlElement(name="PostDirectional")
+    @XmlElement(name = "PostDirectional")
     private String postDirectional;
 
-    @XmlElement(name="AddressLine2")
+    @XmlElement(name = "AddressLine2")
     private String addressLine2;
 
-    @XmlElement(name="City")
+    @XmlElement(name = "City")
     private String city;
 
-    @XmlElement(name="StateCode")
+    @XmlElement(name = "StateCode")
     private String stateCode;
 
-    @XmlElement(name="Zip")
+    @XmlElement(name = "Zip")
     private String zip;
 
-    @XmlElement(name="Country")
+    @XmlElement(name = "Country")
     private String country = "USA";
 
     public String getHouseNumber() {

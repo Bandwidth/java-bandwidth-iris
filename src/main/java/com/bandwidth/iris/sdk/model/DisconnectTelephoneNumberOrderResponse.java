@@ -7,17 +7,17 @@ import java.util.List;
 /**
  * Created by sbarstow on 10/17/14.
  */
-@XmlRootElement(name="DisconnectTelephoneNumberOrderResponse")
+@XmlRootElement(name = "DisconnectTelephoneNumberOrderResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DisconnectTelephoneNumberOrderResponse extends BaseResponse {
-    @XmlElement(name="orderRequest")
+    @XmlElement(name = "orderRequest")
     private OrderRequest orderRequest;
 
-    @XmlElementWrapper(name="ErrorList")
-    @XmlElement(name="Error")
+    @XmlElementWrapper(name = "ErrorList")
+    @XmlElement(name = "Error")
     private List<Error> errorList = new ArrayList<Error>();
 
-    @XmlElement(name="OrderStatus")
+    @XmlElement(name = "OrderStatus")
     private String orderStatus;
 
     public OrderRequest getorderRequest() {

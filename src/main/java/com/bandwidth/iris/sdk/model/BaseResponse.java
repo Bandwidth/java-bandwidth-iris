@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseResponse {
 
-    @XmlElement(name="ResponseStatus")
+    @XmlElement(name = "ResponseStatus")
     private ResponseStatus responseStatus;
 
     public ResponseStatus getResponseStatus() {
@@ -21,7 +21,7 @@ public abstract class BaseResponse {
         this.responseStatus = responseStatus;
     }
 
-    protected boolean hasErrors(){
+    protected boolean hasErrors() {
         return responseStatus != null;
     }
 }

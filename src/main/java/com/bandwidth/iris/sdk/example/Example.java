@@ -30,12 +30,14 @@ public class Example {
         printReservations();
 
     }
+
     private static void printSites() throws Exception {
         printMessage("Starting print sites");
 
         List<Site> sites = Site.list(getClient());
-        for(Site s: sites){
-            System.out.println(String.format("Site Id: %s | Site Name: %s | Description: %s", s.getId(), s.getName(), s.getDescription()));
+        for (Site s : sites) {
+            System.out.println(
+                    String.format("Site Id: %s | Site Name: %s | Description: %s", s.getId(), s.getName(), s.getDescription()));
         }
 
         Site s = new Site();
@@ -51,13 +53,14 @@ public class Example {
 
         List<TelephoneNumberDetail> numbers = (List<TelephoneNumberDetail>) AvailableNumbers.search(
                 getClient(), query);
-        for(TelephoneNumberDetail number : numbers){
-            System.out.println(String.format("Full number: %s : Rate Center: %s", number.getFullNumber(), number.getRateCenter()));
+        for (TelephoneNumberDetail number : numbers) {
+            System.out.println(
+                    String.format("Full number: %s : Rate Center: %s", number.getFullNumber(), number.getRateCenter()));
         }
         printMessage("Ending print search results");
     }
 
-    private static void printReservations()  {
+    private static void printReservations() {
         printMessage("Starting print reservations");
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("areaCode", "205");
@@ -73,24 +76,23 @@ public class Example {
             reservation = Reservation.create(getClient(), reservation);
             System.out.println(String.format("Reservation Id: %s : Reserved For: %s", reservation.getReservationId(),
                     reservation.getReservationExpires()));
-        }catch(Exception e){
+        } catch (Exception e) {
         }
 
         printMessage("Ending print reservations");
 
     }
 
-    private static IrisClient getClient(){
+    private static IrisClient getClient() {
         Map<String, String> env = System.getenv();
         String accountId = env.get("BANDWIDTH_IRIS_ACCOUNTID");
         String username = env.get("BANDWIDTH_IRIS_USERNAME");
         String password = env.get("BANDWIDTH_IRIS_PASSWORD");
 
-        return new IrisClient(accountId,username, password);
+        return new IrisClient(accountId, username, password);
     }
 
-
-    private static void printMessage(String message){
+    private static void printMessage(String message) {
         System.out.println("********** " + message + "**********");
     }
 }

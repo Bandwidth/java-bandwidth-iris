@@ -12,7 +12,6 @@ public class SitesResponse extends BaseResponse {
     @XmlElement(name = "Site")
     private List<Site> sites = new ArrayList<Site>();
 
-
     public List<Site> getSites() {
         return sites;
     }

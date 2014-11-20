@@ -13,15 +13,13 @@ public enum LoaFileType {
     WAV("audio/x-wav"),
     ZIP("application/zip");
 
-
-
     private final String val;
 
-    private LoaFileType(String val){
+    private LoaFileType(String val) {
         this.val = val;
     }
 
-    public String toString(){
+    public String toString() {
         return val;
     }
 }
