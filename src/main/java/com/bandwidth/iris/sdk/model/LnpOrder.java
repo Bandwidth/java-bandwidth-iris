@@ -45,15 +45,15 @@ public class LnpOrder extends BaseModel {
     private String wirelessInfo;
 
     public static LnpOrderResponse create(IrisClient client, LnpOrder order) throws Exception {
-        IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH }), order);
-        LnpOrderResponse lnpOrderResponse = XmlUtils.fromXml(response.getResponseBody(), LnpOrderResponse.class);
+        LnpOrderResponse lnpOrderResponse = client.post(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH }),
+                order, LnpOrderResponse.class);
         lnpOrderResponse.setClient(client);
         return lnpOrderResponse;
     }
 
     public static LnpOrderResponse get(IrisClient client, String orderId) throws Exception {
-        IrisResponse irisResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId }));
-        LnpOrderResponse lnpOrderResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), LnpOrderResponse.class);
+        LnpOrderResponse lnpOrderResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH,
+                orderId }), LnpOrderResponse.class);
         lnpOrderResponse.setClient(client);
         return lnpOrderResponse;
     }
@@ -169,9 +169,8 @@ public class LnpOrder extends BaseModel {
     }
 
     public FileMetaData getLoaMetaData(String fileName) throws Exception {
-        IrisResponse irisResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId,
-                "loas", fileName, "metadata" }));
-        return XmlUtils.fromXml(irisResponse.getResponseBody(), FileMetaData.class);
+        return client.get(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId,
+                "loas", fileName, "metadata" }), FileMetaData.class);
     }
 
     public void updateLoaMetaData(String fileName, FileMetaData metaData) throws Exception {
@@ -185,10 +184,8 @@ public class LnpOrder extends BaseModel {
     }
 
     public LnpOrderResponse update(LnpOrderSupp orderSupp) throws Exception {
-        IrisResponse irisResponse = client.put(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId }),
-                orderSupp);
-        LnpOrderResponse lnpOrderResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), LnpOrderResponse.class);
-        return lnpOrderResponse;
+        return client.put(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId }),
+                orderSupp, LnpOrderResponse.class);
     }
 
     public void delete() throws Exception {

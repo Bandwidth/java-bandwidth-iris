@@ -46,13 +46,9 @@ public class Reservation extends BaseModel {
     }
 
     public static Reservation get(IrisClient client, String reservationId) throws Exception {
-        Reservation reservation = null;
-        IrisResponse response = client.get(client.buildUserModelUri(
-                new String[] { IrisConstants.RESERVATIONS_URI_PATH, reservationId }));
-        ReservationResponse reservationResponse = XmlUtils.fromXml(response.getResponseBody(),
-                ReservationResponse.class);
-        client.checkResponse(reservationResponse);
-        reservation = reservationResponse.getReservation();
+        ReservationResponse reservationResponse = client.get(client.buildUserModelUri(
+                new String[] { IrisConstants.RESERVATIONS_URI_PATH, reservationId }), ReservationResponse.class);
+        Reservation reservation = reservationResponse.getReservation();
         reservation.setClient(client);
         return reservation;
     }

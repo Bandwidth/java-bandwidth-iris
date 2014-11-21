@@ -36,20 +36,18 @@ public class Subscription extends BaseModel {
     }
 
     public static Subscription get(IrisClient client, String subscriptionId) throws Exception {
-        IrisResponse irisResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH,
-                subscriptionId }));
-        SubscriptionsResponse subscriptionsResponse = XmlUtils.fromXml(irisResponse.getResponseBody(),
-                SubscriptionsResponse.class);
-        client.checkResponse(subscriptionsResponse);
+        SubscriptionsResponse subscriptionsResponse = client.get(client.buildUserModelUri(
+                new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH,
+                subscriptionId }), SubscriptionsResponse.class);
         Subscription subscription = subscriptionsResponse.getSubscriptions().get(0);
         subscription.setClient(client);
         return subscription;
     }
 
     public static List<Subscription> list(IrisClient client, Map<String, Object> query) throws Exception {
-        IrisResponse irisResponse = client.get(
-                client.buildUserModelUri(new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH }, query));
-        SubscriptionsResponse subscriptions = XmlUtils.fromXml(irisResponse.getResponseBody(), SubscriptionsResponse.class);
+        SubscriptionsResponse subscriptions = client.get(
+                client.buildUserModelUri(new String[] { IrisConstants.SUBSCRIPTIONS_URI_PATH }, query),
+                SubscriptionsResponse.class);
         for (Subscription s : subscriptions.getSubscriptions()) {
             s.setClient(client);
         }

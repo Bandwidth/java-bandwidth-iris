@@ -51,17 +51,15 @@ public class Order extends BaseModel {
     private ZIPSearchAndOrderType zipSearchAndOrderType;
 
     public static OrderResponse create(IrisClient client, Order order) throws Exception {
-        IrisResponse irisResponse = client
-                .post(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH }), order);
-        OrderResponse orderResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), OrderResponse.class);
+        OrderResponse orderResponse = client
+                .post(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH }), order, OrderResponse.class);
         orderResponse.getOrder().setClient(client);
         return orderResponse;
     }
 
     public static OrderResponse get(IrisClient client, String orderId) throws Exception {
-        IrisResponse irisResponse = client
-                .get(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, orderId }));
-        OrderResponse orderResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), OrderResponse.class);
+        OrderResponse orderResponse = client
+                .get(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, orderId }), OrderResponse.class);
         orderResponse.getOrder().setClient(client);
         return orderResponse;
     }
@@ -207,8 +205,6 @@ public class Order extends BaseModel {
     }
 
     public Notes getNotes() throws Exception {
-        IrisResponse response = client
-                .get(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, id, "notes" }));
-        return XmlUtils.fromXml(response.getResponseBody(), Notes.class);
+        return client.get(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, id, "notes" }), Notes.class);
     }
 }

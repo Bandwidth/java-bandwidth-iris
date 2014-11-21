@@ -1,10 +1,7 @@
 package com.bandwidth.iris.sdk.example;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.model.AvailableNumbers;
-import com.bandwidth.iris.sdk.model.Reservation;
-import com.bandwidth.iris.sdk.model.Site;
-import com.bandwidth.iris.sdk.model.TelephoneNumberDetail;
+import com.bandwidth.iris.sdk.model.*;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -25,9 +22,9 @@ public class Example {
         ConsoleAppender a = (ConsoleAppender) Logger.getRootLogger().getAllAppenders().nextElement();
         a.setLayout(new PatternLayout("%d{ABSOLUTE} %5p %c{1}:%L - [%t] %m%n"));
 
-        printSites();
-        printSearchResults();
-        printReservations();
+//        printSites();
+//        printSearchResults();
+//        printReservations();
 
     }
 

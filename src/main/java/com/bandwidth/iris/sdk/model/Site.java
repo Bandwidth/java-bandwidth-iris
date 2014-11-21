@@ -29,9 +29,8 @@ public class Site extends BaseModel {
     private Address address;
 
     public static Site get(IrisClient client, String siteId) throws Exception {
-        IrisResponse response = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId }));
-        SiteResponse siteResponse = XmlUtils.fromXml(response.getResponseBody(), SiteResponse.class);
-        client.checkResponse(siteResponse);
+        SiteResponse siteResponse = client.get(client.buildUserModelUri(
+                new String[] { IrisConstants.SITES_URI_PATH, siteId }), SiteResponse.class);
         Site s = siteResponse.getSite();
         s.setClient(client);
         return s;
@@ -44,11 +43,9 @@ public class Site extends BaseModel {
     }
 
     public static List<Site> list(IrisClient client) throws Exception {
-        List<Site> sites = new ArrayList<Site>();
-        IrisResponse irisResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH }));
-        SitesResponse sitesResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), SitesResponse.class);
+        SitesResponse sitesResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH }), SitesResponse.class);
         client.checkResponse(sitesResponse);
-        sites = sitesResponse.getSites();
+        List<Site> sites = sitesResponse.getSites();
         for (Site s : sites) {
             s.setClient(client);
         }

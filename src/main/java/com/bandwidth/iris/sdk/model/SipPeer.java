@@ -59,6 +59,7 @@ public class SipPeer extends BaseModel {
     }
 
     public static SipPeer create(IrisClient client, String siteId, SipPeer sipPeer) throws Exception {
+
         IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
                 IrisConstants.SIPPEERS_URI_PATH }), sipPeer);
         String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
@@ -66,11 +67,8 @@ public class SipPeer extends BaseModel {
     }
 
     public static SipPeer get(IrisClient client, String siteId, String sipPeerId) throws Exception {
-        IrisResponse response = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH, sipPeerId }));
-        SipPeerResponse sipPeerResponse = XmlUtils.fromXml(response.getResponseBody(),
-                SipPeerResponse.class);
-        client.checkResponse(sipPeerResponse);
+        SipPeerResponse sipPeerResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH,
+                siteId, IrisConstants.SIPPEERS_URI_PATH, sipPeerId }), SipPeerResponse.class);
         SipPeer peer = sipPeerResponse.getSipPeer();
         peer.setSiteId(siteId);
         peer.setClient(client);
@@ -79,10 +77,8 @@ public class SipPeer extends BaseModel {
 
     public static List<SipPeer> list(IrisClient client, String siteId) throws Exception {
         List<SipPeer> sipPeers = new ArrayList<SipPeer>();
-        IrisResponse irisResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH }));
-        TNSipPeersResponse tnSipPeersResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), TNSipPeersResponse.class);
-        client.checkResponse(tnSipPeersResponse);
+        TNSipPeersResponse tnSipPeersResponse = client.get(client.buildUserModelUri(
+                new String[] { IrisConstants.SITES_URI_PATH, siteId,IrisConstants.SIPPEERS_URI_PATH }),TNSipPeersResponse.class);
         sipPeers = tnSipPeersResponse.getSipPeers();
         for (SipPeer peer : sipPeers) {
             peer.setClient(client);
@@ -197,11 +193,8 @@ public class SipPeer extends BaseModel {
     }
 
     public SipPeerTelephoneNumber getTn(String number) throws Exception {
-        IrisResponse response = client.get(buildTnUri(number));
-        SipPeerTelephoneNumberResponse sipPeerTelephoneNumberResponse =
-                XmlUtils.fromXml(response.getResponseBody(), SipPeerTelephoneNumberResponse.class);
-        client.checkResponse(sipPeerTelephoneNumberResponse);
-        return sipPeerTelephoneNumberResponse.getSipPeerTelephoneNumber();
+        return client.get(buildTnUri(number),
+                SipPeerTelephoneNumberResponse.class).getSipPeerTelephoneNumber();
     }
 
     public void moveTns(SipPeerTelephoneNumbers numbers) throws Exception {
@@ -215,11 +208,8 @@ public class SipPeer extends BaseModel {
     }
 
     public List<SipPeerTelephoneNumber> getTns() throws Exception {
-        IrisResponse response = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH, peerId, "tns" }));
-        SipPeerTelephoneNumbersResponse sipPeerTelephoneNumbersResponse = XmlUtils.fromXml(response.getResponseBody(),
-                SipPeerTelephoneNumbersResponse.class);
-        client.checkResponse(sipPeerTelephoneNumbersResponse);
-        return sipPeerTelephoneNumbersResponse.getSipPeerTelephoneNumbers();
+        return client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
+                IrisConstants.SIPPEERS_URI_PATH, peerId, "tns" }),
+                SipPeerTelephoneNumbersResponse.class).getSipPeerTelephoneNumbers();
     }
 }

@@ -60,11 +60,32 @@ public class IrisClient {
         this(defaultUri, accountId, userName, password, defaultVersion);
     }
 
+    private <T> T processResponse(String responseBody, Class<T> returnType) throws Exception {
+        T parsedResponse = XmlUtils.fromXml(responseBody, returnType);
+        if (parsedResponse instanceof BaseResponse){
+            BaseResponse baseResponse = (BaseResponse) parsedResponse;
+            if(baseResponse.getResponseStatus() != null){
+                throw new IrisClientException(baseResponse.getResponseStatus().getErrorCode(),
+                        baseResponse.getResponseStatus().getDescription());
+            }
+        }
+        return parsedResponse;
+    }
+
+    public <T> T get(String uri, Class<T> returnType) throws Exception {
+        IrisResponse response = get(uri);
+        return processResponse(response.getResponseBody(), returnType);
+    }
+
     public IrisResponse get(String uri) throws Exception {
         HttpGet get = new HttpGet(uri);
         return executeRequest(get);
     }
 
+    public <T> T post(String uri, BaseModel data, Class<T> returnType) throws Exception {
+        IrisResponse response = post(uri, data);
+        return processResponse(response.getResponseBody(), returnType);
+    }
     public IrisResponse post(String uri, BaseModel data) throws Exception {
         HttpPost post = new HttpPost(uri);
         StringEntity postBody = new StringEntity(XmlUtils.toXml(data));
@@ -78,6 +99,10 @@ public class IrisClient {
         return executeRequest(delete);
     }
 
+    public <T> T put(String uri, BaseModel data, Class<T> returnType) throws Exception {
+        IrisResponse response = put(uri, data);
+        return processResponse(response.getResponseBody(), returnType);
+    }
     public IrisResponse put(String uri, BaseModel data) throws Exception {
         HttpPut put = new HttpPut(uri);
         return executeRequest(put);

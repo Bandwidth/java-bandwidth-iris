@@ -25,10 +25,8 @@ public class RateCenter {
     private String name;
 
     public static List<RateCenter> list(IrisClient client, Map<String, Object> query) throws Exception {
-        IrisResponse irisResponse = client
-                .get(client.buildModelUri(new String[] { IrisConstants.RATECENTERS_URI_PATH }, query));
-        RateCenterResponse rateCenterResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), RateCenterResponse.class);
-        return rateCenterResponse.getRateCenters();
+        return client.get(client.buildModelUri(
+                new String[] { IrisConstants.RATECENTERS_URI_PATH }, query), RateCenterResponse.class).getRateCenters();
     }
 
     public String getAbbreviation() {

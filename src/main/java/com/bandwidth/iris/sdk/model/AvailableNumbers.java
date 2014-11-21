@@ -18,8 +18,7 @@ public class AvailableNumbers {
         boolean returnDetails = query.get("enableTNDetail") != null ?
                 Boolean.valueOf(query.get("enableTNDetail").toString()) : false;
         String searchUri = client.buildUserModelUri(new String[] { IrisConstants.AVAILABLE_NUMBERS_URI_PATH }, query);
-        IrisResponse response = client.get(searchUri);
-        SearchResult result = XmlUtils.fromXml(response.getResponseBody(), SearchResult.class);
+        SearchResult result = client.get(searchUri, SearchResult.class);
         numbersList = returnDetails ? result.getTelephoneNumberDetailList() :
                 result.getTelephoneNumberList();
         return numbersList;

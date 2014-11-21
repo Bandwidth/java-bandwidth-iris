@@ -25,21 +25,14 @@ public class DisconnectTelephoneNumberOrder extends BaseModel {
     public static DisconnectTelephoneNumberOrderResponse create(IrisClient client,
             DisconnectTelephoneNumberOrder disconnectTelephoneNumberOrder)
             throws Exception {
-        IrisResponse response = client.post(client.buildUserModelUri(
-                new String[] { IrisConstants.DISCONNECTS_URI_PATH }), disconnectTelephoneNumberOrder);
-        DisconnectTelephoneNumberOrderResponse orderResponse = XmlUtils.fromXml(response.getResponseBody(),
+        return client.post(client.buildUserModelUri(
+                new String[] { IrisConstants.DISCONNECTS_URI_PATH }), disconnectTelephoneNumberOrder,
                 DisconnectTelephoneNumberOrderResponse.class);
-        client.checkResponse(orderResponse);
-        return orderResponse;
     }
 
     public static DisconnectTelephoneNumberOrderResponse get(IrisClient client, String orderId) throws Exception {
-        IrisResponse response = client.get(client.buildUserModelUri(
-                new String[] { IrisConstants.DISCONNECTS_URI_PATH, orderId }));
-        DisconnectTelephoneNumberOrderResponse orderResponse = XmlUtils.fromXml(response.getResponseBody(),
-                DisconnectTelephoneNumberOrderResponse.class);
-        client.checkResponse(orderResponse);
-        return orderResponse;
+        return client.get(client.buildUserModelUri(
+                new String[] { IrisConstants.DISCONNECTS_URI_PATH, orderId }), DisconnectTelephoneNumberOrderResponse.class);
     }
 
     public String getName() {

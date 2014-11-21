@@ -25,9 +25,8 @@ public class City {
     private String name;
 
     public static List<City> list(IrisClient client, Map<String, Object> query) throws Exception {
-        IrisResponse irisResponse = client.get(client.buildModelUri(new String[] { IrisConstants.CITIES_URI_PATH }, query));
-        CityResponse cityResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), CityResponse.class);
-        return cityResponse.getCities();
+        return client.get(client.buildModelUri(new String[] {
+                IrisConstants.CITIES_URI_PATH }, query), CityResponse.class).getCities();
     }
 
     public String getRcAbbreviation() {

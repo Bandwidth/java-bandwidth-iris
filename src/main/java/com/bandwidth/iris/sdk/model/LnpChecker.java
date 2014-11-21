@@ -18,11 +18,8 @@ public class LnpChecker {
 
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("fullCheck", fullCheck);
-
-        IrisResponse irisResponse = client.post(client.buildUserModelUri(IrisConstants.LNPCHECKER_URI_PATH, query), request);
-        NumberPortabilityResponse numberPortabilityResponse = (NumberPortabilityResponse) XmlUtils.fromXml(
-                irisResponse.getResponseBody(), NumberPortabilityResponse.class);
-        client.checkResponse(numberPortabilityResponse);
+        NumberPortabilityResponse numberPortabilityResponse = client.post(client.buildUserModelUri(
+                IrisConstants.LNPCHECKER_URI_PATH, query), request, NumberPortabilityResponse.class);
         return numberPortabilityResponse;
     }
 

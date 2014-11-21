@@ -54,8 +54,7 @@ public class Tns {
      * @throws Exception
      */
     public static Site getSite(IrisClient client, String tn) throws Exception {
-        IrisResponse irisResponse = client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "sites" }));
-        return XmlUtils.fromXml(irisResponse.getResponseBody(), Site.class);
+        return client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "sites" }), Site.class);
     }
 
     /**
@@ -66,9 +65,7 @@ public class Tns {
      * @throws Exception
      */
     public static SipPeer getSipPeer(IrisClient client, String tn) throws Exception {
-        IrisResponse irisResponse = client
-                .get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "sippeers" }));
-        return XmlUtils.fromXml(irisResponse.getResponseBody(), SipPeer.class);
+        return client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "sippeers" }), SipPeer.class);
     }
 
     /**
@@ -78,12 +75,8 @@ public class Tns {
      * @throws Exception
      */
     public static TelephoneNumberDetails getRateCenter(IrisClient client, String tn) throws Exception {
-        IrisResponse irisResponse = client
-                .get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "ratecenter" }));
-        TelephoneNumberResponse telephoneNumberResponse = XmlUtils.fromXml(irisResponse.getResponseBody(),
-                TelephoneNumberResponse.class);
-        client.checkResponse(telephoneNumberResponse);
-        return telephoneNumberResponse.getTelephoneNumberDetails();
+        return client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "ratecenter" }),
+                        TelephoneNumberResponse.class).getTelephoneNumberDetails();
     }
 
     /**
@@ -93,11 +86,8 @@ public class Tns {
      * @throws Exception
      */
     public static TelephoneNumberDetails getLata(IrisClient client, String tn) throws Exception {
-        IrisResponse irisResponse = client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "lata" }));
-        TelephoneNumberResponse telephoneNumberResponse = XmlUtils.fromXml(irisResponse.getResponseBody(),
-                TelephoneNumberResponse.class);
-        client.checkResponse(telephoneNumberResponse);
-        return telephoneNumberResponse.getTelephoneNumberDetails();
+        return client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "lata" }),
+                TelephoneNumberResponse.class).getTelephoneNumberDetails();
     }
 
 }
