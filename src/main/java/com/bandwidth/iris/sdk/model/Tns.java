@@ -18,12 +18,9 @@ public class Tns {
      * @throws Exception
      */
     public static TelephoneNumberDetails getTnDetails(IrisClient client, String tn) throws Exception {
-        IrisResponse irisResponse = client
-                .get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "tndetails" }));
-        TelephoneNumberResponse telephoneNumberResponse = XmlUtils.fromXml(irisResponse.getResponseBody(),
-                TelephoneNumberResponse.class);
-        client.checkResponse(telephoneNumberResponse);
-        return telephoneNumberResponse.getTelephoneNumberDetails();
+        return client.get(client.buildModelUri(
+                new String[] { IrisConstants.TNS_URI_PATH, tn, "tndetails" }),
+                TelephoneNumberResponse.class).getTelephoneNumberDetails();
     }
 
     /**
