@@ -14,7 +14,7 @@ import java.util.Map;
 public class LnpChecker {
 
     public static NumberPortabilityResponse checkLnp(IrisClient client,
-            NumberPortabilityRequest request, boolean fullCheck) throws Exception {
+            NumberPortabilityRequest request, String fullCheck) throws Exception {
 
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("fullCheck", fullCheck);

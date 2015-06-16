@@ -23,7 +23,7 @@ public class LnpCheckerTests extends BaseModelTests {
 
         NumberPortabilityRequest request = new NumberPortabilityRequest();
         request.getTnList().add("9195551212");
-        NumberPortabilityResponse response = LnpChecker.checkLnp(getDefaultClient(), request, true);
+        NumberPortabilityResponse response = LnpChecker.checkLnp(getDefaultClient(), request, "true");
 
         assertNotNull(response);
         assertEquals("9195551212", response.getPortableNumbers().get(0));
@@ -40,7 +40,7 @@ public class LnpCheckerTests extends BaseModelTests {
 
         NumberPortabilityRequest request = new NumberPortabilityRequest();
         request.getTnList().add("9195551212");
-        NumberPortabilityResponse response = LnpChecker.checkLnp(getDefaultClient(), request, true);
+        NumberPortabilityResponse response = LnpChecker.checkLnp(getDefaultClient(), request, "true");
 
         assertNotNull(response);
         assertTrue(response.getErrors().size() > 0);

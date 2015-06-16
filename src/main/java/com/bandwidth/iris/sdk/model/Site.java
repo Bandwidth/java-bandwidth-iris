@@ -88,4 +88,6 @@ public class Site extends BaseModel {
         client.delete(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, id }));
     }
 
+    public void update() throws Exception { client.put(client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, id}), this);}
+
 }

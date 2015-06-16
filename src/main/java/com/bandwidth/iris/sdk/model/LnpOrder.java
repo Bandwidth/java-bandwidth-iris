@@ -191,4 +191,9 @@ public class LnpOrder extends BaseModel {
     public void delete() throws Exception {
         client.delete(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId }));
     }
+
+    public ActivationStatusResponse getActivationStatus() throws Exception {
+        return client.get(client.buildUserModelUri(new String[]
+                        {IrisConstants.LNP_URI_PATH, orderId, "activationStatus"}), ActivationStatusResponse.class);
+    }
 }
