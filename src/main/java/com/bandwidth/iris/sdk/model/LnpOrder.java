@@ -196,4 +196,9 @@ public class LnpOrder extends BaseModel {
         return client.get(client.buildUserModelUri(new String[]
                         {IrisConstants.LNP_URI_PATH, orderId, "activationStatus"}), ActivationStatusResponse.class);
     }
+
+    public ActivationStatusResponse setActivationStatus(ActivationStatus status) throws Exception {
+        return client.put(client.buildUserModelUri(new String[]
+                { IrisConstants.LNP_URI_PATH, orderId, "activationStatus"}), status, ActivationStatusResponse.class);
+    }
 }

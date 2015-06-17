@@ -97,6 +97,29 @@ public class LnpOrderTests extends BaseModelTests {
     }
 
     @Test
+    public void testGetActivationStatus() throws Exception {
+        String url = "/v1.0/accounts/accountId/portins/1234/activationStatus";
+        stubFor(get(urlMatching(url)).willReturn(aResponse()
+                .withStatus(200)
+                .withBody(IrisClientTestUtils.validActivationStatusResponseXml)));
+
+        String orderUrl = "/v1.0/accounts/accountId/portins/1234";
+        stubFor(get(urlMatching(orderUrl)).willReturn(aResponse()
+                .withStatus(200)
+                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+
+
+        LnpOrderResponse order = LnpOrder.get(getDefaultClient(), "1234");
+        ActivationStatusResponse response = order.getActivationStatus();
+        assertEquals(response.getActivationStatus().getNotYetActivatedTelephoneNumberList().size(),0);
+        assertEquals(response.getActivationStatus().getActivatedTelephoneNumberList().size(),1);
+        assertEquals(response.getActivationStatus().getActivatedTelephoneNumberList().get(0),"9199918388");
+
+
+
+    }
+
+    @Test
     public void testUploadLoa() throws Exception {
         String url = "/v1.0/accounts/accountId/portins/1234/loas";
         stubFor(post(urlMatching(url)).willReturn(aResponse()

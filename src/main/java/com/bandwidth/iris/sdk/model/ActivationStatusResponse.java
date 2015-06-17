@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "ActivationStatusResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ActivationStatusResponse {
+public class ActivationStatusResponse extends BaseModel {
     @XmlElement(name="ActivationStatus")
     private ActivationStatus activationStatus;
 

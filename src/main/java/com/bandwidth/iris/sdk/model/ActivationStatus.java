@@ -10,15 +10,15 @@ import java.util.List;
  */
 @XmlRootElement(name = "ActivationStatus")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ActivationStatus {
+public class ActivationStatus extends BaseModel {
     @XmlElement(name = "AutoActivationDate")
     private Date autoActivationDate;
 
-    @XmlElementWrapper(name = "ActivatedTelephoneNumberList")
+    @XmlElementWrapper(name = "ActivatedTelephoneNumbersList")
     @XmlElement(name = "TelephoneNumber")
     private List<String> activatedTelephoneNumberList = new ArrayList<String>();
 
-    @XmlElementWrapper(name = "NotYetActivatedTelephoneNumberList")
+    @XmlElementWrapper(name = "NotYetActivatedTelephoneNumbersList")
     @XmlElement(name = "TelephoneNumber")
     private List<String> notYetActivatedTelephoneNumberList = new ArrayList<String>();
 

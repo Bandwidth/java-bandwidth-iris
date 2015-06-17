@@ -20,5 +20,6 @@ public class IrisConstants {
     public static final String LINE_OPTION_ORDER_PATH = "lineOptionOrders";
     public static final String LIDB_ORDER_PATH = "lidbs";
     public static final String DLDA_ORDER_PATH = "dldas";
+    public static final String COVERED_RATE_CENTER_PATH = "coveredRateCenters";
 
 }
