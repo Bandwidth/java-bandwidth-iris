@@ -1,4 +1,4 @@
-package com.bandwidth.iris.sdk.example;
+package com.bandwidth.iris.sdk.examples;
 
 import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.model.*;
