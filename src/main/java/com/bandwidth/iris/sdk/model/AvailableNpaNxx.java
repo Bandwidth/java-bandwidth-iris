@@ -31,10 +31,8 @@ public class AvailableNpaNxx {
     @XmlElement(name = "State")
     private int state;
 
-    public static List<AvailableNpaNxx> list(IrisClient client, String areaCode)
+    public static List<AvailableNpaNxx> list(IrisClient client, Map<String, Object> query)
             throws Exception {
-        Map<String, Object> query = new HashMap<String, Object>();
-        query.put("areaCode", areaCode);
 
         SearchResultForAvailableNpaNxx searchResult = null;
         List<AvailableNpaNxx> availableNpaNxxList = null;

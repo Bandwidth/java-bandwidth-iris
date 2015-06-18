@@ -3,7 +3,9 @@ package com.bandwidth.iris.sdk;
 import com.bandwidth.iris.sdk.model.AvailableNpaNxx;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
@@ -20,7 +22,11 @@ public class AvailableNpaNxxTests extends BaseModelTests {
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.availableNpaNxxSearchResultXml)));
 
-        List<AvailableNpaNxx> result = AvailableNpaNxx.list(getDefaultClient(), "919");
+        Map<String, Object> query = new HashMap<String, Object>();
+        query.put("areaCode", "919");
+
+
+        List<AvailableNpaNxx> result = AvailableNpaNxx.list(getDefaultClient(), query);
         assertNotNull(result);
         assertEquals(2, result.size());
         assertEquals("919", result.get(0).getNpa());

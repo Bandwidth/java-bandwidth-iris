@@ -7,7 +7,7 @@
     <artifactId>bandwidth-java-iris-sdk</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>bandwidth-java-sdk</name>
+    <name>bandwidth-java-iris-sdk</name>
     <description>Java SDK for use with the IRIS API.</description>
     <url>http://bandwidth.com</url>
 

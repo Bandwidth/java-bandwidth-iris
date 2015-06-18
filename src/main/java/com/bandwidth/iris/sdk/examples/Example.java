@@ -22,26 +22,35 @@ public class Example {
         ConsoleAppender a = (ConsoleAppender) Logger.getRootLogger().getAllAppenders().nextElement();
         a.setLayout(new PatternLayout("%d{ABSOLUTE} %5p %c{1}:%L - [%t] %m%n"));
 
-//        printSites();
-//        printSearchResults();
+        try {
+            printAvailableNpaNxx();
+            printAvailableNumbers();
+            printCities();
+            printSites();
+        }catch(Exception e){
+            System.out.println("Got error: " + e.getStackTrace());
+        }
 //        printReservations();
 
     }
 
-    private static void printSites() throws Exception {
-        printMessage("Starting print sites");
-
-        List<Site> sites = Site.list(getClient());
-        for (Site s : sites) {
+    private static void printAvailableNpaNxx() throws Exception {
+        printMessage("Starting print search available Npa Nxx");
+        Map<String, Object> query = new HashMap<String, Object>();
+        query.put("areaCode", "805");
+        query.put("quantity", 2);
+        List<AvailableNpaNxx> availableNpaNxxList = AvailableNpaNxx.list(getClient(), query);
+        for(AvailableNpaNxx npaNxx : availableNpaNxxList){
             System.out.println(
-                    String.format("Site Id: %s | Site Name: %s | Description: %s", s.getId(), s.getName(), s.getDescription()));
+              String.format("City: %s | Npa: %s | Nxx: %s | State: %s ", npaNxx.getCity(), npaNxx.getNpa(),
+                      npaNxx.getNxx(), npaNxx.getState())
+            );
         }
+        printMessage("Ending print search available Npa Nxx");
 
-        Site s = new Site();
-        printMessage("Ending print sites");
     }
 
-    private static void printSearchResults() throws Exception {
+    private static void printAvailableNumbers() throws Exception {
         printMessage("Starting print search results");
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("areaCode", "205");
@@ -56,6 +65,34 @@ public class Example {
         }
         printMessage("Ending print search results");
     }
+
+    private static void printCities() throws Exception {
+        printMessage("Starting print cities");
+        Map<String, Object> query = new HashMap<String, Object>();
+        query.put("state", "NC");
+
+        List<City> cities = City.list(getClient(), query);
+        for(City c : cities){
+            System.out.println(String.format("Name: %s | RcAbbreviation: %s", c.getName(), c.getRcAbbreviation()));
+        }
+        printMessage("Ending print cities");
+
+    }
+
+
+    private static void printSites() throws Exception {
+        printMessage("Starting print sites");
+
+        List<Site> sites = Site.list(getClient());
+        for (Site s : sites) {
+            System.out.println(
+                    String.format("Site Id: %s | Site Name: %s | Description: %s", s.getId(), s.getName(), s.getDescription()));
+        }
+
+        Site s = new Site();
+        printMessage("Ending print sites");
+    }
+
 
     private static void printReservations() {
         printMessage("Starting print reservations");
@@ -85,8 +122,9 @@ public class Example {
         String accountId = env.get("BANDWIDTH_IRIS_ACCOUNTID");
         String username = env.get("BANDWIDTH_IRIS_USERNAME");
         String password = env.get("BANDWIDTH_IRIS_PASSWORD");
+        String url = env.get("BANDWIDTH_IRIS_URL");
 
-        return new IrisClient(accountId, username, password);
+        return new IrisClient(url, accountId, username, password, "v1.0");
     }
 
     private static void printMessage(String message) {
