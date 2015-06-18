@@ -64,4 +64,60 @@ public class LidbOrder extends BaseModel{
     public void setLidbTnGroupList(List<LidbTnGroup> lidbTnGroupList) {
         this.lidbTnGroupList = lidbTnGroupList;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getOrderCreatedDate() {
+        return orderCreatedDate;
+    }
+
+    public void setOrderCreatedDate(Date orderCreatedDate) {
+        this.orderCreatedDate = orderCreatedDate;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getProcessingStatus() {
+        return processingStatus;
+    }
+
+    public void setProcessingStatus(String processingStatus) {
+        this.processingStatus = processingStatus;
+    }
+
+    public List<Error> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<Error> errors) {
+        this.errors = errors;
+    }
 }

@@ -1,9 +1,7 @@
 package com.bandwidth.iris.sdk;
 
-import com.bandwidth.iris.sdk.model.LnpOrder;
-import com.bandwidth.iris.sdk.model.LnpOrderResponse;
-import com.bandwidth.iris.sdk.model.ServiceAddress;
-import com.bandwidth.iris.sdk.model.Subscriber;
+import com.bandwidth.iris.sdk.model.*;
+import com.bandwidth.iris.sdk.utils.XmlUtils;
 import org.junit.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -22,29 +20,13 @@ public class LineOptionOrderTests extends BaseModelTests{
                 .withHeader("Content-Type", "application/xml")
                 .withBody(IrisClientTestUtils.validLineOptionOrderResponseXml)));
 
-        LnpOrder lnpOrder = new LnpOrder();
-        lnpOrder.setBillingTelephoneNumber("9195551212");
-        Subscriber subscriber = new Subscriber();
-        subscriber.setBusinessName("TestCo");
-        subscriber.setSubscriberType("BUSINESS");
+        LineOptionOrder order = XmlUtils.fromXml(IrisClientTestUtils.validLineOptionOrderRequestXml, LineOptionOrder.class);
 
-        ServiceAddress serviceAddress = new ServiceAddress();
-        serviceAddress.setHouseNumber("1623");
-        serviceAddress.setStreetName("Brockton Ave #1");
-        serviceAddress.setCity("Los Angeles");
-        serviceAddress.setZip("90025");
-        serviceAddress.setCountry("USA");
-        subscriber.setServiceAddress(serviceAddress);
-        lnpOrder.setSubscriber(subscriber);
-        lnpOrder.setLoaAuthorizingPerson("John Doe");
-        lnpOrder.getListOfPhoneNumbers().add("6882015025");
-        lnpOrder.getListOfPhoneNumbers().add("6882015026");
-        lnpOrder.setSiteId("385");
+        LineOptionOrderResponse response = LineOptionOrder.create(getDefaultClient(), order);
+        assert(response != null);
+        assertEquals(response.getLineOptions().getCompletedNumbers().get(0), "2013223685");
+        assertEquals(response.getLineOptions().getErrors().size(), 2);
 
-        LnpOrderResponse response = LnpOrder.create(getDefaultClient(), lnpOrder);
-        assertNotNull(response);
-        assertEquals("1234", response.getOrderId());
-        assertEquals("PENDING_DOCUMENTS", response.getProcessingStatus());
 
     }
 

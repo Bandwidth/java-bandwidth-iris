@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sbarstow on 6/16/15.
@@ -43,7 +44,7 @@ public class DldaOrder extends BaseModel {
 
     @XmlElementWrapper(name="DldaTnGroups")
     @XmlElement(name="DldaTnGroup")
-    private DldaTnGroup dldaTnGroup;
+    private List<DldaTnGroup> dldaTnGroups = new ArrayList<DldaTnGroup>();
 
     public static DldaOrder create(IrisClient client, DldaOrder order) throws Exception {
         IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.DLDA_ORDER_PATH }), order);
@@ -58,6 +59,12 @@ public class DldaOrder extends BaseModel {
         order.setClient(client);
         return order;
     }
+
+    public static ResponseSelectWrapper list(IrisClient client, Map<String,Object> query) throws Exception {
+        ResponseSelectWrapper response = client.get(client.buildUserModelUri(new String[] { IrisConstants.DLDA_ORDER_PATH }, query), ResponseSelectWrapper.class);
+        return response;
+    }
+
 
 
     public String getCustomerOrderId() {
@@ -124,11 +131,11 @@ public class DldaOrder extends BaseModel {
         this.errors = errors;
     }
 
-    public DldaTnGroup getDldaTnGroup() {
-        return dldaTnGroup;
+    public List<DldaTnGroup> getDldaTnGroups() {
+        return dldaTnGroups;
     }
 
-    public void setDldaTnGroup(DldaTnGroup dldaTnGroup) {
-        this.dldaTnGroup = dldaTnGroup;
+    public void setDldaTnGroups(List<DldaTnGroup> dldaTnGroups) {
+        this.dldaTnGroups = dldaTnGroups;
     }
 }

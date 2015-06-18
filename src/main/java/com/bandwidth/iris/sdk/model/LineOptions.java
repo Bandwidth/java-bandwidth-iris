@@ -12,18 +12,18 @@ import java.util.List;
 public class LineOptions {
     @XmlElementWrapper(name="CompletedNumbers")
     @XmlElement(name="TelephoneNumber")
-    private List<String> telephoneNumbers = new ArrayList<String>();
+    private List<String> completedNumbers = new ArrayList<String>();
 
     @XmlElementWrapper(name="Errors")
     @XmlElement(name="Error")
     private List<Error> errors = new ArrayList<Error>();
 
-    public List<String> getTelephoneNumbers() {
-        return telephoneNumbers;
+    public List<String> getCompletedNumbers() {
+        return completedNumbers;
     }
 
-    public void setTelephoneNumbers(List<String> telephoneNumbers) {
-        this.telephoneNumbers = telephoneNumbers;
+    public void setCompletedNumbers(List<String> telephoneNumbers) {
+        this.completedNumbers = telephoneNumbers;
     }
 
     public List<Error> getErrors() {
