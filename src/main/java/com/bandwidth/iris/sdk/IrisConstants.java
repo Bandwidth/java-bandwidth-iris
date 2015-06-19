@@ -22,5 +22,7 @@ public class IrisConstants {
     public static final String DLDA_ORDER_URI_PATH = "dldas";
     public static final String COVERED_RATE_CENTER_URI_PATH = "coveredRateCenters";
     public static final String INSERVICE_NUMBERS_URI_PATH = "inserviceNumbers";
+    public static final String PORTOUT_URI_PATH = "portouts";
+    public static final String BDR_URI_PATH = "bdrs";
 
 }

@@ -45,6 +45,7 @@ public class Example {
 
     }
 
+
     private static void printAvailableNpaNxx() throws Exception {
         printMessage("Starting print search available Npa Nxx");
         Map<String, Object> query = new HashMap<String, Object>();
