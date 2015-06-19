@@ -1,6 +1,8 @@
-package com.bandwidth.iris.sdk;
+package com.bandwidth.iris.sdk.model;
 
-import com.bandwidth.iris.sdk.model.Links;
+/**
+ * Created by sbarstow on 6/19/15.
+ */
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
  */
 @XmlRootElement(name="TNs")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TNs {
+public class TNss {
     @XmlElement(name="TotalCount")
     private int totalCount;
 

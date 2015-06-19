@@ -1,6 +1,8 @@
 package com.bandwidth.iris.sdk;
 
 import com.bandwidth.iris.sdk.model.InserviceNumber;
+import com.bandwidth.iris.sdk.model.TNss;
+import com.bandwidth.iris.sdk.model.ZIPSearchAndOrderType;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -23,7 +25,7 @@ public class InserviceNumbersTests extends BaseModelTests {
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("state", "NC");
 
-        TNs tns = InserviceNumber.list(getDefaultClient(), query);
+        TNss tns = InserviceNumber.list(getDefaultClient(), query);
         assertEquals(tns.getTelephoneNumbers().size(), 1);
 
     }
