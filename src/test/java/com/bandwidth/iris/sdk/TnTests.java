@@ -1,9 +1,6 @@
 package com.bandwidth.iris.sdk;
 
-import com.bandwidth.iris.sdk.model.SipPeer;
-import com.bandwidth.iris.sdk.model.Site;
-import com.bandwidth.iris.sdk.model.TelephoneNumberDetails;
-import com.bandwidth.iris.sdk.model.Tns;
+import com.bandwidth.iris.sdk.model.*;
 import org.junit.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -25,6 +22,18 @@ public class TnTests extends BaseModelTests {
         TelephoneNumberDetails details = Tns.getTnDetails(getDefaultClient(), "9195551212");
         assertNotNull(details);
         assertEquals("9195551212", details.getFullNumber());
+    }
+
+    @Test
+    public void testList() throws Exception {
+        String url = "/v1.0/tns";
+        stubFor(get(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.validTnListResponseXml)));
+
+        TelephoneNumbersResponse response = Tns.list(getDefaultClient(), null);
+        assertNotNull(response);
+
     }
 
     @Test

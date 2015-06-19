@@ -109,125 +109,122 @@ for(City c : cities){
 
 ## Covered Rate Centers
 ```Java
+Map<String, Object> query = new HashMap<String, Object>();
+query.put("state", "NC");
 
+List<CoveredRateCenter> rateCenters = CoveredRateCenter.list(getClient(), query);
+for(CoveredRateCenter rc : rateCenters){
+    System.out.println(String.format("Name: %s | Abbreviation: %s | State: %s | Lata: %s", rc.getName(),
+            rc.getAbbreviation(), rc.getState(), rc.getLata()));
+}
 ```
 
-## Disconnected Numbers
-Retrieves a list of disconnected numbers for an account
-```Java
-
-```
 
 ## Disconnect Numbers 
 The Disconnect object is used to disconnect numbers from an account.  Creates a disconnect order that can be tracked
 
 ### Create Disconnect
-```Javascript
+```Java
+DisconnectTelephoneNumberOrder disco = new DisconnectTelephoneNumberOrder();
+disco.setName("A test order");
+disco.getDisconnectTelephoneNumberOrderType().getTelephoneNumberList().add("9195551212");
+
+DisconnectTelephoneNumberOrderResponse response = DisconnectTelephoneNumberOrder.create(getClient(), disco);
 ```
 
 ### Get Disconnect
-```Javascript
+```Java
+DisconnectTelephoneNumberOrderResponse response = DisconnectTelephoneNumberOrder.get(getClient(), "orderId");
 ```
 
-### Add Note to Disconnect
-```Javascript
-```
-
-### Get Notes for Disconnect
-```Javascript
-```
 
 ## Dlda
 
 ### Create Ddla
-```Javascript
+```Java
+DldaTnGroup dldaTnGroup = new DldaTnGroup();
+dldaTnGroup.getTelephoneNumberList().add("9195551212");
+dldaTnGroup.setAccountType("RESIDENTIAL");
+dldaTnGroup.setListingType("LISTED");
+DldaOrder order = new DldaOrder();
+order.getDldaTnGroups().add(dldaTnGroup);
+
+DldaOrder newOrder = DldaOrder.create(getClient(), order);
+
 ```
 
 ### Get Dlda
-```Javascript
-```
-
-### Get Dlda History
-```Javascript
+```Java
+DldaOrder order = DldaOrder.get(getClient(), "orderId");
 ```
 
 ### List Dldas
-```Javascript
+```Java
+Map<String, Object> query = new HashMap<String, Object>();
+query.put("telephoneNumber", "9195551212");
+
+ResponseSelectWrapper wrapper = DldaOrder.list(getClient(), query);
 ```
-
-## Import To Account
-This path is generally not available to Bandwidth accounts, and as such is not documented in this API
-
 ## In Service Numbers
 
 ### List InService Numbers
-```Javascript
-```
+```Java
+Map<String, Object> query = new HashMap<String, Object>();
+query.put("state", "NC");
 
-### Get InService Number Detail
-```Javascript
+TNs tns = InserviceNumber.list(getDefaultClient(), query);
 ```
 
 ## Lidb
 
 ### Create
-```Javascript
+```Java
+LidbTnGroup group = new LidbTnGroup();
+group.getTelephoneNumberList().add("9195551212");
+LidbOrder order = new LidbOrder();
+order.getLidbTnGroupList().add(group);
+order = LidbOrder.create(getClient(), order);
 ```
 ### Get Lidb
-```Javascript
-```
-### List Lidbs
-```Javascript
+```Java
+LidbOrder order = LidbOrder.get(getClient(), "orderId");
 ```
 
 ## LNP Checker
 ### Check LNP
-```Javascript
-```
-
-## LSR Orders
-### Create LSR Order
-```Javascript
-```
-### Get LSR Order
-```Javascript
-```
-### List LSR Orders
-```Javascript
-```
-### Update LSR Order
-```Javascript
-```
-### Get LSR Order History
-```Javascript
-```
-### Get LSR Order Notes
-```Javascript
-```
-### Add LSR Order Note
-```Javascript
+```Java
+NumberPortabilityRequest request = new NumberPortabilityRequest();
+request.getTnList().add("9195551212");
+NumberPortabilityResponse response = LnpChecker.checkLnp(getClient(), request, "true");
+System.out.println(response.getPortableNumbers().get(0));
 ```
 
 ## Orders
 ### Create Order
-```Javascript
+```Java
+Order o = new Order();
+o.setName("A New Order");
+ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType = new ExistingTelephoneNumberOrderType();
+existingTelephoneNumberOrderType.getTelephoneNumberList().add("2052865046");
+o.setExistingTelephoneNumberOrderType(existingTelephoneNumberOrderType);
+
+OrderResponse createdOrder = Order.create(getClient(), o);
 ```
 ### Get Order
-```Javascript
+```Java
+Order o = Order.get(getClient(), "orderId");
 ```
-### List Orders
-```Javascript
-```
-### List Area Codes for Order
-```Javascript
-```
-### Order Instance Methods 
-```Javascript
+### Order Instance Methods
+```Javas
+order.update();
+order.delete();
+order.getNotes()
+order.addNote(Note n);
 ```
 
 ## Port Ins
 ### Create PortIn
-```Javascript
+```Java
 ```
 ## Get PortIn
 ```Javascript
@@ -259,7 +256,26 @@ This path is generally not available to Bandwidth accounts, and as such is not d
 
 ## SIP Peers
 ### Create SIP Peer
-```Javascript
+```Java
+Host host = new Host();
+host.setHostName("new host");
+
+TerminationHost termHost = new TerminationHost();
+termHost.setHostName("term host");
+termHost.setPort("5060");
+
+SipPeer peer = new SipPeer();
+peer.setPeerName("A new Sip Peer");
+peer.setDefaultPeer(false);
+peer.setShortMessagingProtocol("SMPP");
+peer.setSiteId(getFirstSite().getId());
+
+peer.getVoiceHosts().add(host);
+peer.getSmsHosts().add(host);
+peer.getTerminationHosts().add(termHost);
+
+peer = SipPeer.create(getClient(), getFirstSite().getId(), peer);
+
 ```
 ### Get SIP Peer
 ```Javascript
@@ -272,49 +288,69 @@ This path is generally not available to Bandwidth accounts, and as such is not d
 ```
 ### SipPeer TN Methods
 ```Javascript
-});
 ```
 
 ## Sites
 
 ### Create A Site
 A site is what is called Location in the web UI. 
-```Javascript
+```Java
+Site s = new Site();
+s.setName("My New Site");
+
+s = Site.create(getClient(), s);
 ```
 
 ### Updating a Site
-```Javascript
+```Java
+Site s = Site.get(getClient(), "siteId");
+s.setName("New Name");
+s.update();
 ```
 ### Deleting a Site
-```Javascript
+```Java
+Site s = Site.get(getClient(), "siteId");
+s.delete();
 ```
 ### Listing All Sites
-```Javascript
-```
-### Site Instance Methods
-```Javascript
-```
-### Site SipPeer Methods
-```Javascript
+```Java
+List<Site> sites = Site.list(getClient());
+
 ```
 
 ## Subscriptions
 ### Create Subscription
-```Javascript
+```Java
+Subscription subscription = new Subscription();
+subscription.setOrderType("orders");
+subscription.setOrderId("orderId");
+EmailSubscription emailSubscription = new EmailSubscription();
+emailSubscription.setEmail("test@test.com");
+emailSubscription.setDigestRequested("NONE");
+subscription.setEmailSubscription(emailSubscription);
+Subscription createdSubscription = Subscription.create(getDefaultClient(), subscription);
 ```
 ### Get Subscription
-```Javascript
+```Java
+Subscription s = Subscription.get(getClient(), "subscriptionId");
 ```
 ### List Subscriptions
-```Javascript
+```Java
+Map<String, Object> query = new HashMap<String, Object>();
+query.put("orderType", "orders");
+
+List<Subscription> subscriptions = Subscription.list(getClient(), query);
+
 ```
 ### Subscription Instance Methods
-```Javascript
+```Java
+subscription.update();
+subcription.delete();
 ```
 
 ## TNs
 ### Get TN
-```Javascript
+```Javas
 ```
 ### List TNs
 ```Javascript

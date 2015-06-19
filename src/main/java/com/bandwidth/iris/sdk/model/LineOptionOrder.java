@@ -21,7 +21,7 @@ public class LineOptionOrder extends BaseModel {
 
     public static LineOptionOrderResponse create(IrisClient client, LineOptionOrder order) throws Exception {
         LineOptionOrderResponse orderResponse = client
-                .post(client.buildUserModelUri(new String[] { IrisConstants.LINE_OPTION_ORDER_PATH }), order, LineOptionOrderResponse.class);
+                .post(client.buildUserModelUri(new String[] { IrisConstants.LINE_OPTION_ORDER_URI_PATH }), order, LineOptionOrderResponse.class);
         return orderResponse;
     }
 

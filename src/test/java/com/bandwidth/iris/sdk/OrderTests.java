@@ -1,6 +1,8 @@
 package com.bandwidth.iris.sdk;
 
 import com.bandwidth.iris.sdk.model.*;
+import com.bandwidth.iris.sdk.utils.XmlUtils;
+import junit.framework.Assert;
 import org.junit.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -93,6 +95,12 @@ public class OrderTests extends BaseModelTests {
         assertEquals(1, notes.getNotes().size());
         assertEquals("Adding a note", notes.getNotes().get(0).getDescription());
 
+    }
+
+    @Test
+    public void testParseErrorXml() throws Exception {
+        OrderResponse response = XmlUtils.fromXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><OrderResponse><Order><Name>A New Order</Name><OrderCreateDate>2015-06-19T13:21:56.677Z</OrderCreateDate><BackOrderRequested>false</BackOrderRequested><id>cc5a89ab-19bd-4e62-b8c7-eabe914191e9</id><ExistingTelephoneNumberOrderType><ReservationIdList/><TelephoneNumberList><TelephoneNumber>2052865046</TelephoneNumber></TelephoneNumberList></ExistingTelephoneNumberOrderType><PartialAllowed>false</PartialAllowed><SiteId>2297</SiteId></Order><OrderStatus>RECEIVED</OrderStatus></OrderResponse>", OrderResponse.class);
+        assertEquals("RECEIVED", response.getOrderStatus());
     }
 
 }

@@ -6,6 +6,9 @@ import com.bandwidth.iris.sdk.IrisConstants;
 import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by sbarstow on 11/20/14.
  */
@@ -21,6 +24,11 @@ public class Tns {
         return client.get(client.buildModelUri(
                 new String[] { IrisConstants.TNS_URI_PATH, tn, "tndetails" }),
                 TelephoneNumberResponse.class).getTelephoneNumberDetails();
+    }
+
+    public static TelephoneNumbersResponse list(IrisClient client, Map<String, Object> query) throws Exception {
+        return client.get(client.buildModelUri(
+                new String[] {IrisConstants.TNS_URI_PATH}, query), TelephoneNumbersResponse.class);
     }
 
     /**

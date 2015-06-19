@@ -50,7 +50,7 @@ public class CoveredRateCenter {
 
     public static List<CoveredRateCenter> list(IrisClient client, Map<String, Object> query) throws Exception {
         return client.get(client.buildModelUri(
-                new String[] { IrisConstants.COVERED_RATE_CENTER_PATH }, query), CoveredRateCenters.class).getCoveredRateCenters();
+                new String[] { IrisConstants.COVERED_RATE_CENTER_URI_PATH }, query), CoveredRateCenters.class).getCoveredRateCenters();
     }
 
     public String getName() {

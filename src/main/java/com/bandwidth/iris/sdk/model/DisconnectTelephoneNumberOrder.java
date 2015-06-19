@@ -19,6 +19,10 @@ public class DisconnectTelephoneNumberOrder extends BaseModel {
 
     @XmlElement(name = "Name")
     private String name;
+
+    @XmlElement(name="CustomerOrderId")
+    private String customerOrderid;
+
     @XmlElement(name = "DisconnectTelephoneNumberOrderType")
     private DisconnectTelephoneNumberOrderType disconnectTelephoneNumberOrderType;
 
@@ -41,6 +45,14 @@ public class DisconnectTelephoneNumberOrder extends BaseModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCustomerOrderid() {
+        return customerOrderid;
+    }
+
+    public void setCustomerOrderid(String customerOrderid) {
+        this.customerOrderid = customerOrderid;
     }
 
     public DisconnectTelephoneNumberOrderType getDisconnectTelephoneNumberOrderType() {

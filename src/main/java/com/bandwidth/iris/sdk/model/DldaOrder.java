@@ -47,21 +47,21 @@ public class DldaOrder extends BaseModel {
     private List<DldaTnGroup> dldaTnGroups = new ArrayList<DldaTnGroup>();
 
     public static DldaOrder create(IrisClient client, DldaOrder order) throws Exception {
-        IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.DLDA_ORDER_PATH }), order);
+        IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.DLDA_ORDER_URI_PATH }), order);
         String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
         return get(client, id);
     }
 
     public static DldaOrder get(IrisClient client, String orderId) throws Exception {
         DldaOrderResponse orderResponse = client.get(client.buildUserModelUri(
-                new String[] { IrisConstants.DLDA_ORDER_PATH, orderId }), DldaOrderResponse.class);
+                new String[] { IrisConstants.DLDA_ORDER_URI_PATH, orderId }), DldaOrderResponse.class);
         DldaOrder order = orderResponse.getOrder();
         order.setClient(client);
         return order;
     }
 
     public static ResponseSelectWrapper list(IrisClient client, Map<String,Object> query) throws Exception {
-        ResponseSelectWrapper response = client.get(client.buildUserModelUri(new String[] { IrisConstants.DLDA_ORDER_PATH }, query), ResponseSelectWrapper.class);
+        ResponseSelectWrapper response = client.get(client.buildUserModelUri(new String[] { IrisConstants.DLDA_ORDER_URI_PATH }, query), ResponseSelectWrapper.class);
         return response;
     }
 
