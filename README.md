@@ -1,4 +1,4 @@
-# node-bandwidth-iris
+# java-bandwidth-iris
 
 Java Client library for IRIS / BBS API
 
