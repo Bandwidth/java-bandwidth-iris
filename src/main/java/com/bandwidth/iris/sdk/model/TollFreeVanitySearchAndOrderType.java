@@ -3,9 +3,6 @@ package com.bandwidth.iris.sdk.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * Created by sbarstow on 11/14/14.
- */
 @XmlRootElement(name = "TollFreeVanitySearchAndOrderType")
 public class TollFreeVanitySearchAndOrderType extends BaseOrderType {
     @XmlElement(name = "TollFreeVanity")

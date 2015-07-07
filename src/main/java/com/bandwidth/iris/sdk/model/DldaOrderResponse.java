@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by sbarstow on 6/16/15.
- */
-@XmlRootElement(name="DldaOrderResponse")
+@XmlRootElement(name = "DldaOrderResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DldaOrderResponse extends BaseResponse {
-    @XmlElement(name="DldaOrder")
+    @XmlElement(name = "DldaOrder")
     private DldaOrder order;
 
     public DldaOrder getOrder() {

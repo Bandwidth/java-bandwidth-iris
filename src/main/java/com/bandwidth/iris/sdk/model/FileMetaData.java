@@ -5,9 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * Created by sbarstow on 11/17/14.
- */
 @XmlRootElement(name = "FileMetaData")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class FileMetaData extends BaseModel {

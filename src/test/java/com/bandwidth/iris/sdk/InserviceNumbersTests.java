@@ -11,9 +11,6 @@ import java.util.Map;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by sbarstow on 6/18/15.
- */
 public class InserviceNumbersTests extends BaseModelTests {
     @Test
     public void testList() throws Exception {

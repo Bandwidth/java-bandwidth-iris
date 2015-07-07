@@ -5,13 +5,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * Created by sbarstow on 6/16/15.
- */
-@XmlRootElement(name="LidbOrderResponse")
+@XmlRootElement(name = "LidbOrderResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LidbOrderResponse extends BaseResponse {
-    @XmlElement(name="LidbOrder")
+    @XmlElement(name = "LidbOrder")
     private LidbOrder order;
 
     public LidbOrder getOrder() {

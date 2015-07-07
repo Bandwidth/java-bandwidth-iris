@@ -12,9 +12,6 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 
-/**
- * Created by sbarstow on 10/14/14.
- */
 public class XmlUtils {
 
     private static final Logger LOG = Logger.getLogger(XmlUtils.class);

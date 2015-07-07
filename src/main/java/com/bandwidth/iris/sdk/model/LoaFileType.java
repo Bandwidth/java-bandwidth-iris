@@ -1,8 +1,5 @@
 package com.bandwidth.iris.sdk.model;
 
-/**
- * Created by sbarstow on 11/19/14.
- */
 public enum LoaFileType {
     PDF("application/pdf"),
     PLAIN("text/plain"),

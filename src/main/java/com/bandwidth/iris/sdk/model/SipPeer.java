@@ -1,18 +1,14 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisPath;
 import com.bandwidth.iris.sdk.IrisResponse;
-import com.bandwidth.iris.sdk.utils.XmlUtils;
 
 import javax.xml.bind.annotation.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 10/13/14.
- */
 @XmlRootElement(name = "SipPeer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SipPeer extends BaseModel {
@@ -60,15 +56,15 @@ public class SipPeer extends BaseModel {
 
     public static SipPeer create(IrisClient client, String siteId, SipPeer sipPeer) throws Exception {
 
-        IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH }), sipPeer);
+        IrisResponse response = client.post(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
+                IrisPath.SIPPEERS_URI_PATH }), sipPeer);
         String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
         return get(client, siteId, id);
     }
 
     public static SipPeer get(IrisClient client, String siteId, String sipPeerId) throws Exception {
-        SipPeerResponse sipPeerResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH,
-                siteId, IrisConstants.SIPPEERS_URI_PATH, sipPeerId }), SipPeerResponse.class);
+        SipPeerResponse sipPeerResponse = client.get(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH,
+                siteId, IrisPath.SIPPEERS_URI_PATH, sipPeerId }), SipPeerResponse.class);
         SipPeer peer = sipPeerResponse.getSipPeer();
         peer.setSiteId(siteId);
         peer.setClient(client);
@@ -77,8 +73,8 @@ public class SipPeer extends BaseModel {
 
     public static List<SipPeer> list(IrisClient client, String siteId) throws Exception {
         List<SipPeer> sipPeers = new ArrayList<SipPeer>();
-        TNSipPeersResponse tnSipPeersResponse = client.get(client.buildUserModelUri(
-                new String[] { IrisConstants.SITES_URI_PATH, siteId,IrisConstants.SIPPEERS_URI_PATH }),TNSipPeersResponse.class);
+        TNSipPeersResponse tnSipPeersResponse = client.get(client.buildAccountModelUri(
+                new String[] { IrisPath.SITES_URI_PATH, siteId, IrisPath.SIPPEERS_URI_PATH }), TNSipPeersResponse.class);
         sipPeers = tnSipPeersResponse.getSipPeers();
         for (SipPeer peer : sipPeers) {
             peer.setClient(client);
@@ -184,8 +180,8 @@ public class SipPeer extends BaseModel {
     }
 
     public void delete() throws Exception {
-        client.delete(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH, peerId }));
+        client.delete(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
+                IrisPath.SIPPEERS_URI_PATH, peerId }));
     }
 
     public void updateTn(SipPeerTelephoneNumber number) throws Exception {
@@ -198,18 +194,18 @@ public class SipPeer extends BaseModel {
     }
 
     public void moveTns(SipPeerTelephoneNumbers numbers) throws Exception {
-        IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH, peerId, "movetns" }), numbers);
+        IrisResponse response = client.post(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
+                IrisPath.SIPPEERS_URI_PATH, peerId, "movetns" }), numbers);
     }
 
     private String buildTnUri(String number) throws URISyntaxException {
-        return client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH, peerId, "tns", number });
+        return client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
+                IrisPath.SIPPEERS_URI_PATH, peerId, "tns", number });
     }
 
     public List<SipPeerTelephoneNumber> getTns() throws Exception {
-        return client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, siteId,
-                IrisConstants.SIPPEERS_URI_PATH, peerId, "tns" }),
+        return client.get(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
+                        IrisPath.SIPPEERS_URI_PATH, peerId, "tns" }),
                 SipPeerTelephoneNumbersResponse.class).getSipPeerTelephoneNumbers();
     }
 }

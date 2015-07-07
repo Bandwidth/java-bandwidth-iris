@@ -1,8 +1,5 @@
 package com.bandwidth.iris.sdk;
 
-/**
- * Created by sbarstow on 10/10/14.
- */
 public class IrisClientTestUtils {
     /**
      * Number search Xmls

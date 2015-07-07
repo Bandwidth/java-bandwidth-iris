@@ -1,9 +1,7 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisConstants;
-import com.bandwidth.iris.sdk.IrisResponse;
-import com.bandwidth.iris.sdk.utils.XmlUtils;
+import com.bandwidth.iris.sdk.IrisPath;
 
 import javax.xml.bind.annotation.*;
 import java.io.File;
@@ -11,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by sbarstow on 11/17/14.
- */
 @XmlRootElement(name = "LnpOrder")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LnpOrder extends BaseModel {
@@ -45,14 +40,14 @@ public class LnpOrder extends BaseModel {
     private String wirelessInfo;
 
     public static LnpOrderResponse create(IrisClient client, LnpOrder order) throws Exception {
-        LnpOrderResponse lnpOrderResponse = client.post(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH }),
+        LnpOrderResponse lnpOrderResponse = client.post(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH }),
                 order, LnpOrderResponse.class);
         lnpOrderResponse.setClient(client);
         return lnpOrderResponse;
     }
 
     public static LnpOrderResponse get(IrisClient client, String orderId) throws Exception {
-        LnpOrderResponse lnpOrderResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH,
+        LnpOrderResponse lnpOrderResponse = client.get(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH,
                 orderId }), LnpOrderResponse.class);
         lnpOrderResponse.setClient(client);
         return lnpOrderResponse;
@@ -155,50 +150,50 @@ public class LnpOrder extends BaseModel {
     }
 
     public void uploadLoa(File file, LoaFileType fileType) throws Exception {
-        client.postFile(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId, "loas" }),
+        client.postFile(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH, orderId, "loas" }),
                 file, fileType.toString());
     }
 
     public void updateLoa(File file, LoaFileType fileType) throws Exception {
-        client.putFile(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH,
+        client.putFile(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH,
                 orderId, "loas", file.getName() }), file, fileType.toString());
     }
 
     public void deleteLoa(String fileName) throws Exception {
-        client.delete(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId, "loas", fileName }));
+        client.delete(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH, orderId, "loas", fileName }));
     }
 
     public FileMetaData getLoaMetaData(String fileName) throws Exception {
-        return client.get(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId,
+        return client.get(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH, orderId,
                 "loas", fileName, "metadata" }), FileMetaData.class);
     }
 
     public void updateLoaMetaData(String fileName, FileMetaData metaData) throws Exception {
-        client.put(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId,
+        client.put(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH, orderId,
                 "loas", fileName, "metadata" }), metaData);
     }
 
     public void deleteLoaMetaData(String fileName) throws Exception {
-        client.delete(client.buildUserModelUri(
-                new String[] { IrisConstants.LNP_URI_PATH, orderId, "loas", fileName, "metadata" }));
+        client.delete(client.buildAccountModelUri(
+                new String[] { IrisPath.LNP_URI_PATH, orderId, "loas", fileName, "metadata" }));
     }
 
     public LnpOrderResponse update(LnpOrderSupp orderSupp) throws Exception {
-        return client.put(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId }),
+        return client.put(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH, orderId }),
                 orderSupp, LnpOrderResponse.class);
     }
 
     public void delete() throws Exception {
-        client.delete(client.buildUserModelUri(new String[] { IrisConstants.LNP_URI_PATH, orderId }));
+        client.delete(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH, orderId }));
     }
 
     public ActivationStatusResponse getActivationStatus() throws Exception {
-        return client.get(client.buildUserModelUri(new String[]
-                        {IrisConstants.LNP_URI_PATH, orderId, "activationStatus"}), ActivationStatusResponse.class);
+        return client.get(client.buildAccountModelUri(new String[]
+                { IrisPath.LNP_URI_PATH, orderId, "activationStatus" }), ActivationStatusResponse.class);
     }
 
     public ActivationStatusResponse setActivationStatus(ActivationStatus status) throws Exception {
-        return client.put(client.buildUserModelUri(new String[]
-                { IrisConstants.LNP_URI_PATH, orderId, "activationStatus"}), status, ActivationStatusResponse.class);
+        return client.put(client.buildAccountModelUri(new String[]
+                { IrisPath.LNP_URI_PATH, orderId, "activationStatus" }), status, ActivationStatusResponse.class);
     }
 }

@@ -8,9 +8,6 @@ import org.junit.Test;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.*;
 
-/**
- * Created by sbarstow on 11/17/14.
- */
 public class LnpCheckerTests extends BaseModelTests {
     @Test
     public void testLnpCheckNoErrors() throws Exception {

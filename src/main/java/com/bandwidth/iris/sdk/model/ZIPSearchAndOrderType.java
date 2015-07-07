@@ -4,9 +4,6 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 11/14/14.
- */
 @XmlRootElement(name = "ZIPSearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ZIPSearchAndOrderType extends BaseOrderType {

@@ -8,9 +8,6 @@ import org.junit.Test;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by sbarstow on 11/11/14.
- */
 public class DisconnectOrderTests extends BaseModelTests {
 
     @Test

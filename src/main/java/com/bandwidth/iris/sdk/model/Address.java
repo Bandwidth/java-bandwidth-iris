@@ -5,9 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * Created by sbarstow on 10/9/14.
- */
 @XmlRootElement(name = "Address")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Address {

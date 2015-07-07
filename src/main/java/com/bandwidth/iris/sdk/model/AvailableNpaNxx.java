@@ -1,7 +1,7 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisPath;
 import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
 
@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +36,7 @@ public class AvailableNpaNxx {
         SearchResultForAvailableNpaNxx searchResult = null;
         List<AvailableNpaNxx> availableNpaNxxList = null;
         IrisResponse irisResponse = client
-                .get(client.buildUserModelUri(new String[] { IrisConstants.AVAILABLE_NPANXX_URI_PATH }, query));
+                .get(client.buildAccountModelUri(new String[] { IrisPath.AVAILABLE_NPANXX_URI_PATH }, query));
         searchResult = XmlUtils.fromXml(irisResponse.getResponseBody(),
                 SearchResultForAvailableNpaNxx.class);
         availableNpaNxxList = searchResult.getAvailableNpaNxxList();

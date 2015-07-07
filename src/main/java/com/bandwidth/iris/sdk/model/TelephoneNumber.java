@@ -13,34 +13,29 @@ public class TelephoneNumber {
     @XmlElement(name = "FullNumber")
     protected String fullNumber;
 
-    @XmlElement(name="City")
+    @XmlElement(name = "City")
     protected String city;
 
-    @XmlElement(name="Lata")
+    @XmlElement(name = "Lata")
     protected String lata;
 
-    @XmlElement(name="State")
+    @XmlElement(name = "State")
     protected String state;
-
-    @XmlElement(name="Tier")
-    private String tier;
-
-    @XmlElement(name="VendorId")
-    private String vendorId;
-
-    @XmlElement(name="VendorName")
-    private String vendorName;
-
-    @XmlElement(name="RateCenter")
+    @XmlElement(name = "RateCenter")
     protected String rateCenter;
-
-    @XmlElement(name="Status")
+    @XmlElement(name = "Tier")
+    private String tier;
+    @XmlElement(name = "VendorId")
+    private String vendorId;
+    @XmlElement(name = "VendorName")
+    private String vendorName;
+    @XmlElement(name = "Status")
     private String status;
 
-    @XmlElement(name="AccountId")
+    @XmlElement(name = "AccountId")
     private String accountId;
 
-    @XmlElement(name="LastModifiedDate")
+    @XmlElement(name = "LastModifiedDate")
     private Date lastModifiedDate;
 
     public TelephoneNumber() {

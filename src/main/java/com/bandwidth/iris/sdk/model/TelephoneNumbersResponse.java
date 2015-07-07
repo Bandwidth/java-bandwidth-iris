@@ -4,20 +4,17 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 6/19/15.
- */
-@XmlRootElement(name="TelephoneNumbersResponse")
+@XmlRootElement(name = "TelephoneNumbersResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TelephoneNumbersResponse {
-    @XmlElement(name="TelephoneNumberCount")
+    @XmlElement(name = "TelephoneNumberCount")
     private int telephoneNumberCount;
 
-    @XmlElement(name="Links")
+    @XmlElement(name = "Links")
     private Links links;
 
-    @XmlElementWrapper(name="TelephoneNumbers")
-    @XmlElement(name="TelephoneNumber")
+    @XmlElementWrapper(name = "TelephoneNumbers")
+    @XmlElement(name = "TelephoneNumber")
     private List<TelephoneNumber> telephoneNumbers = new ArrayList<TelephoneNumber>();
 
     public int getTelephoneNumberCount() {

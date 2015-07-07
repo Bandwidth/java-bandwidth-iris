@@ -5,16 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * Created by sbarstow on 6/17/15.
- */
-@XmlRootElement(name="Links")
+@XmlRootElement(name = "Links")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Links {
-    @XmlElement(name="first")
+    @XmlElement(name = "first")
     private String first;
 
-    @XmlElement(name="last")
+    @XmlElement(name = "last")
     private String last;
 
     public String getFirst() {

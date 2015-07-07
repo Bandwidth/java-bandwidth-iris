@@ -7,19 +7,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 6/17/15.
- */
-@XmlRootElement(name="CoveredRateCenters")
+@XmlRootElement(name = "CoveredRateCenters")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CoveredRateCenters {
-    @XmlElement(name="TotalCount")
+    @XmlElement(name = "TotalCount")
     private int totalCount;
 
-    @XmlElement(name="Links")
+    @XmlElement(name = "Links")
     private Links links;
 
-    @XmlElement(name="CoveredRateCenter")
+    @XmlElement(name = "CoveredRateCenter")
     private List<CoveredRateCenter> coveredRateCenters = new ArrayList<CoveredRateCenter>();
 
     public int getTotalCount() {

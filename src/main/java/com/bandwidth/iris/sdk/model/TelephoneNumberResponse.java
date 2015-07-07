@@ -6,9 +6,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
-/**
- * Created by sbarstow on 11/20/14.
- */
 @XmlRootElement(name = "TelephoneNumberResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TelephoneNumberResponse extends BaseResponse {

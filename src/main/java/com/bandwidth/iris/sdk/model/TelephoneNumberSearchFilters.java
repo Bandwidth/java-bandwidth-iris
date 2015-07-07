@@ -1,8 +1,5 @@
 package com.bandwidth.iris.sdk.model;
 
-/**
- * Created by sbarstow on 9/22/14.
- */
 public class TelephoneNumberSearchFilters {
     private String inAreaCode;
     private String filterPattern;

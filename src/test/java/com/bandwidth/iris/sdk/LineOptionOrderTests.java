@@ -8,9 +8,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by sbarstow on 6/17/15.
- */
 public class LineOptionOrderTests extends BaseModelTests{
     @Test
     public void testCreate() throws Exception {

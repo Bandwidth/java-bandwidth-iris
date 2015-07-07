@@ -7,9 +7,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by sbarstow on 11/14/14.
- */
 public class ReservationTests extends BaseModelTests {
     @Test
     public void testGet() throws Exception {

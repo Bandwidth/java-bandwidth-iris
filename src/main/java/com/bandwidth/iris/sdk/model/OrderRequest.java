@@ -6,9 +6,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
-/**
- * Created by sbarstow on 10/17/14.
- */
 @XmlRootElement(name = "orderRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OrderRequest {

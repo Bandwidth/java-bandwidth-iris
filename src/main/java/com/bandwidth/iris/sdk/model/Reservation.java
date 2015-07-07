@@ -1,7 +1,7 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisPath;
 import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
 import org.apache.log4j.Logger;
@@ -14,9 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 11/14/14.
- */
 @XmlRootElement(name = "Reservation")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Reservation extends BaseModel {
@@ -33,7 +30,7 @@ public class Reservation extends BaseModel {
 
     public static Reservation create(IrisClient client, Reservation reservation) throws Exception {
         Reservation result = null;
-        IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.RESERVATIONS_URI_PATH }),
+        IrisResponse response = client.post(client.buildAccountModelUri(new String[] { IrisPath.RESERVATIONS_URI_PATH }),
                 reservation);
         String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
         result = get(client, id);
@@ -46,8 +43,8 @@ public class Reservation extends BaseModel {
     }
 
     public static Reservation get(IrisClient client, String reservationId) throws Exception {
-        ReservationResponse reservationResponse = client.get(client.buildUserModelUri(
-                new String[] { IrisConstants.RESERVATIONS_URI_PATH, reservationId }), ReservationResponse.class);
+        ReservationResponse reservationResponse = client.get(client.buildAccountModelUri(
+                new String[] { IrisPath.RESERVATIONS_URI_PATH, reservationId }), ReservationResponse.class);
         Reservation reservation = reservationResponse.getReservation();
         reservation.setClient(client);
         return reservation;
@@ -86,6 +83,6 @@ public class Reservation extends BaseModel {
     }
 
     public void delete() throws Exception {
-        client.delete(client.buildUserModelUri(new String[] { IrisConstants.RESERVATIONS_URI_PATH, reservationId }));
+        client.delete(client.buildAccountModelUri(new String[] { IrisPath.RESERVATIONS_URI_PATH, reservationId }));
     }
 }

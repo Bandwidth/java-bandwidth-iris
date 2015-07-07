@@ -1,9 +1,7 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisConstants;
-import com.bandwidth.iris.sdk.IrisResponse;
-import com.bandwidth.iris.sdk.utils.XmlUtils;
+import com.bandwidth.iris.sdk.IrisPath;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -52,14 +50,14 @@ public class Order extends BaseModel {
 
     public static OrderResponse create(IrisClient client, Order order) throws Exception {
         OrderResponse orderResponse = client
-                .post(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH }), order, OrderResponse.class);
+                .post(client.buildAccountModelUri(new String[] { IrisPath.ORDERS_URI_PATH }), order, OrderResponse.class);
         orderResponse.getOrder().setClient(client);
         return orderResponse;
     }
 
     public static OrderResponse get(IrisClient client, String orderId) throws Exception {
         OrderResponse orderResponse = client
-                .get(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, orderId }), OrderResponse.class);
+                .get(client.buildAccountModelUri(new String[] { IrisPath.ORDERS_URI_PATH, orderId }), OrderResponse.class);
         orderResponse.getOrder().setClient(client);
         return orderResponse;
     }
@@ -201,10 +199,10 @@ public class Order extends BaseModel {
     }
 
     public void addNote(Note note) throws Exception {
-        client.put(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, id, "notes" }), note);
+        client.put(client.buildAccountModelUri(new String[] { IrisPath.ORDERS_URI_PATH, id, "notes" }), note);
     }
 
     public Notes getNotes() throws Exception {
-        return client.get(client.buildUserModelUri(new String[] { IrisConstants.ORDERS_URI_PATH, id, "notes" }), Notes.class);
+        return client.get(client.buildAccountModelUri(new String[] { IrisPath.ORDERS_URI_PATH, id, "notes" }), Notes.class);
     }
 }

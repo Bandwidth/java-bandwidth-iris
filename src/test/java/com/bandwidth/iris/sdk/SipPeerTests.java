@@ -12,9 +12,6 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by sbarstow on 11/11/14.
- */
 public class SipPeerTests extends BaseModelTests {
 
     @Test

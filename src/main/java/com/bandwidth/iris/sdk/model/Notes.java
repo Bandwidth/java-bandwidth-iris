@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 11/19/14.
- */
 @XmlRootElement(name = "Notes")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Notes {

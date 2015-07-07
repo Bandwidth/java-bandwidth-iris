@@ -5,13 +5,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * Created by sbarstow on 6/16/15.
- */
 @XmlRootElement(name = "ActivationStatusResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ActivationStatusResponse extends BaseModel {
-    @XmlElement(name="ActivationStatus")
+    @XmlElement(name = "ActivationStatus")
     private ActivationStatus activationStatus;
 
     public ActivationStatus getActivationStatus() {

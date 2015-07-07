@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by sbarstow on 6/16/15.
- */
 @XmlRootElement(name = "ActivationStatus")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ActivationStatus extends BaseModel {

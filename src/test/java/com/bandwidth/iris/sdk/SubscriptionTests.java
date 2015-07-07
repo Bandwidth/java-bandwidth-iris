@@ -10,9 +10,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by sbarstow on 11/19/14.
- */
 public class SubscriptionTests extends BaseModelTests {
     @Test
     public void testCreate() throws Exception {

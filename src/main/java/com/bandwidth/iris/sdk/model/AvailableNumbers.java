@@ -1,9 +1,7 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisConstants;
-import com.bandwidth.iris.sdk.IrisResponse;
-import com.bandwidth.iris.sdk.utils.XmlUtils;
+import com.bandwidth.iris.sdk.IrisPath;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +15,7 @@ public class AvailableNumbers {
         List<?> numbersList = new ArrayList<TelephoneNumber>();
         boolean returnDetails = query.get("enableTNDetail") != null ?
                 Boolean.valueOf(query.get("enableTNDetail").toString()) : false;
-        String searchUri = client.buildUserModelUri(new String[] { IrisConstants.AVAILABLE_NUMBERS_URI_PATH }, query);
+        String searchUri = client.buildAccountModelUri(new String[] { IrisPath.AVAILABLE_NUMBERS_URI_PATH }, query);
         SearchResult result = client.get(searchUri, SearchResult.class);
         numbersList = returnDetails ? result.getTelephoneNumberDetailList() :
                 result.getTelephoneNumberList();

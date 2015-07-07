@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 11/13/14.
- */
 @XmlRootElement(name = "SipPeerTelephoneNumbers")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SipPeerTelephoneNumbers extends BaseModel {

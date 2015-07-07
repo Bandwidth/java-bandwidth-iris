@@ -4,9 +4,6 @@ import org.apache.http.HttpStatus;
 
 import java.util.Map;
 
-/**
- * Created by sbarstow on 10/6/14.
- */
 public class IrisResponse {
     private String responseBody;
     private int statusCode;

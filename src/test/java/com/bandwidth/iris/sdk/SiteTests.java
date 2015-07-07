@@ -9,9 +9,6 @@ import java.util.List;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.*;
 
-/**
- * Created by sbarstow on 11/11/14.
- */
 public class SiteTests extends BaseModelTests {
 
     @Test

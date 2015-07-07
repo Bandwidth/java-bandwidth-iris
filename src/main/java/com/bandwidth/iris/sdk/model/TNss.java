@@ -1,27 +1,20 @@
 package com.bandwidth.iris.sdk.model;
 
-/**
- * Created by sbarstow on 6/19/15.
- */
-
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 6/18/15.
- */
-@XmlRootElement(name="TNs")
+@XmlRootElement(name = "TNs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TNss {
-    @XmlElement(name="TotalCount")
+    @XmlElement(name = "TotalCount")
     private int totalCount;
 
-    @XmlElement(name="Links")
+    @XmlElement(name = "Links")
     private Links links;
 
-    @XmlElementWrapper(name="TelephoneNumbers")
-    @XmlElement(name="TelephoneNumber")
+    @XmlElementWrapper(name = "TelephoneNumbers")
+    @XmlElement(name = "TelephoneNumber")
     private List<String> telephoneNumbers = new ArrayList<String>();
 
     public int getTotalCount() {

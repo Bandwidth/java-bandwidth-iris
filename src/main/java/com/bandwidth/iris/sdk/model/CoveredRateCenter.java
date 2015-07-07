@@ -1,56 +1,54 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisPath;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by sbarstow on 6/17/15.
- */
-@XmlRootElement(name="CoveredRateCenter")
+@XmlRootElement(name = "CoveredRateCenter")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CoveredRateCenter {
-    @XmlElement(name="Name")
+    @XmlElement(name = "Name")
     private String name;
 
-    @XmlElement(name="Abbreviation")
+    @XmlElement(name = "Abbreviation")
     private String abbreviation;
 
-    @XmlElement(name="State")
+    @XmlElement(name = "State")
     private String state;
 
-    @XmlElement(name="Lata")
+    @XmlElement(name = "Lata")
     private String lata;
 
-    @XmlElement(name="AvailableNumberCount")
+    @XmlElement(name = "AvailableNumberCount")
     private int availableNumberCount;
 
-    @XmlElementWrapper(name="ZipCodes")
-    @XmlElement(name="ZipCode")
+    @XmlElementWrapper(name = "ZipCodes")
+    @XmlElement(name = "ZipCode")
     private List<String> zipCodes = new ArrayList<String>();
 
-    @XmlElementWrapper(name="Cities")
-    @XmlElement(name="City")
+    @XmlElementWrapper(name = "Cities")
+    @XmlElement(name = "City")
     private List<String> cities = new ArrayList<String>();
 
-    @XmlElementWrapper(name="Tiers")
-    @XmlElement(name="Tier")
+    @XmlElementWrapper(name = "Tiers")
+    @XmlElement(name = "Tier")
     private List<String> tiers = new ArrayList<String>();
 
-    @XmlElementWrapper(name="NpaNxxXs")
-    @XmlElement(name="NpaNxxX")
+    @XmlElementWrapper(name = "NpaNxxXs")
+    @XmlElement(name = "NpaNxxX")
     private List<String> npaNxxXs = new ArrayList<String>();
 
-    @XmlElement(name="Id")
+    @XmlElement(name = "Id")
     private String id;
 
     public static List<CoveredRateCenter> list(IrisClient client, Map<String, Object> query) throws Exception {
         return client.get(client.buildModelUri(
-                new String[] { IrisConstants.COVERED_RATE_CENTER_URI_PATH }, query), CoveredRateCenters.class).getCoveredRateCenters();
+                new String[] { IrisPath.COVERED_RATE_CENTER_URI_PATH }, query), CoveredRateCenters.class)
+                .getCoveredRateCenters();
     }
 
     public String getName() {

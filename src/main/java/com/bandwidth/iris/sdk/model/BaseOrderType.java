@@ -4,9 +4,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-/**
- * Created by sbarstow on 11/14/14.
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseOrderType {
     @XmlElement(name = "Quantity")

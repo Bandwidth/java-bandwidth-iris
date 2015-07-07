@@ -10,9 +10,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
-/**
- * Created by sbarstow on 11/11/14.
- */
 public class BaseModelTests {
 
     @Rule

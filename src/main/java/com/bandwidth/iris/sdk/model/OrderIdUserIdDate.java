@@ -6,37 +6,33 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
-/**
- * Created by sbarstow on 6/18/15.
- */
-@XmlRootElement(name="OrderIdUserIdDate")
+@XmlRootElement(name = "OrderIdUserIdDate")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OrderIdUserIdDate {
 
-    @XmlElement(name="accountId")
+    @XmlElement(name = "accountId")
     private String accountId;
 
-    @XmlElement(name="CountOfTNs")
+    @XmlElement(name = "CountOfTNs")
     private int countOfTns;
 
-    @XmlElement(name="userId")
+    @XmlElement(name = "userId")
     private String userId;
 
-    @XmlElement(name="lastModifiedDate")
+    @XmlElement(name = "lastModifiedDate")
     private Date lastModifiedDte;
 
-    @XmlElement(name="OrderType")
+    @XmlElement(name = "OrderType")
     private String orderType;
 
-    @XmlElement(name="OrderDate")
+    @XmlElement(name = "OrderDate")
     private Date orderDate;
 
-    @XmlElement(name="orderId")
+    @XmlElement(name = "orderId")
     private String orderId;
 
-    @XmlElement(name="OrderStatus")
+    @XmlElement(name = "OrderStatus")
     private String orderStatus;
-
 
     public String getAccountId() {
         return accountId;

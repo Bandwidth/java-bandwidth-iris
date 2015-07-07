@@ -4,9 +4,6 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 11/19/14.
- */
 @XmlRootElement(name = "SubscriptionsResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SubscriptionsResponse extends BaseResponse {

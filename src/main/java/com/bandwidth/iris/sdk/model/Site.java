@@ -1,20 +1,15 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisPath;
 import com.bandwidth.iris.sdk.IrisResponse;
-import com.bandwidth.iris.sdk.utils.XmlUtils;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 10/9/14.
- */
 @XmlRootElement(name = "Site")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Site extends BaseModel {
@@ -29,21 +24,22 @@ public class Site extends BaseModel {
     private Address address;
 
     public static Site get(IrisClient client, String siteId) throws Exception {
-        SiteResponse siteResponse = client.get(client.buildUserModelUri(
-                new String[] { IrisConstants.SITES_URI_PATH, siteId }), SiteResponse.class);
+        SiteResponse siteResponse = client.get(client.buildAccountModelUri(
+                new String[] { IrisPath.SITES_URI_PATH, siteId }), SiteResponse.class);
         Site s = siteResponse.getSite();
         s.setClient(client);
         return s;
     }
 
     public static Site create(IrisClient client, Site site) throws Exception {
-        IrisResponse response = client.post(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH }), site);
+        IrisResponse response = client.post(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH }), site);
         String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
         return get(client, id);
     }
 
     public static List<Site> list(IrisClient client) throws Exception {
-        SitesResponse sitesResponse = client.get(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH }), SitesResponse.class);
+        SitesResponse sitesResponse = client
+                .get(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH }), SitesResponse.class);
         client.checkResponse(sitesResponse);
         List<Site> sites = sitesResponse.getSites();
         for (Site s : sites) {
@@ -85,9 +81,11 @@ public class Site extends BaseModel {
     }
 
     public void delete() throws Exception {
-        client.delete(client.buildUserModelUri(new String[] { IrisConstants.SITES_URI_PATH, id }));
+        client.delete(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, id }));
     }
 
-    public void update() throws Exception { client.put(client.buildModelUri(new String[] {IrisConstants.SITES_URI_PATH, id}), this);}
+    public void update() throws Exception {
+        client.put(client.buildModelUri(new String[] { IrisPath.SITES_URI_PATH, id }), this);
+    }
 
 }

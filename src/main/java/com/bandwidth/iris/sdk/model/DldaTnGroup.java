@@ -4,29 +4,26 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 6/16/15.
- */
-@XmlRootElement(name="DLDATnGroup")
+@XmlRootElement(name = "DLDATnGroup")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DldaTnGroup {
-    @XmlElementWrapper(name="TelephoneNumbers")
+    @XmlElementWrapper(name = "TelephoneNumbers")
     @XmlElement(name = "TelephoneNumber")
     private List<String> telephoneNumberList = new ArrayList<String>();
 
-    @XmlElement(name="AccountType")
+    @XmlElement(name = "AccountType")
     private String accountType;
 
-    @XmlElement(name="ListedType")
+    @XmlElement(name = "ListedType")
     private String listingType;
 
-    @XmlElement(name="ListingName")
+    @XmlElement(name = "ListingName")
     private ListingName listingName;
 
-    @XmlElement(name="ListAddress")
+    @XmlElement(name = "ListAddress")
     private boolean listAddress;
 
-    @XmlElement(name="Address")
+    @XmlElement(name = "Address")
     private Address address;
 
     public List<String> getTelephoneNumberList() {

@@ -4,9 +4,6 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 10/17/14.
- */
 @XmlRootElement(name = "DisconnectTelephoneNumberOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DisconnectTelephoneNumberOrderType {

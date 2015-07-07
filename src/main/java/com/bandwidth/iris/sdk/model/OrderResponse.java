@@ -1,9 +1,5 @@
 package com.bandwidth.iris.sdk.model;
 
-/**
- * Created by sbarstow on 10/14/14.
- */
-
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;

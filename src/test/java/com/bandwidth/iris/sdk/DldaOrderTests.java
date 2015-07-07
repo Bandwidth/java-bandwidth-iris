@@ -9,9 +9,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by sbarstow on 6/18/15.
- */
 public class DldaOrderTests extends BaseModelTests {
     @Test
     public void testCreate() throws Exception {

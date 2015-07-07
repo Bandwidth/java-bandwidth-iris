@@ -23,48 +23,39 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by sbarstow on 9/22/14.
- */
 public class IrisClient {
 
-    private static String defaultUri = "https://api.inetwork.com/v1.0";
-    private static String defaultVersion = "v1.0";
+    private static final String defaultUri = "https://dashboard.bandwidth.com/api";
+    private static final String defaultVersion = "v1.0";
+    private final String baseAccountUrl;
+    private final String baseUrl;
+    private final String uri;
+    private final XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
     protected DefaultHttpClient httpClient;
-    private String baseUserUrl;
-    private String baseUrl;
-    private String accountId;
-    private String uri;
-    private String userName;
-    private String password;
-    private String version;
-    private XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 
     public IrisClient(String uri, String accountId,
             String userName, String password, String version) {
         this.uri = uri;
-        this.accountId = accountId;
-        this.userName = userName;
-        this.password = password;
-        this.version = version;
-
-        httpClient = new DefaultHttpClient();
-        Credentials credentials = new UsernamePasswordCredentials(userName, password);
-        httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, credentials);
         this.baseUrl = "/" + version + "/";
-        this.baseUserUrl = this.baseUrl + "accounts/" + this.accountId + "/";
-
+        this.baseAccountUrl = this.baseUrl + "accounts/" + accountId + "/";
+        initHttpClient(userName, password);
     }
 
     public IrisClient(String accountId, String userName, String password) {
         this(defaultUri, accountId, userName, password, defaultVersion);
     }
 
+    private void initHttpClient(String userName, String password) {
+        httpClient = new DefaultHttpClient();
+        Credentials credentials = new UsernamePasswordCredentials(userName, password);
+        httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, credentials);
+    }
+
     private <T> T processResponse(String responseBody, Class<T> returnType) throws Exception {
         T parsedResponse = XmlUtils.fromXml(responseBody, returnType);
-        if (parsedResponse instanceof BaseResponse){
+        if (parsedResponse instanceof BaseResponse) {
             BaseResponse baseResponse = (BaseResponse) parsedResponse;
-            if(baseResponse.getResponseStatus() != null){
+            if (baseResponse.getResponseStatus() != null) {
                 throw new IrisClientException(baseResponse.getResponseStatus().getErrorCode(),
                         baseResponse.getResponseStatus().getDescription());
             }
@@ -86,6 +77,7 @@ public class IrisClient {
         IrisResponse response = post(uri, data);
         return processResponse(response.getResponseBody(), returnType);
     }
+
     public IrisResponse post(String uri, BaseModel data) throws Exception {
         HttpPost post = new HttpPost(uri);
         StringEntity postBody = new StringEntity(XmlUtils.toXml(data));
@@ -103,6 +95,7 @@ public class IrisClient {
         IrisResponse response = put(uri, data);
         return processResponse(response.getResponseBody(), returnType);
     }
+
     public IrisResponse put(String uri, BaseModel data) throws Exception {
         HttpPut put = new HttpPut(uri);
         return executeRequest(put);
@@ -120,9 +113,9 @@ public class IrisClient {
         executeRequest(put);
     }
 
-    public String buildUserModelUri(String uriSuffix, Map<String, Object> query) throws URISyntaxException {
+    public String buildAccountModelUri(String uriSuffix, Map<String, Object> query) throws URISyntaxException {
         URIBuilder builder = new URIBuilder(this.uri);
-        builder.setPath(baseUserUrl + uriSuffix);
+        builder.setPath(baseAccountUrl + uriSuffix);
         if (query != null) {
             for (String key : query.keySet()) {
                 builder.addParameter(key, query.get(key).toString());
@@ -131,20 +124,20 @@ public class IrisClient {
         return builder.build().toString();
     }
 
-    public String buildUserModelUri(String[] tokens) throws URISyntaxException {
-        return buildUserModelUri(StringUtils.join(tokens, "/"), null);
+    public String buildAccountModelUri(String[] tokens) throws URISyntaxException {
+        return buildAccountModelUri(StringUtils.join(tokens, "/"), null);
     }
 
-    public String buildUserModelUri(String[] tokens, Map<String, Object> query) throws URISyntaxException {
-        return buildUserModelUri(StringUtils.join(tokens, "/"), query);
+    public String buildAccountModelUri(String[] tokens, Map<String, Object> query) throws URISyntaxException {
+        return buildAccountModelUri(StringUtils.join(tokens, "/"), query);
     }
 
     public String buildModelUri(String[] tokens, Map<String, Object> query) throws URISyntaxException {
         URIBuilder builder = new URIBuilder(this.uri);
         builder.setPath(baseUrl + StringUtils.join(tokens, "/"));
         if (query != null) {
-            for (String key : query.keySet()) {
-                builder.addParameter(key, query.get(key).toString());
+            for (Map.Entry<String, Object> parameter : query.entrySet()) {
+                builder.addParameter(parameter.getKey(), parameter.getValue().toString());
             }
         }
         return builder.build().toString();
@@ -155,10 +148,9 @@ public class IrisClient {
     }
 
     protected IrisResponse executeRequest(HttpUriRequest request) throws Exception {
-        HttpResponse response;
         Map<String, String> headers = new HashMap<String, String>();
         IrisResponse irisResponse = new IrisResponse();
-        response = httpClient.execute(request);
+        HttpResponse response = httpClient.execute(request);
         irisResponse.setResponseBody(response.getEntity() != null ? EntityUtils.toString(response.getEntity()) : "");
         irisResponse.setStatusCode(response.getStatusLine().getStatusCode());
         for (Header h : response.getHeaders("Location")) {

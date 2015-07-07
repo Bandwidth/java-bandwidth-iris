@@ -11,13 +11,9 @@ import sun.tools.asm.Cover;
 import java.io.File;
 import java.util.*;
 
-/**
- * Created by sbarstow on 10/8/14.
- */
 public class Example {
     private static Site SITE = null;
     private static SipPeer SIP_PEER = null;
-
 
     public static void main(String[] args) throws Exception {
         org.apache.log4j.BasicConfigurator.configure();
@@ -39,12 +35,11 @@ public class Example {
             printGetTnDetails();
             printGetTns();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Got error: " + e.getMessage());
         }
 
     }
-
 
     private static void printAvailableNpaNxx() throws Exception {
         printMessage("Starting print search available Npa Nxx");
@@ -52,10 +47,10 @@ public class Example {
         query.put("areaCode", "805");
         query.put("quantity", 2);
         List<AvailableNpaNxx> availableNpaNxxList = AvailableNpaNxx.list(getClient(), query);
-        for(AvailableNpaNxx npaNxx : availableNpaNxxList){
+        for (AvailableNpaNxx npaNxx : availableNpaNxxList) {
             System.out.println(
-              String.format("City: %s | Npa: %s | Nxx: %s | State: %s ", npaNxx.getCity(), npaNxx.getNpa(),
-                      npaNxx.getNxx(), npaNxx.getState())
+                    String.format("City: %s | Npa: %s | Nxx: %s | State: %s ", npaNxx.getCity(), npaNxx.getNpa(),
+                            npaNxx.getNxx(), npaNxx.getState())
             );
         }
         printMessage("Ending print search available Npa Nxx");
@@ -84,7 +79,7 @@ public class Example {
         query.put("state", "NC");
 
         List<City> cities = City.list(getClient(), query);
-        for(City c : cities){
+        for (City c : cities) {
             System.out.println(String.format("Name: %s | RcAbbreviation: %s", c.getName(), c.getRcAbbreviation()));
         }
         printMessage("Ending print cities");
@@ -97,13 +92,12 @@ public class Example {
         query.put("state", "NC");
 
         List<CoveredRateCenter> rateCenters = CoveredRateCenter.list(getClient(), query);
-        for(CoveredRateCenter rc : rateCenters){
+        for (CoveredRateCenter rc : rateCenters) {
             System.out.println(String.format("Name: %s | Abbreviation: %s | State: %s | Lata: %s", rc.getName(),
                     rc.getAbbreviation(), rc.getState(), rc.getLata()));
         }
         printMessage("Ending print covered Rate Centers");
     }
-
 
     private static void printCreateSite() throws Exception {
         printMessage("Starting print sites");
@@ -132,9 +126,9 @@ public class Example {
         NumberPortabilityRequest request = new NumberPortabilityRequest();
         request.getTnList().add("9195551212");
         NumberPortabilityResponse response = LnpChecker.checkLnp(getClient(), request, "true");
-        if(response.getPortableNumbers().size() > 0){
+        if (response.getPortableNumbers().size() > 0) {
             System.out.println(response.getPortableNumbers().get(0));
-        }else {
+        } else {
             System.out.println("This number is not portable. Try another one");
         }
         printMessage("Ending print LNP Check");
@@ -188,8 +182,8 @@ public class Example {
         query.put("state", "NC");
         query.put("available", true);
 
-        List<RateCenter> rateCenters = RateCenter.list(getClient(),query);
-        for(RateCenter rc : rateCenters){
+        List<RateCenter> rateCenters = RateCenter.list(getClient(), query);
+        for (RateCenter rc : rateCenters) {
             System.out.println(String.format("Name: %s | Abbreviation: %s", rc.getName(), rc.getAbbreviation()));
         }
         printMessage("Ending printRateCenters");
@@ -224,7 +218,7 @@ public class Example {
     private static void printGetTnDetails() throws Exception {
         printMessage("Starting get Tn Detail");
         TelephoneNumberDetail detail = Tns.getTnDetails(getClient(), "9195551212");
-        if(detail.getFullNumber() != null){
+        if (detail.getFullNumber() != null) {
             System.out.println("Got TN Detail for : " + detail.getFullNumber());
         }
 
@@ -236,7 +230,7 @@ public class Example {
         Map<String, Object> query = new HashMap<String, Object>();
         query.put("state", "NC");
 
-        TelephoneNumbersResponse response = Tns.list(getClient(),query );
+        TelephoneNumbersResponse response = Tns.list(getClient(), query);
         System.out.println(String.format("Got %s numbers for this list", response.getTelephoneNumberCount()));
         printMessage("Ending get TNs");
     }
@@ -248,7 +242,6 @@ public class Example {
     private static SipPeer getFirstSipPeer() throws Exception {
         return SipPeer.list(getClient(), getFirstSite().getId()).get(0);
     }
-
 
     private static IrisClient getClient() {
         Map<String, String> env = System.getenv();

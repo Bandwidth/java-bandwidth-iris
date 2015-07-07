@@ -11,9 +11,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by sbarstow on 11/20/14.
- */
 public class CityTests extends BaseModelTests {
 
     @Test

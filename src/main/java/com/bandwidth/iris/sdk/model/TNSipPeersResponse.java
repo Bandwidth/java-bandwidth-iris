@@ -4,9 +4,6 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 10/13/14.
- */
 @XmlRootElement(name = "TNSipPeersResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TNSipPeersResponse extends BaseResponse {

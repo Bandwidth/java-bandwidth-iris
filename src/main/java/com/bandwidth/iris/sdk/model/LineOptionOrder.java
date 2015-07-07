@@ -1,7 +1,7 @@
 package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisPath;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,18 +10,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 6/16/15.
- */
-@XmlRootElement(name="LineOptionOrder")
+@XmlRootElement(name = "LineOptionOrder")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LineOptionOrder extends BaseModel {
-    @XmlElement(name="TnLineOptions")
+    @XmlElement(name = "TnLineOptions")
     private List<TnLineOptions> lineOptions = new ArrayList<TnLineOptions>();
 
     public static LineOptionOrderResponse create(IrisClient client, LineOptionOrder order) throws Exception {
         LineOptionOrderResponse orderResponse = client
-                .post(client.buildUserModelUri(new String[] { IrisConstants.LINE_OPTION_ORDER_URI_PATH }), order, LineOptionOrderResponse.class);
+                .post(client.buildAccountModelUri(new String[] { IrisPath.LINE_OPTION_ORDER_URI_PATH }), order,
+                        LineOptionOrderResponse.class);
         return orderResponse;
     }
 

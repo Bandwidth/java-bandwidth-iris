@@ -5,45 +5,41 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * Created by sbarstow on 6/16/15.
- */
-@XmlRootElement(name="ListingName")
+@XmlRootElement(name = "ListingName")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ListingName {
-    @XmlElement(name="FirstName")
+    @XmlElement(name = "FirstName")
     private String firstName;
 
-    @XmlElement(name="FirstName2")
+    @XmlElement(name = "FirstName2")
     private String firstName2;
 
-    @XmlElement(name="LastName")
+    @XmlElement(name = "LastName")
     private String lastName;
 
-    @XmlElement(name="Designation")
+    @XmlElement(name = "Designation")
     private String designation;
 
-    @XmlElement(name="TitleOfLineage")
+    @XmlElement(name = "TitleOfLineage")
     private String titleOfLineage;
 
-    @XmlElement(name="TitleOfAddress")
+    @XmlElement(name = "TitleOfAddress")
     private String titleOfAddress;
 
-    @XmlElement(name="TitleOfAddress2")
+    @XmlElement(name = "TitleOfAddress2")
     private String titleOfAddress2;
 
-    @XmlElement(name="TitleOfLineageName2")
+    @XmlElement(name = "TitleOfLineageName2")
     private String titleOfLineageName2;
 
-    @XmlElement(name="TitleOfAddressName2")
+    @XmlElement(name = "TitleOfAddressName2")
     private String titleOfAddressName2;
 
-    @XmlElement(name="TitleOfAddress2Name2")
+    @XmlElement(name = "TitleOfAddress2Name2")
     private String titleOfAddress2Name2;
 
-    @XmlElement(name="PlaceListingAs")
+    @XmlElement(name = "PlaceListingAs")
     private String placeListingAs;
-
 
     public String getFirstName() {
         return firstName;

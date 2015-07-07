@@ -5,9 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * Created by sbarstow on 10/10/14.
- */
 @XmlRootElement(name = "SiteResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 

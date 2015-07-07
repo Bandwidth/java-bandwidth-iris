@@ -2,16 +2,12 @@ package com.bandwidth.iris.sdk.model;
 
 import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.IrisClientException;
-import com.bandwidth.iris.sdk.IrisConstants;
+import com.bandwidth.iris.sdk.IrisPath;
 import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
 
-import java.util.List;
 import java.util.Map;
 
-/**
- * Created by sbarstow on 11/20/14.
- */
 public class Tns {
 
     /**
@@ -22,13 +18,13 @@ public class Tns {
      */
     public static TelephoneNumberDetails getTnDetails(IrisClient client, String tn) throws Exception {
         return client.get(client.buildModelUri(
-                new String[] { IrisConstants.TNS_URI_PATH, tn, "tndetails" }),
+                        new String[] { IrisPath.TNS_URI_PATH, tn, "tndetails" }),
                 TelephoneNumberResponse.class).getTelephoneNumberDetails();
     }
 
     public static TelephoneNumbersResponse list(IrisClient client, Map<String, Object> query) throws Exception {
         return client.get(client.buildModelUri(
-                new String[] {IrisConstants.TNS_URI_PATH}, query), TelephoneNumbersResponse.class);
+                new String[] { IrisPath.TNS_URI_PATH }, query), TelephoneNumbersResponse.class);
     }
 
     /**
@@ -40,7 +36,7 @@ public class Tns {
      * @throws Exception
      */
     public static TelephoneNumberResponse checkStatus(IrisClient client, String tn) throws Exception {
-        IrisResponse irisResponse = client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn }));
+        IrisResponse irisResponse = client.get(client.buildModelUri(new String[] { IrisPath.TNS_URI_PATH, tn }));
         //Have to manually parse for this error because of how it's returned
         if (irisResponse.getResponseBody().indexOf("ErrorResponse") != -1) {
             ErrorResponse errorResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), ErrorResponse.class);
@@ -59,7 +55,7 @@ public class Tns {
      * @throws Exception
      */
     public static Site getSite(IrisClient client, String tn) throws Exception {
-        return client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "sites" }), Site.class);
+        return client.get(client.buildModelUri(new String[] { IrisPath.TNS_URI_PATH, tn, "sites" }), Site.class);
     }
 
     /**
@@ -70,7 +66,7 @@ public class Tns {
      * @throws Exception
      */
     public static SipPeer getSipPeer(IrisClient client, String tn) throws Exception {
-        return client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "sippeers" }), SipPeer.class);
+        return client.get(client.buildModelUri(new String[] { IrisPath.TNS_URI_PATH, tn, "sippeers" }), SipPeer.class);
     }
 
     /**
@@ -80,8 +76,8 @@ public class Tns {
      * @throws Exception
      */
     public static TelephoneNumberDetails getRateCenter(IrisClient client, String tn) throws Exception {
-        return client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "ratecenter" }),
-                        TelephoneNumberResponse.class).getTelephoneNumberDetails();
+        return client.get(client.buildModelUri(new String[] { IrisPath.TNS_URI_PATH, tn, "ratecenter" }),
+                TelephoneNumberResponse.class).getTelephoneNumberDetails();
     }
 
     /**
@@ -91,7 +87,7 @@ public class Tns {
      * @throws Exception
      */
     public static TelephoneNumberDetails getLata(IrisClient client, String tn) throws Exception {
-        return client.get(client.buildModelUri(new String[] { IrisConstants.TNS_URI_PATH, tn, "lata" }),
+        return client.get(client.buildModelUri(new String[] { IrisPath.TNS_URI_PATH, tn, "lata" }),
                 TelephoneNumberResponse.class).getTelephoneNumberDetails();
     }
 

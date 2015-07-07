@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by sbarstow on 11/17/14.
- */
 @XmlRootElement(name = "LnpOrderResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LnpOrderResponse extends LnpOrder {

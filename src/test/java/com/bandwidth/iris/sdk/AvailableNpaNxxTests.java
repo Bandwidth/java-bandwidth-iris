@@ -11,9 +11,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by sbarstow on 11/17/14.
- */
 public class AvailableNpaNxxTests extends BaseModelTests {
     @Test
     public void testSearchNpaNxx() throws Exception {

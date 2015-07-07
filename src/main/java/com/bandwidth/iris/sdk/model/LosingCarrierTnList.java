@@ -4,9 +4,6 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sbarstow on 11/17/14.
- */
 @XmlRootElement(name = "LosingCarrierTnList")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LosingCarrierTnList {
