@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class WirelessInfo {
     @XmlElement(name = "AccountNumber")
     private String accountNumber;
-
     @XmlElement(name = "PinNumber")
     private String pinNumber;
 

@@ -37,7 +37,7 @@ public class LnpOrder extends BaseModel {
     @XmlElement(name = "PartialPort")
     private boolean partialPort;
     @XmlElement(name = "WirelessInfo")
-    private String wirelessInfo;
+    private WirelessInfo wirelessInfo;
 
     public static LnpOrderResponse create(IrisClient client, LnpOrder order) throws Exception {
         LnpOrderResponse lnpOrderResponse = client.post(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH }),
@@ -141,11 +141,11 @@ public class LnpOrder extends BaseModel {
         this.partialPort = partialPort;
     }
 
-    public String getWirelessInfo() {
+    public WirelessInfo getWirelessInfo() {
         return wirelessInfo;
     }
 
-    public void setWirelessInfo(String wirelessInfo) {
+    public void setWirelessInfo(WirelessInfo wirelessInfo) {
         this.wirelessInfo = wirelessInfo;
     }
 
