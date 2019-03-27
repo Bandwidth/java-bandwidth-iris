@@ -30,6 +30,7 @@ public class XmlUtilsTest {
         ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType = new ExistingTelephoneNumberOrderType();
         existingTelephoneNumberOrderType.getTelephoneNumberList().add("2055551212");
         o.setSiteId("1234");
+        o.setPeerId("abcd");
         o.setExistingTelephoneNumberOrderType(existingTelephoneNumberOrderType);
 
         System.out.println(XmlUtils.toXml(o));

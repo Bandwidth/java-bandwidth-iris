@@ -23,6 +23,8 @@ public class Order extends BaseModel {
     private String name;
     @XmlElement(name = "SiteId")
     private String siteId;
+    @XmlElement(name = "PeerId")
+    private String peerId;
     @XmlElement(name = "CustomerOrderId")
     private String customerOrderId;
     @XmlElement(name = "PartialAllowed")
@@ -100,6 +102,14 @@ public class Order extends BaseModel {
 
     public void setSiteId(String siteId) {
         this.siteId = siteId;
+    }
+
+    public String getPeerId() {
+        return peerId;
+    }
+
+    public void setPeerId(String peerId) {
+        this.peerId = peerId;
     }
 
     public String getCustomerOrderId() {
