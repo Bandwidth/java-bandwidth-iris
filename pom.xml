@@ -89,21 +89,25 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.8.4</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
             <version>1.18.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
             <version>1.18.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock</artifactId>
             <version>1.47</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -192,7 +196,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>

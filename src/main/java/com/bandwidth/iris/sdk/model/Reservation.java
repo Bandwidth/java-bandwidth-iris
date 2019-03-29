@@ -4,8 +4,9 @@ import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.IrisPath;
 import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
+
+import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
-import org.mortbay.jetty.HttpStatus;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -34,7 +35,7 @@ public class Reservation extends BaseModel {
                 reservation);
         String id = client.getIdFromLocationHeader(response.getHeaders().get("Location"));
         result = get(client, id);
-        if (response.getStatusCode() == HttpStatus.ORDINAL_400_Bad_Request) {
+        if (response.getStatusCode() == HttpStatus.SC_BAD_REQUEST) {
             ReservationResponse reservationResponse =
                     XmlUtils.fromXml(response.getResponseBody(), ReservationResponse.class);
             client.checkResponse(reservationResponse);
