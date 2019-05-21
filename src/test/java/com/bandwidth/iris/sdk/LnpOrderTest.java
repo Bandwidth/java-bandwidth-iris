@@ -16,7 +16,7 @@ public class LnpOrderTest extends BaseModelTests {
         stubFor(post(urlMatching(url)).willReturn(aResponse()
                 .withStatus(200)
                 .withHeader("Content-Type", "application/xml")
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
 
         LnpOrder lnpOrder = new LnpOrder();
         lnpOrder.setBillingTelephoneNumber("9195551212");
@@ -53,7 +53,7 @@ public class LnpOrderTest extends BaseModelTests {
         String url = "/v1.0/accounts/accountId/portins/1234";
         stubFor(get(urlMatching(url)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderGetResponseXml)));
 
         LnpOrderResponse response = LnpOrder.get(getDefaultClient(), "1234");
         assertEquals("1234", response.getOrderId());
@@ -68,7 +68,7 @@ public class LnpOrderTest extends BaseModelTests {
 
         stubFor(get(urlMatching(url)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
         LnpOrderResponse response = LnpOrder.get(getDefaultClient(), "1234");
         response.delete();
     }
@@ -83,7 +83,7 @@ public class LnpOrderTest extends BaseModelTests {
 
         stubFor(get(urlMatching(url)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
 
         LnpOrderSupp orderSupp = new LnpOrderSupp();
         orderSupp.setLoaAuthorizingPerson("Jane Doe");
@@ -108,7 +108,7 @@ public class LnpOrderTest extends BaseModelTests {
         String orderUrl = "/v1.0/accounts/accountId/portins/1234";
         stubFor(get(urlMatching(orderUrl)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
 
 
         LnpOrderResponse order = LnpOrder.get(getDefaultClient(), "1234");
@@ -130,7 +130,7 @@ public class LnpOrderTest extends BaseModelTests {
         String orderUrl = "/v1.0/accounts/accountId/portins/1234";
         stubFor(get(urlMatching(orderUrl)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
 
         LnpOrderResponse order = LnpOrder.get(getDefaultClient(), "1234");
         File file = File.createTempFile("file", "pdf");
@@ -147,7 +147,7 @@ public class LnpOrderTest extends BaseModelTests {
         String orderUrl = "/v1.0/accounts/accountId/portins/1234";
         stubFor(get(urlMatching(orderUrl)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
 
         File file = File.createTempFile("file", "pdf");
         String putUrl = "/v1.0/accounts/accountId/portins/1234/loas/" + file.getName();
@@ -169,7 +169,7 @@ public class LnpOrderTest extends BaseModelTests {
         String orderUrl = "/v1.0/accounts/accountId/portins/1234";
         stubFor(get(urlMatching(orderUrl)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
 
         LnpOrderResponse order = LnpOrder.get(getDefaultClient(), "1234");
         order.deleteLoa("file.pdf");
@@ -185,7 +185,7 @@ public class LnpOrderTest extends BaseModelTests {
         String orderUrl = "/v1.0/accounts/accountId/portins/1234";
         stubFor(get(urlMatching(orderUrl)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
 
         LnpOrderResponse order = LnpOrder.get(getDefaultClient(), "1234");
         FileMetaData response = order.getLoaMetaData("file.pdf");
@@ -203,7 +203,7 @@ public class LnpOrderTest extends BaseModelTests {
         String orderUrl = "/v1.0/accounts/accountId/portins/1234";
         stubFor(get(urlMatching(orderUrl)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
 
         LnpOrderResponse order = LnpOrder.get(getDefaultClient(), "1234");
         FileMetaData data = new FileMetaData();
@@ -221,7 +221,7 @@ public class LnpOrderTest extends BaseModelTests {
         String orderUrl = "/v1.0/accounts/accountId/portins/1234";
         stubFor(get(urlMatching(orderUrl)).willReturn(aResponse()
                 .withStatus(200)
-                .withBody(IrisClientTestUtils.validLnpOrderResponseXml)));
+                .withBody(IrisClientTestUtils.validLnpOrderCreateResponseXml)));
 
         LnpOrderResponse order = LnpOrder.get(getDefaultClient(), "1234");
         order.deleteLoaMetaData("file.pdf");

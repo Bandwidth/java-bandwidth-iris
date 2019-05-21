@@ -50,6 +50,7 @@ public class LnpOrder extends BaseModel {
         LnpOrderResponse lnpOrderResponse = client.get(client.buildAccountModelUri(new String[] { IrisPath.LNP_URI_PATH,
                 orderId }), LnpOrderResponse.class);
         lnpOrderResponse.setClient(client);
+        lnpOrderResponse.setOrderId(orderId);
         return lnpOrderResponse;
     }
 
