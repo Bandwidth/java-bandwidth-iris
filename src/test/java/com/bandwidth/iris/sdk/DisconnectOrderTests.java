@@ -47,5 +47,21 @@ public class DisconnectOrderTests extends BaseModelTests {
         assertEquals(response.getOrderStatus(), "FAILED");
 
     }
+    
+    @Test
+    public void testGetDisconnectOrderStatusSuccess() throws Exception {
+        String disconnectOrdersUrl = "/v1.0/accounts/accountId/disconnects/003e006b-c278-4ee4-89a2-c4ed334632d3";
+        stubFor(get(urlMatching(disconnectOrdersUrl))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.
+                            validCreateDisconnectTelephoneNumberOrderResponseSuccess)));
+
+        DisconnectTelephoneNumberOrderResponse response = DisconnectTelephoneNumberOrder.get(
+                getDefaultClient(), "003e006b-c278-4ee4-89a2-c4ed334632d3");
+        assertEquals(0, response.getErrorList().size());
+        assertEquals("COMPLETE", response.getOrderStatus());
+        assertEquals(1, response.getDisconnectedNumbers().size());
+        assertEquals("2055551212", response.getDisconnectedNumbers().get(0));
+    }
 
 }

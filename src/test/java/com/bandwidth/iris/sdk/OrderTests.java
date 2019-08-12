@@ -2,7 +2,6 @@ package com.bandwidth.iris.sdk;
 
 import com.bandwidth.iris.sdk.model.*;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
-import junit.framework.Assert;
 import org.junit.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -48,6 +47,22 @@ public class OrderTests extends BaseModelTests {
                 "2052865046");
         assertEquals(orderResponse.getOrder().getName(), "A New Order");
 
+    }
+    
+    @Test
+    public void testPartialOrderStatusCheck() throws Exception {
+      String url = "/v1.0/accounts/accountId/orders/someid";
+      stubFor(get(urlMatching(url))
+              .willReturn(aResponse()
+                      .withStatus(200)
+                      .withBody(IrisClientTestUtils.validPartialOrderStatusXml)));
+
+      OrderResponse orderResponse = Order.get(getDefaultClient(), "someid");
+      assertEquals("2055551212", orderResponse.getOrder().getExistingTelephoneNumberOrderType().getTelephoneNumberList().get(0));
+      assertNotNull(orderResponse.getOrderCompletedDate());
+      assertEquals(0, orderResponse.getPendingQuantity());
+      assertEquals(1, orderResponse.getFailedNumbers().size());
+      assertEquals("2055551212", orderResponse.getFailedNumbers().get(0).getFullNumber());
     }
 
     @Test
