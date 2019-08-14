@@ -7,6 +7,11 @@ import java.util.List;
 @XmlRootElement(name = "DisconnectTelephoneNumberOrderResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DisconnectTelephoneNumberOrderResponse extends BaseResponse {
+
+    @XmlElementWrapper(name = "DisconnectedTelephoneNumberList")
+    @XmlElement(name = "TelephoneNumber")
+    private List<String> disconnecteedNumbers = new ArrayList<String>();
+    
     @XmlElement(name = "orderRequest")
     private OrderRequest orderRequest;
 
@@ -17,6 +22,14 @@ public class DisconnectTelephoneNumberOrderResponse extends BaseResponse {
     @XmlElement(name = "OrderStatus")
     private String orderStatus;
 
+    public List<String> getDisconnectedNumbers() {
+        return disconnecteedNumbers;
+    }
+
+    public void setDisconnectedNumbers(List<String> disconnectedNumbers) {
+        this.disconnecteedNumbers = disconnectedNumbers;
+   }
+  
     public OrderRequest getorderRequest() {
         return orderRequest;
     }

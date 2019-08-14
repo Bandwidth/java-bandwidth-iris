@@ -23,7 +23,7 @@ public class OrderResponse {
     @XmlElement(name = "PendingQuantity")
     private int pendingQuantity;
 
-    @XmlElement(name = "OrderCompletedDate")
+    @XmlElement(name = "OrderCompleteDate")
     private Date orderCompletedDate;
 
     @XmlElement(name = "LastModifiedDate")
@@ -36,6 +36,9 @@ public class OrderResponse {
     @XmlElement(name = "TelephoneNumber")
     private List<TelephoneNumber> telephoneNumbers = new ArrayList<TelephoneNumber>();
 
+    @XmlElement(name = "FailedNumbers")
+    private List<TelephoneNumber> failedNumbers = new ArrayList<TelephoneNumber>();
+    
     public Order getOrder() {
         return order;
     }
@@ -106,5 +109,13 @@ public class OrderResponse {
 
     public void setTelephoneNumbers(List<TelephoneNumber> telephoneNumbers) {
         this.telephoneNumbers = telephoneNumbers;
+    }
+
+    public List<TelephoneNumber> getFailedNumbers() {
+      return failedNumbers;
+    }
+
+    public void setFailedNumbers(List<TelephoneNumber> failedNumbers) {
+      this.failedNumbers = failedNumbers;
     }
 }
