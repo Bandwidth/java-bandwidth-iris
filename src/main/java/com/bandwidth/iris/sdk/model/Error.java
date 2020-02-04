@@ -1,9 +1,7 @@
 package com.bandwidth.iris.sdk.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
+import java.util.List;
 
 @XmlRootElement(name = "Error")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -16,6 +14,11 @@ public class Error {
 
     @XmlElement(name = "TelephoneNumber")
     private String telephoneNumber;
+
+
+    @XmlElementWrapper(name = "TelephoneNumbers")
+    @XmlElement(name = "TelephoneNumber")
+    private List<TelephoneNumber> telephoneNumberList;
 
     public String getCode() {
         return code;
@@ -40,4 +43,13 @@ public class Error {
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
+
+    public List<TelephoneNumber> getTelephoneNumberList() {
+        return telephoneNumberList;
+    }
+
+    public void setTelephoneNumberList(List<TelephoneNumber> telephoneNumberList) {
+        this.telephoneNumberList = telephoneNumberList;
+    }
+
 }
