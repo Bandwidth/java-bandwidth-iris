@@ -35,4 +35,14 @@ public class RemoveImportedTnOrder extends BaseModel{
         return client.get( client.buildAccountModelUri(new String[] {IrisPath.REMOVE_IMPORTED_TN_ORDERS} , query), RemoveImportedTnOrders.class);
     }
 
+    public static RemoveImportedTnOrder Get(IrisClient client, String orderId) throws Exception {
+        return client.get( client.buildAccountModelUri(new String[] {IrisPath.REMOVE_IMPORTED_TN_ORDERS, orderId} ), RemoveImportedTnOrder.class);
+    }
+
+    public static OrderHistoryWrapper GetHistory(IrisClient client, String orderId) throws Exception {
+        return client.get( client.buildAccountModelUri(new String[] {IrisPath.REMOVE_IMPORTED_TN_ORDERS, orderId, "history"} ), OrderHistoryWrapper.class);
+    }
+
+
+
 }

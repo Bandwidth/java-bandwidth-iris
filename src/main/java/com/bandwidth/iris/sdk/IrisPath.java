@@ -23,5 +23,6 @@ public class IrisPath {
     public static final String BDR_URI_PATH = "bdrs";
     public static final String IMPORT_TN_ORDERS = "importTnOrders";
     public static final String REMOVE_IMPORTED_TN_ORDERS = "removeImportedTnOrders";
+    public static final String IMPORT_TN_CHECKER = "importTnChecker";
 
 }
