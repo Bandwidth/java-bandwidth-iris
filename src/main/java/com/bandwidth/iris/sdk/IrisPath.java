@@ -21,5 +21,7 @@ public class IrisPath {
     public static final String INSERVICE_NUMBERS_URI_PATH = "inserviceNumbers";
     public static final String PORTOUT_URI_PATH = "portouts";
     public static final String BDR_URI_PATH = "bdrs";
+    public static final String IMPORT_TN_ORDERS = "importTnOrders";
+    public static final String REMOVE_IMPORTED_TN_ORDERS = "removeImportedTnOrders";
 
 }
