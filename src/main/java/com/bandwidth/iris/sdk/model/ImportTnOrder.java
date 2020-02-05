@@ -32,6 +32,9 @@ public class ImportTnOrder extends BaseModel {
     @XmlElement( name = "SiteId")
     private int siteId;
 
+    @XmlElement( name = "SipPeer")
+    private int sipPeer;
+
     @XmlElement(name = "Subscriber")
     private Subscriber subscriber;
 
@@ -158,5 +161,13 @@ public class ImportTnOrder extends BaseModel {
 
     public void setErrors(List<Error> errors) {
         this.errors = errors;
+    }
+
+    public int getSipPeer() {
+        return sipPeer;
+    }
+
+    public void setSipPeer(int sipPeer) {
+        this.sipPeer = sipPeer;
     }
 }

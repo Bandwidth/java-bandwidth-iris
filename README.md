@@ -404,7 +404,7 @@ r = Reservation.create(client, r);
 
 ```
 ### Get TN Reservation
-```Javas
+```Java
 Reservation r = Reservation.get(getDefaultClient(), "9195551212");
 
 ```
@@ -413,4 +413,80 @@ Reservation r = Reservation.get(getDefaultClient(), "9195551212");
 Reservation r = Reservation.get(getDefaultClient(), "9195551212");
 r.delete();
 
+```
+
+## ImportTnOrder
+
+### Create ImportTnOrder
+
+```Java
+ImportTnOrder order = new ImportTnOrder();
+order.setSiteId(100);
+order.setSipPeer(303);
+
+ImportTnOrderResponse response = ImportTnOrder.Create(client, order );
+```
+
+### List ImportTnOrders 
+
+```Java
+Map<String, Object> query = new HashMap<>();
+query.put("CustomerOrderId", "id");
+
+ImportTnOrders response = ImportTnOrder.List(client, query);
+```
+
+### Get ImportTnOrder by Id
+
+```Java
+ImportTnOrder response = ImportTnOrder.Get(client, orderId );
+```
+
+### Get ImportTnOrder History by Id
+
+```Java
+OrderHistoryWrapper response = ImportTnOrder.GetHistory(client, orderId );
+```
+
+## RemoveImportedTnOrders 
+
+### Create RemoveImportedTnOrder
+
+```Java
+RemoveImportedTnOrder order = new RemoveImportedTnOrder();
+order.setTelephoneNumberList( tnList );
+
+RemoveImportedTnOrderResponse response = RemoveImportedTnOrder.Create(client, order);
+```
+
+### List RemoveImportedTnOrders 
+
+```Java
+Map<String, Object> query = new HashMap<>();
+query.put("status ", "PARTIAL");
+
+RemoveImportedTnOrders response = RemoveImportedTnOrder.List(client, query);
+```
+
+### Get RemoveImportedTnOrder by Id
+
+```Java
+RemoveImportedTnOrder response = RemoveImportedTnOrder.Get(client, orderId);
+```
+
+### Get RemoveImportedTnOrder History by Id
+
+```Java
+OrderHistoryWrapper response = RemoveImportedTnOrder.GetHistory(client, orderId);
+```
+
+## ImportTnChecker 
+
+### Check Importability of Tns
+
+```Java
+ImportTnCheckerPayload payload = new ImportTnCheckerPayload();
+payload.setTelephoneNumberList( tnList );
+
+ImportTnCheckerResponse response = ImportTnChecker.Check(client, payload);
 ```
