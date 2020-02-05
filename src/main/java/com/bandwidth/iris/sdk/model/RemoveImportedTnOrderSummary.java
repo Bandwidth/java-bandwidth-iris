@@ -1,7 +1,12 @@
 package com.bandwidth.iris.sdk.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name="RemoveImportedTnOrderSummary")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class RemoveImportedTnOrderSummary {
 
     @XmlElement(name = "accountId")
@@ -18,4 +23,70 @@ public class RemoveImportedTnOrderSummary {
     private String orderStatus;
     @XmlElement(name = "OrderId")
     private String orderId;
+    @XmlElement(name = "OrderType")
+    private String orderType;
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public int getCountOfTNs() {
+        return countOfTNs;
+    }
+
+    public void setCountOfTNs(int countOfTNs) {
+        this.countOfTNs = countOfTNs;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(String lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
 }
