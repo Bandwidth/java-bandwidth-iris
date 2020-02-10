@@ -3,19 +3,14 @@ package com.bandwidth.iris.sdk.model;
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlRootElement(name = "Error")
+@XmlRootElement(name="ImportTnError")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Error {
+public class ImportTnError {
+
     @XmlElement(name = "Code")
     private String code;
-
     @XmlElement(name = "Description")
     private String description;
-
-    @XmlElement(name = "TelephoneNumber")
-    private String telephoneNumber;
-
-
     @XmlElementWrapper(name = "TelephoneNumbers")
     @XmlElement(name = "TelephoneNumber")
     private List<TelephoneNumber> telephoneNumberList;
@@ -36,14 +31,6 @@ public class Error {
         this.description = description;
     }
 
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
-
     public List<TelephoneNumber> getTelephoneNumberList() {
         return telephoneNumberList;
     }
@@ -51,5 +38,4 @@ public class Error {
     public void setTelephoneNumberList(List<TelephoneNumber> telephoneNumberList) {
         this.telephoneNumberList = telephoneNumberList;
     }
-
 }
