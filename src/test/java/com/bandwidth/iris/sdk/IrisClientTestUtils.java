@@ -2,6 +2,49 @@ package com.bandwidth.iris.sdk;
 
 public class IrisClientTestUtils {
 
+
+    public static final String csrResponse = "<CsrResponse>\n" +
+            "    <CustomerOrderId>someValue</CustomerOrderId>\n" +
+            "    <LastModifiedBy>systemUser</LastModifiedBy>\n" +
+            "    <OrderCreateDate>2019-10-25T09:51:17Z</OrderCreateDate>\n" +
+            "    <AccountId>1</AccountId>\n" +
+            "    <OrderId>a2f55ebe-782a-4242-983b-6ae6cfa97833</OrderId>\n" +
+            "    <LastModifiedDate>2019-10-25T12:51:22.139Z</LastModifiedDate>\n" +
+            "    <Status>COMPLETE</Status>\n" +
+            "    <AccountNumber>987654321</AccountNumber>\n" +
+            "    <AccountTelephoneNumber>9196194444</AccountTelephoneNumber>\n" +
+            "    <EndUserName>bandwidthGuy</EndUserName>\n" +
+            "    <AuthorizingUserName>importantAuthGuy</AuthorizingUserName>\n" +
+            "    <CustomerCode>123</CustomerCode>\n" +
+            "    <EndUserPIN>12345</EndUserPIN>\n" +
+            "    <EndUserPassword>enduserpassword123</EndUserPassword>\n" +
+            "    <AddressLine1>900 Main Campus Dr</AddressLine1>\n" +
+            "    <City>Raleigh</City>\n" +
+            "    <State>NC</State>\n" +
+            "    <ZIPCode>27612</ZIPCode>\n" +
+            "    <TypeOfService>residential</TypeOfService>\n" +
+            "    <CsrData>\n" +
+            "        <AccountNumber>123456789</AccountNumber>\n" +
+            "        <CustomerName>JOHN SMITH</CustomerName>\n" +
+            "        <ServiceAddress>\n" +
+            "            <UnparsedAddress>900 MAIN CAMPUS DR</UnparsedAddress>\n" +
+            "            <City>RALEIGH</City>\n" +
+            "            <State>NC</State>\n" +
+            "            <Zip>27616</Zip>\n" +
+            "        </ServiceAddress>\n" +
+            "        <WorkingTelephoneNumber>9196191211</WorkingTelephoneNumber>\n" +
+            "        <WorkingTelephoneNumbersOnAccount>\n" +
+            "            <TelephoneNumber>9196191211</TelephoneNumber>\n" +
+            "        </WorkingTelephoneNumbersOnAccount>\n" +
+            "    </CsrData>\n" +
+            "    <Errors>\n" +
+            "        <Error>\n" +
+            "            <Code>26500</Code>\n" +
+            "            <Description>CSR is not available for this TN</Description>\n" +
+            "        </Error>\n" +
+            "    </Errors>\n" +
+            "</CsrResponse>";
+
     /**
      * ImportTnChecker
      */
@@ -70,10 +113,10 @@ public class IrisClientTestUtils {
     public static String validCreateDisconnectTelephoneNumberOrderResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><DisconnectTelephoneNumberOrderResponse><orderRequest><Name>Disconnect</Name><OrderCreateDate>2014-10-17T15:02:46.077Z</OrderCreateDate><id>disconnectId</id><DisconnectTelephoneNumberOrderType><TelephoneNumberList><TelephoneNumber>2055551212</TelephoneNumber></TelephoneNumberList><DisconnectMode>normal</DisconnectMode></DisconnectTelephoneNumberOrderType></orderRequest></DisconnectTelephoneNumberOrderResponse>";
     public static String validCreateDisconnectTelephoneNumberOrderResponseWithErrorsXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><DisconnectTelephoneNumberOrderResponse><ErrorList><Error><Code>5006</Code><Description>The telephone number 2055551212 could not be disconnected since it is not associated with your account</Description><TelephoneNumber>2055551212</TelephoneNumber></Error></ErrorList><orderRequest><Name>Disconnect</Name><OrderCreateDate>2014-10-17T15:02:46.077Z</OrderCreateDate><id>disconnectId</id><DisconnectTelephoneNumberOrderType><TelephoneNumberList><TelephoneNumber>2055551212</TelephoneNumber></TelephoneNumberList><DisconnectMode>normal</DisconnectMode></DisconnectTelephoneNumberOrderType></orderRequest><OrderStatus>FAILED</OrderStatus></DisconnectTelephoneNumberOrderResponse>";
     public static String validCreateDisconnectTelephoneNumberOrderResponseSuccess = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><DisconnectTelephoneNumberOrderResponse><DisconnectedTelephoneNumberList><TelephoneNumber>2055551212</TelephoneNumber></DisconnectedTelephoneNumberList><orderRequest><OrderCreateDate>2019-08-09T01:51:36.034Z</OrderCreateDate><id>003e006b-c278-4ee4-89a2-c4ed334632d3</id><DisconnectTelephoneNumberOrderType><TelephoneNumberList><TelephoneNumber>2055551212</TelephoneNumber></TelephoneNumberList><DisconnectMode>normal</DisconnectMode></DisconnectTelephoneNumberOrderType></orderRequest><OrderStatus>COMPLETE</OrderStatus></DisconnectTelephoneNumberOrderResponse>";
-    
+
     /**
      * Order Status Xmls
-     */ 
+     */
     public static String validPartialOrderStatusXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><OrderResponse><CompletedQuantity>1</CompletedQuantity><CreatedByUser>aUser</CreatedByUser><ErrorList><Error><Code>5005</Code><Description>The telephone number is unavailable for ordering</Description><TelephoneNumber>2055551212</TelephoneNumber></Error></ErrorList><FailedNumbers><FullNumber>2055551212</FullNumber></FailedNumbers><LastModifiedDate>2019-08-08T19:39:35.537Z</LastModifiedDate><OrderCompleteDate>2019-08-08T19:39:35.537Z</OrderCompleteDate><Order><OrderCreateDate>2019-08-08T19:39:35.472Z</OrderCreateDate><PeerId>12345</PeerId><BackOrderRequested>false</BackOrderRequested><ExistingTelephoneNumberOrderType><TelephoneNumberList><TelephoneNumber>2055551212</TelephoneNumber><TelephoneNumber>2055551213</TelephoneNumber></TelephoneNumberList></ExistingTelephoneNumberOrderType><PartialAllowed>true</PartialAllowed><SiteId>2858</SiteId></Order><OrderStatus>PARTIAL</OrderStatus><CompletedNumbers><TelephoneNumber><FullNumber>2055551213</FullNumber></TelephoneNumber></CompletedNumbers><Summary>1 out of 2 numbers ordered in (833)</Summary><FailedQuantity>1</FailedQuantity></OrderResponse>";
 
     /**
