@@ -23,6 +23,8 @@ public class Subscription extends BaseModel {
     private String orderId;
     @XmlElement(name = "EmailSubscription")
     private EmailSubscription emailSubscription;
+    @XmlElement(name = "CallbackSubscription")
+    private CallbackSubscription callbackSubscription;
 
     public static Subscription create(IrisClient client, Subscription subscription) throws Exception {
         IrisResponse irisResponse = client.post(client.buildAccountModelUri(
@@ -89,5 +91,13 @@ public class Subscription extends BaseModel {
 
     public void delete() throws Exception {
         client.delete(client.buildAccountModelUri(new String[] { IrisPath.SUBSCRIPTIONS_URI_PATH, subscriptionId }));
+    }
+
+    public CallbackSubscription getCallbackSubscription() {
+        return callbackSubscription;
+    }
+
+    public void setCallbackSubscription(CallbackSubscription callbackSubscription) {
+        this.callbackSubscription = callbackSubscription;
     }
 }
