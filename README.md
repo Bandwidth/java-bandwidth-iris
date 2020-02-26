@@ -490,3 +490,53 @@ payload.setTelephoneNumberList( tnList );
 
 ImportTnCheckerResponse response = ImportTnChecker.Check(client, payload);
 ```
+
+## Csr Order 
+
+### Create Csr 
+
+```Java
+Csr csr = new Csr();
+csr.setCity("Raleigh");
+
+CsrResponse response = Csr.Create(client, csr);
+```
+
+### Get Csr
+
+```Java
+CsrResponse response = Csr.Get(client, orderId);
+```
+
+### Replace Csr
+
+```Java
+Csr csr = new Csr();
+csr.setCity("Raleigh");
+
+CsrResponse response = Csr.Replace(client, orderId, csr);
+```
+
+### Get Csr Notes 
+
+```Java
+Notes response = Csr.GetNotes(client, orderId);
+```
+
+### Add Note to Csr
+
+```Java
+Note note = new Note();
+note.setDescription("This is a csr note");
+
+IrisResponse response = Csr.AddNote(client, orderId, note );
+```
+
+### Update Note on Csr
+
+```Java
+Note note = new Note();
+note.setDescription("This is a csr note");
+
+IrisResponse response = Csr.UpdateNote(client, orderId, noteId, note );
+```
