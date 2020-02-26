@@ -3,6 +3,22 @@ package com.bandwidth.iris.sdk;
 public class IrisClientTestUtils {
 
 
+    public static final String callbackSubscription = "<SubscriptionsResponse><Subscriptions><Subscription>\n" +
+            "    <EventType>MESSAGING_LOST</EventType>\n" +
+            "    <CallbackSubscription>\n" +
+            "        <URL>http://yourhost:8080/path/to/resource</URL>\n" +
+            "        <User>bandwidth-dashboard-user-id</User>\n" +
+            "        <Expiry>12000</Expiry>\n" +
+            "        <CallbackCredentials>\n" +
+            "            <BasicAuthentication>\n" +
+            "                <Username>superuser</Username>\n" +
+            "                <Password>s3cure</Password>\n" +
+            "            </BasicAuthentication>\n" +
+            "            <PublicKey>LS0tLS1CRUdJTiBDRVJUSkQgQ0VSVElGSUNBVEUtLS0tLQ0K</PublicKey>\n" +
+            "        </CallbackCredentials>\n" +
+            "    </CallbackSubscription>\n" +
+            "</Subscription></Subscriptions></SubscriptionsResponse>";
+
     public static final String csrResponse = "<CsrResponse>\n" +
             "    <CustomerOrderId>someValue</CustomerOrderId>\n" +
             "    <LastModifiedBy>systemUser</LastModifiedBy>\n" +

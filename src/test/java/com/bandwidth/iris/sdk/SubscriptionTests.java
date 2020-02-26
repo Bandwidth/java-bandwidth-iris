@@ -1,5 +1,6 @@
 package com.bandwidth.iris.sdk;
 
+import com.bandwidth.iris.sdk.model.CallbackSubscription;
 import com.bandwidth.iris.sdk.model.EmailSubscription;
 import com.bandwidth.iris.sdk.model.Subscription;
 import org.junit.Test;
@@ -37,6 +38,37 @@ public class SubscriptionTests extends BaseModelTests {
         assertNotNull(createdSubscription);
         assertEquals("subscriptionId", createdSubscription.getSubscriptionId());
         assertEquals("test@test.com", createdSubscription.getEmailSubscription().getEmail());
+    }
+
+    @Test
+    public void testCreateCallback() throws Exception {
+        String url = "/v1.0/accounts/accountId/subscriptions";
+        stubFor(post(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/xml")
+                        .withHeader("Location", "subscriptionId")));
+
+        String getUrl = "/v1.0/accounts/accountId/subscriptions/subscriptionId";
+        stubFor(get(urlMatching(getUrl))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.callbackSubscription)));
+
+        Subscription subscription = new Subscription();
+        subscription.setOrderType("csrs");
+        subscription.setOrderId("orderId");
+        CallbackSubscription callbackSubscription = new CallbackSubscription();
+        callbackSubscription.setURL("http://example.com");
+
+        subscription.setCallbackSubscription(callbackSubscription);
+        Subscription createdSubscription = Subscription.create(getDefaultClient(), subscription);
+
+        assertNotNull(createdSubscription);
+        assertEquals("bandwidth-dashboard-user-id", createdSubscription.getCallbackSubscription().getUser());
+        assertEquals("http://yourhost:8080/path/to/resource", createdSubscription.getCallbackSubscription().getURL());
+        assertEquals("superuser", createdSubscription.getCallbackSubscription().getCallbackCredentials().getBasicAuthentication().getUsername() );
+        assertEquals("s3cure", createdSubscription.getCallbackSubscription().getCallbackCredentials().getBasicAuthentication().getPassword() );
+        assertEquals("LS0tLS1CRUdJTiBDRVJUSkQgQ0VSVElGSUNBVEUtLS0tLQ0K", createdSubscription.getCallbackSubscription().getCallbackCredentials().getPublicKey() );
     }
 
     @Test
