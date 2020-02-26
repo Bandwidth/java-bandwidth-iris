@@ -1,9 +1,6 @@
 package com.bandwidth.iris.sdk.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 
 @XmlRootElement(name="CsrResponse")
@@ -30,6 +27,9 @@ public class CsrResponse {
 
     @XmlElement(name = "CustomerOrderId")
     private String customerOrderId;
+
+    @XmlElement(name = "CustomerName")
+    private String customerName;
 
     @XmlElement(name = "WorkingOrBillingTelephoneNumber ")
     private String workingOrBillingTelephoneNumber;
@@ -72,6 +72,10 @@ public class CsrResponse {
 
     @XmlElement(name = "CsrData")
     private CsrData csrData;
+
+    @XmlElementWrapper(name = "Errors")
+    @XmlElement(name = "Error")
+    private Error[] errors;
 
     public String getAccountId() {
         return accountId;
@@ -239,5 +243,21 @@ public class CsrResponse {
 
     public void setCsrData(CsrData csrData) {
         this.csrData = csrData;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public Error[] getErrors() {
+        return errors;
+    }
+
+    public void setErrors(Error[] errors) {
+        this.errors = errors;
     }
 }

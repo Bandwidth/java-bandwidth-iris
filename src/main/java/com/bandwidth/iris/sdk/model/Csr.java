@@ -59,6 +59,12 @@ public class Csr extends BaseModel {
     @XmlElement(name = "TypeOfService")
     private String typeOfService;
 
+    @XmlElement(name = "Status")
+    private String status;
+
+
+
+
 
     public static CsrResponse Create(IrisClient client, Csr order) throws Exception {
         return client.post( client.buildAccountModelUri( new String[] { IrisPath.CSRS } ), order, CsrResponse.class);
@@ -202,5 +208,13 @@ public class Csr extends BaseModel {
 
     public void setTypeOfService(String typeOfService) {
         this.typeOfService = typeOfService;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
