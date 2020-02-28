@@ -4,7 +4,7 @@
 
     <groupId>com.bandwidth.sdk</groupId>
     <artifactId>bandwidth-java-iris-sdk</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.7</version>
     <packaging>jar</packaging>
     <name>bandwidth-java-iris-sdk</name>
     <description>Java SDK for use with the IRIS API.</description>
