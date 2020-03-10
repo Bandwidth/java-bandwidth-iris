@@ -11,16 +11,16 @@ import javax.xml.bind.annotation.*;
 public class FileListResponse extends BaseModel {
 
     @XmlElement(name = "fileCount")
-    public int fileCount;
+    private int fileCount;
 
     @XmlElement(name = "fileNames")
-    public String[] fileNames;
+    private String[] fileNames;
 
     @XmlElement(name = "resultCode")
-    public int resultCode;
+    private int resultCode;
 
     @XmlElement(name = "resultMessage")
-    public String resultMessage;
+    private String resultMessage;
 
     public int getFileCount() {
         return fileCount;

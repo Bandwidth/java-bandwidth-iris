@@ -3,6 +3,7 @@ package com.bandwidth.iris.sdk;
 import com.bandwidth.iris.sdk.model.*;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,4 +120,143 @@ public class ImportTnOrderTests extends BaseModelTests {
         assertEquals("received", first.getStatus());
 
     }
+
+    @Test
+    public void TestGetLoas() throws Exception {
+        String orderId = "orderId";
+
+        String url = "/v1.0/accounts/accountId/importTnOrders/" + orderId + "/loas";
+        stubFor(get(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.fileListLoas)));
+
+        FileListResponse response = ImportTnOrder.GetLoas(getDefaultClient(), orderId );
+
+        assertEquals(2, response.getFileCount());
+        assertEquals("LOA file list successfully returned", response.getResultMessage());
+        assertEquals(0, response.getResultCode());
+        assertEquals(2, response.getFileNames().length);
+
+        assertEquals("803f3cc5-beae-469e-bd65-e9891ccdffb9-1092874634747.pdf", response.getFileNames()[0]);
+        assertEquals("803f3cc5-beae-469e-bd65-e9891ccdffb9-1430814967669.pdf", response.getFileNames()[1]);
+
+    }
+
+    @Test
+    public void TestPostLoas() throws Exception {
+        String orderId = "orderId";
+
+        String url = "/v1.0/accounts/accountId/importTnOrders/" + orderId + "/loas";
+        stubFor(post(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.fileListLoas)));
+
+        ImportTnOrder.PostLoasFile(getDefaultClient(), orderId , new File("pom.xml"), "application/xml");
+
+    }
+
+    @Test
+    public void TestGetLoasFile() throws Exception {
+        String orderId = "orderId";
+        String fileId = "id";
+
+        byte[] data = new byte[100];
+        data[1] = 1;
+
+        String url = "/v1.0/accounts/accountId/importTnOrders/" + orderId + "/loas/" + fileId;
+        stubFor(get(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(data)));
+
+        byte[] fileData = ImportTnOrder.GeLoasFile(getDefaultClient(), orderId , fileId);
+
+        assertEquals(fileData.length, data.length);
+        assertEquals(fileData[1], data[1]);
+
+    }
+
+    @Test
+    public void TestPutLoasFile() throws Exception {
+        String orderId = "orderId";
+        String fileId = "id";
+
+        byte[] data = new byte[100];
+        data[1] = 1;
+
+        String url = "/v1.0/accounts/accountId/importTnOrders/" + orderId + "/loas/" + fileId;
+        stubFor(put(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+
+        ImportTnOrder.PutLoasFile(getDefaultClient(), orderId , fileId, new File("pom.xml"), "application/xml");
+
+
+    }
+
+    @Test
+    public void TestDeleteLoasFile() throws Exception {
+        String orderId = "orderId";
+        String fileId = "id";
+
+        byte[] data = new byte[100];
+        data[1] = 1;
+
+        String url = "/v1.0/accounts/accountId/importTnOrders/" + orderId + "/loas/" + fileId;
+        stubFor(delete(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+
+        ImportTnOrder.DeleteLoasFile(getDefaultClient(), orderId , fileId);
+
+
+    }
+
+    @Test
+    public void TestDeleteLoasFileMetadata() throws Exception {
+        String orderId = "orderId";
+        String fileId = "id";
+
+        byte[] data = new byte[100];
+        data[1] = 1;
+
+        String url = "/v1.0/accounts/accountId/importTnOrders/" + orderId + "/loas/" + fileId + "/metadata";
+        stubFor(delete(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+
+        ImportTnOrder.DeleteLoasFileMetadata(getDefaultClient(), orderId , fileId);
+
+
+    }
+
+    @Test
+    public void TestGetLoasFileMetadata() throws Exception {
+        String orderId = "orderId";
+        String fileId = "id";
+
+        String url = "/v1.0/accounts/accountId/importTnOrders/" + orderId + "/loas/" + fileId + "/metadata";
+        stubFor(get(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.validFileMetaDataResponseXml)));
+
+        FileMetaData fileMetaData = ImportTnOrder.GetLoasFileMetadata(getDefaultClient(), orderId , fileId);
+
+        assertNotNull(fileMetaData);
+        assertEquals("file.pdf", fileMetaData.getDocumentName());
+    }
+
+    @Test
+    public void TestPutLoasFileMetadata() throws Exception {
+        String orderId = "orderId";
+        String fileId = "id";
+
+        String url = "/v1.0/accounts/accountId/importTnOrders/" + orderId + "/loas/" + fileId + "/metadata";
+        stubFor(put(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+
+        ImportTnOrder.CreateLoasFileMetadata(getDefaultClient(), orderId , fileId, new FileMetaData());
+
+    }
+
 }
