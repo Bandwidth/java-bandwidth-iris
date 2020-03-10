@@ -26,5 +26,6 @@ public class IrisPath {
     public static final String IMPORT_TN_CHECKER = "importTnChecker";
     public static final String CSRS = "csrs";
     public static final String NOTES = "notes";
+    public static final String LOAS = "loas";
 
 }
