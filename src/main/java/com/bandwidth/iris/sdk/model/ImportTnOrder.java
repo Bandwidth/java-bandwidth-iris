@@ -73,15 +73,15 @@ public class ImportTnOrder extends BaseModel {
         return client.get( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS } ), FileListResponse.class);
     }
 
-    public static void PostLoasFile( IrisClient client, String orderId, File file, String contentType ) throws Exception {
+    public static void UploadLoasFile(IrisClient client, String orderId, File file, String contentType ) throws Exception {
         client.postFile( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS } ), file, contentType);
     }
 
-    public static byte[] GeLoasFile( IrisClient client, String orderId, String loasId ) throws Exception {
+    public static byte[] GetLoasFile(IrisClient client, String orderId, String loasId ) throws Exception {
         return client.getFile( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS, loasId } ) );
     }
 
-    public static void PutLoasFile( IrisClient client, String orderId, String fileid, File file, String contentType ) throws Exception {
+    public static void ReplaceLoasFile(IrisClient client, String orderId, String fileid, File file, String contentType ) throws Exception {
         client.putFile( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS, fileid } ), file, contentType);
     }
 

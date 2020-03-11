@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="fileUploadResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class FIleUploadResponse {
+public class FileUploadResponse {
 
 
     @XmlElement(name = "fileName")

@@ -4,9 +4,7 @@ import com.bandwidth.iris.sdk.model.*;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
@@ -151,7 +149,7 @@ public class ImportTnOrderTests extends BaseModelTests {
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.fileListLoas)));
 
-        ImportTnOrder.PostLoasFile(getDefaultClient(), orderId , new File("pom.xml"), "application/xml");
+        ImportTnOrder.UploadLoasFile(getDefaultClient(), orderId , new File("pom.xml"), "application/xml");
 
     }
 
@@ -168,7 +166,7 @@ public class ImportTnOrderTests extends BaseModelTests {
                 .willReturn(aResponse()
                         .withStatus(200).withBody(data)));
 
-        byte[] fileData = ImportTnOrder.GeLoasFile(getDefaultClient(), orderId , fileId);
+        byte[] fileData = ImportTnOrder.GetLoasFile(getDefaultClient(), orderId , fileId);
 
         assertEquals(fileData.length, data.length);
         assertEquals(fileData[1], data[1]);
@@ -188,7 +186,7 @@ public class ImportTnOrderTests extends BaseModelTests {
                 .willReturn(aResponse()
                         .withStatus(200)));
 
-        ImportTnOrder.PutLoasFile(getDefaultClient(), orderId , fileId, new File("pom.xml"), "application/xml");
+        ImportTnOrder.ReplaceLoasFile(getDefaultClient(), orderId , fileId, new File("pom.xml"), "application/xml");
 
 
     }
