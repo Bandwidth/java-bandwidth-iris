@@ -16,6 +16,7 @@ import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import java.io.FileOutputStream;
 
 import javax.xml.stream.XMLInputFactory;
 import java.io.File;
@@ -66,6 +67,16 @@ public class IrisClient {
     public <T> T get(String uri, Class<T> returnType) throws Exception {
         IrisResponse response = get(uri);
         return processResponse(response.getResponseBody(), returnType);
+    }
+
+    public byte[] getFile(String uri) throws Exception {
+        HttpGet get = new HttpGet(uri);
+        HttpResponse response = httpClient.execute(get);
+        
+        if (response.getStatusLine().getStatusCode() != 200) {
+            throw new IrisClientException("Status code getting LOAS file:  " + response.getStatusLine().getStatusCode());
+        }
+        return response.getEntity() != null ? EntityUtils.toByteArray(response.getEntity()) : new byte[]{};
     }
 
     public IrisResponse get(String uri) throws Exception {

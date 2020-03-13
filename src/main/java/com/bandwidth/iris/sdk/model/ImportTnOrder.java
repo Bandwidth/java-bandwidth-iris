@@ -4,6 +4,8 @@ import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.IrisPath;
 
 import javax.xml.bind.annotation.*;
+
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +67,38 @@ public class ImportTnOrder extends BaseModel {
 
     public static OrderHistoryWrapper GetHistory( IrisClient client, String orderId ) throws Exception {
         return client.get( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, "history" } ), OrderHistoryWrapper.class);
+    }
+
+    public static FileListResponse GetLoas( IrisClient client, String orderId ) throws Exception {
+        return client.get( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS } ), FileListResponse.class);
+    }
+
+    public static void UploadLoasFile(IrisClient client, String orderId, File file, String contentType ) throws Exception {
+        client.postFile( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS } ), file, contentType);
+    }
+
+    public static byte[] GetLoasFile(IrisClient client, String orderId, String loasId ) throws Exception {
+        return client.getFile( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS, loasId } ) );
+    }
+
+    public static void ReplaceLoasFile(IrisClient client, String orderId, String fileid, File file, String contentType ) throws Exception {
+        client.putFile( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS, fileid } ), file, contentType);
+    }
+
+    public static void DeleteLoasFile( IrisClient client, String orderId, String fileid ) throws Exception {
+        client.delete( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS, fileid } ));
+    }
+
+    public static FileMetaData GetLoasFileMetadata( IrisClient client, String orderId, String fileid) throws Exception {
+        return client.get( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS, fileid, "metadata" } ), FileMetaData.class);
+    }
+
+    public static void CreateLoasFileMetadata( IrisClient client, String orderId, String fileId, FileMetaData metadata) throws Exception {
+        client.put( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS, fileId, "metadata" } ), metadata );
+    }
+
+    public static void DeleteLoasFileMetadata( IrisClient client, String orderId, String fileId) throws Exception {
+        client.delete( client.buildAccountModelUri( new String[] {IrisPath.IMPORT_TN_ORDERS, orderId, IrisPath.LOAS, fileId, "metadata" } ));
     }
 
     public String getCustomerOrderId() {

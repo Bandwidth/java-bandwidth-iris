@@ -2,6 +2,13 @@ package com.bandwidth.iris.sdk;
 
 public class IrisClientTestUtils {
 
+    public static final String fileListLoas = "<fileListResponse>\n" +
+            "    <fileCount>2</fileCount>\n" +
+            "    <fileNames>803f3cc5-beae-469e-bd65-e9891ccdffb9-1092874634747.pdf</fileNames>\n" +
+            "    <fileNames>803f3cc5-beae-469e-bd65-e9891ccdffb9-1430814967669.pdf</fileNames>\n" +
+            "    <resultCode>0</resultCode>\n" +
+            "    <resultMessage>LOA file list successfully returned</resultMessage>\n" +
+            "</fileListResponse>";
 
     public static final String callbackSubscription = "<SubscriptionsResponse><Subscriptions><Subscription>\n" +
             "    <EventType>MESSAGING_LOST</EventType>\n" +
