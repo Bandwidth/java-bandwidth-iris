@@ -74,7 +74,7 @@ public class IrisClient {
         HttpResponse response = httpClient.execute(get);
         
         if (response.getStatusLine().getStatusCode() != 200) {
-            throw new IrisClientException("Status code getting LOAS file:  " + response.getStatusLine().getStatusCode());
+            throw new IrisClientException( response.getStatusLine().getStatusCode(), "Status code getting LOAS file:  " + response.getStatusLine().getStatusCode(), "");
         }
         return response.getEntity() != null ? EntityUtils.toByteArray(response.getEntity()) : new byte[]{};
     }
@@ -170,13 +170,20 @@ public class IrisClient {
         irisResponse.setHeaders(headers);
 
         if (!irisResponse.isOK()) {
-            throw new IrisClientException(irisResponse.getResponseBody());
+            throw new IrisClientException(irisResponse.getStatusCode(), "", irisResponse.getResponseBody());
         }
         return irisResponse;
     }
 
     public String getIdFromLocationHeader(String locationHeader) {
         return locationHeader.substring(locationHeader.lastIndexOf("/") + 1);
+    }
+
+    public void checkResponse( IrisResponse response, BaseResponse baseResponse ) throws IrisClientException{
+        if(baseResponse.getResponseStatus() != null ){
+            throw new IrisClientException(response.getStatusCode(),baseResponse.getResponseStatus().getErrorCode(),
+                    baseResponse.getResponseStatus().getDescription());
+        }
     }
 
 }

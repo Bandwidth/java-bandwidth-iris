@@ -8,15 +8,12 @@ public class IrisClientException extends Exception {
     public IrisClientException(Throwable e) {
         super(e);
     }
-
-    public IrisClientException(String message) {
-        super(message);
-    }
-
+    
     public IrisClientException(int statusCode, String errorCode, String description) {
         super(description);
         this.errorCode = errorCode;
         this.description = description;
+        this.statusCode = statusCode;
     }
 
     public String getErrorCode() {

@@ -40,7 +40,7 @@ public class Tns {
         //Have to manually parse for this error because of how it's returned
         if (irisResponse.getResponseBody().indexOf("ErrorResponse") != -1) {
             ErrorResponse errorResponse = XmlUtils.fromXml(irisResponse.getResponseBody(), ErrorResponse.class);
-            throw new IrisClientException(errorResponse.getIrisStatus().getCode(),
+            throw new IrisClientException(irisResponse.getStatusCode(),errorResponse.getIrisStatus().getCode(),
                     errorResponse.getIrisStatus().getDescription());
         } else {
             return XmlUtils.fromXml(irisResponse.getResponseBody(), TelephoneNumberResponse.class);

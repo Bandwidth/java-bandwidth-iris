@@ -28,4 +28,24 @@ public class AvailableNpaNxxTests extends BaseModelTests {
         assertEquals(2, result.size());
         assertEquals("919", result.get(0).getNpa());
     }
+
+    @Test
+    public void testIrisClientException() throws Exception {
+        String url = "/v1.0/accounts/accountId/availableNpaNxx.*";
+        stubFor(get(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(400).withBody(IrisClientTestUtils.availableNpaNxxSearchResultExceptionXml)));
+
+        Map<String, Object> query = new HashMap<String, Object>();
+        query.put("areaCode", "919");
+
+
+        try {
+            List<AvailableNpaNxx> result = AvailableNpaNxx.list(getDefaultClient(), query);
+        } catch ( IrisClientException ex ){
+            assertEquals(400, ex.getStatusCode());
+        }
+
+
+    }
 }
