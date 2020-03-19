@@ -52,12 +52,12 @@ public class IrisClient {
         httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, credentials);
     }
 
-    private <T> T processResponse(String responseBody, Class<T> returnType) throws Exception {
-        T parsedResponse = XmlUtils.fromXml(responseBody, returnType);
+    private <T> T processResponse(IrisResponse response, Class<T> returnType) throws Exception {
+        T parsedResponse = XmlUtils.fromXml(response.getResponseBody(), returnType);
         if (parsedResponse instanceof BaseResponse) {
             BaseResponse baseResponse = (BaseResponse) parsedResponse;
             if (baseResponse.getResponseStatus() != null) {
-                throw new IrisClientException(baseResponse.getResponseStatus().getErrorCode(),
+                throw new IrisClientException(response.getStatusCode(), baseResponse.getResponseStatus().getErrorCode(),
                         baseResponse.getResponseStatus().getDescription());
             }
         }
@@ -66,7 +66,7 @@ public class IrisClient {
 
     public <T> T get(String uri, Class<T> returnType) throws Exception {
         IrisResponse response = get(uri);
-        return processResponse(response.getResponseBody(), returnType);
+        return processResponse(response, returnType);
     }
 
     public byte[] getFile(String uri) throws Exception {
@@ -86,7 +86,7 @@ public class IrisClient {
 
     public <T> T post(String uri, BaseModel data, Class<T> returnType) throws Exception {
         IrisResponse response = post(uri, data);
-        return processResponse(response.getResponseBody(), returnType);
+        return processResponse(response, returnType);
     }
 
     public IrisResponse post(String uri, BaseModel data) throws Exception {
@@ -104,7 +104,7 @@ public class IrisClient {
 
     public <T> T put(String uri, BaseModel data, Class<T> returnType) throws Exception {
         IrisResponse response = put(uri, data);
-        return processResponse(response.getResponseBody(), returnType);
+        return processResponse(response, returnType);
     }
 
     public IrisResponse put(String uri, BaseModel data) throws Exception {
@@ -177,13 +177,6 @@ public class IrisClient {
 
     public String getIdFromLocationHeader(String locationHeader) {
         return locationHeader.substring(locationHeader.lastIndexOf("/") + 1);
-    }
-
-    public void checkResponse(BaseResponse response) throws IrisClientException {
-        if (response.getResponseStatus() != null) {
-            throw new IrisClientException(response.getResponseStatus().getErrorCode(),
-                    response.getResponseStatus().getDescription());
-        }
     }
 
 }

@@ -40,7 +40,6 @@ public class Site extends BaseModel {
     public static List<Site> list(IrisClient client) throws Exception {
         SitesResponse sitesResponse = client
                 .get(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH }), SitesResponse.class);
-        client.checkResponse(sitesResponse);
         List<Site> sites = sitesResponse.getSites();
         for (Site s : sites) {
             s.setClient(client);
