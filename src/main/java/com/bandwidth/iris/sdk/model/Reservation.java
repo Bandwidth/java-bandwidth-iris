@@ -38,7 +38,7 @@ public class Reservation extends BaseModel {
         if (response.getStatusCode() == HttpStatus.SC_BAD_REQUEST) {
             ReservationResponse reservationResponse =
                     XmlUtils.fromXml(response.getResponseBody(), ReservationResponse.class);
-            client.checkResponse(reservationResponse);
+            client.checkResponse(response, reservationResponse);
         }
         return result;
     }

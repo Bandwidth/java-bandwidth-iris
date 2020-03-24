@@ -52,12 +52,12 @@ public class IrisClient {
         httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, credentials);
     }
 
-    private <T> T processResponse(String responseBody, Class<T> returnType) throws Exception {
-        T parsedResponse = XmlUtils.fromXml(responseBody, returnType);
+    private <T> T processResponse(IrisResponse response, Class<T> returnType) throws Exception {
+        T parsedResponse = XmlUtils.fromXml(response.getResponseBody(), returnType);
         if (parsedResponse instanceof BaseResponse) {
             BaseResponse baseResponse = (BaseResponse) parsedResponse;
             if (baseResponse.getResponseStatus() != null) {
-                throw new IrisClientException(baseResponse.getResponseStatus().getErrorCode(),
+                throw new IrisClientException(response.getStatusCode(), baseResponse.getResponseStatus().getErrorCode(),
                         baseResponse.getResponseStatus().getDescription());
             }
         }
@@ -66,7 +66,7 @@ public class IrisClient {
 
     public <T> T get(String uri, Class<T> returnType) throws Exception {
         IrisResponse response = get(uri);
-        return processResponse(response.getResponseBody(), returnType);
+        return processResponse(response, returnType);
     }
 
     public byte[] getFile(String uri) throws Exception {
@@ -74,7 +74,7 @@ public class IrisClient {
         HttpResponse response = httpClient.execute(get);
         
         if (response.getStatusLine().getStatusCode() != 200) {
-            throw new IrisClientException("Status code getting LOAS file:  " + response.getStatusLine().getStatusCode());
+            throw new IrisClientException( response.getStatusLine().getStatusCode(), "Status code getting LOAS file:  " + response.getStatusLine().getStatusCode(), "");
         }
         return response.getEntity() != null ? EntityUtils.toByteArray(response.getEntity()) : new byte[]{};
     }
@@ -86,7 +86,7 @@ public class IrisClient {
 
     public <T> T post(String uri, BaseModel data, Class<T> returnType) throws Exception {
         IrisResponse response = post(uri, data);
-        return processResponse(response.getResponseBody(), returnType);
+        return processResponse(response, returnType);
     }
 
     public IrisResponse post(String uri, BaseModel data) throws Exception {
@@ -104,7 +104,7 @@ public class IrisClient {
 
     public <T> T put(String uri, BaseModel data, Class<T> returnType) throws Exception {
         IrisResponse response = put(uri, data);
-        return processResponse(response.getResponseBody(), returnType);
+        return processResponse(response, returnType);
     }
 
     public IrisResponse put(String uri, BaseModel data) throws Exception {
@@ -170,7 +170,7 @@ public class IrisClient {
         irisResponse.setHeaders(headers);
 
         if (!irisResponse.isOK()) {
-            throw new IrisClientException(irisResponse.getResponseBody());
+            throw new IrisClientException(irisResponse.getStatusCode(), "", irisResponse.getResponseBody());
         }
         return irisResponse;
     }
@@ -179,10 +179,10 @@ public class IrisClient {
         return locationHeader.substring(locationHeader.lastIndexOf("/") + 1);
     }
 
-    public void checkResponse(BaseResponse response) throws IrisClientException {
-        if (response.getResponseStatus() != null) {
-            throw new IrisClientException(response.getResponseStatus().getErrorCode(),
-                    response.getResponseStatus().getDescription());
+    public void checkResponse( IrisResponse response, BaseResponse baseResponse ) throws IrisClientException{
+        if(baseResponse.getResponseStatus() != null ){
+            throw new IrisClientException(response.getStatusCode(),baseResponse.getResponseStatus().getErrorCode(),
+                    baseResponse.getResponseStatus().getDescription());
         }
     }
 
