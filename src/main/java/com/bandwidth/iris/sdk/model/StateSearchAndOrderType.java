@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "StateSearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StateSearchAndOrderType {
+public class StateSearchAndOrderType extends BaseOrderType {
     @XmlElement(name = "State")
     private String state;
 
