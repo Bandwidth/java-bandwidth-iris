@@ -11,6 +11,9 @@ public class Links {
     @XmlElement(name = "first")
     private String first;
 
+    @XmlElement(name = "next")
+    private String next;
+
     @XmlElement(name = "last")
     private String last;
 
@@ -28,5 +31,13 @@ public class Links {
 
     public void setLast(String last) {
         this.last = last;
+    }
+
+    public String getNext() {
+        return next;
+    }
+
+    public void setNext(String next) {
+        this.next = next;
     }
 }

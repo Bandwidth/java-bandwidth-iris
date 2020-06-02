@@ -27,5 +27,8 @@ public class IrisPath {
     public static final String CSRS = "csrs";
     public static final String NOTES = "notes";
     public static final String LOAS = "loas";
-
+    public static final String EMERGENCY_NOTIFICATION_RECIPIENTS = "emergencyNotificationRecipients";
+    public static final String EMERGENCY_NOTIFICATION_GROUP_ORDERS = "emergencyNotificationGroupOrders";
+    public static final String EMERGENCY_NOTIFICATION_GROUPS = "emergencyNotificationGroups";
+    public static final String EMERGENCY_NOTIFICATION_ENDPOINT_ORDERS = "emergencyNotificationEndpointOrders";
 }
