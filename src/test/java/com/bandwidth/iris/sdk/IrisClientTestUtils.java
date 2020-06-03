@@ -2,6 +2,55 @@ package com.bandwidth.iris.sdk;
 
 public class IrisClientTestUtils {
 
+    public static final String listAeuis = "<AlternateEndUserIdentifiersResponse>\n" +
+            "    <TotalCount>2</TotalCount>\n" +
+            "    <Links>\n" +
+            "        <first>Link=&lt;http://localhost:8080/iris/accounts/14/aeuis?page=1&amp;size=500&gt;;rel=\"first\";</first>\n" +
+            "    </Links>\n" +
+            "    <AlternateEndUserIdentifiers>\n" +
+            "        <AlternateEndUserIdentifier>\n" +
+            "            <Identifier>DavidAcid</Identifier>\n" +
+            "            <CallbackNumber>8042105760</CallbackNumber>\n" +
+            "            <EmergencyNotificationGroup>\n" +
+            "                <Identifier>63865500-0904-46b1-9b4f-7bd237a26363</Identifier>\n" +
+            "                <Description>Building 5, 5th Floor.</Description>\n" +
+            "            </EmergencyNotificationGroup>\n" +
+            "        </AlternateEndUserIdentifier>\n" +
+            "        <AlternateEndUserIdentifier>\n" +
+            "            <Identifier>JohnAcid</Identifier>\n" +
+            "            <CallbackNumber>8042105618</CallbackNumber>\n" +
+            "        </AlternateEndUserIdentifier>\n" +
+            "    </AlternateEndUserIdentifiers>\n" +
+            "</AlternateEndUserIdentifiersResponse>";
+
+    public static final String getAeuis = "<AlternateEndUserIdentifierResponse>\n" +
+            "    <AlternateEndUserIdentifier>\n" +
+            "        <Identifier>DavidAcid</Identifier>\n" +
+            "        <CallbackNumber>8042105760</CallbackNumber>\n" +
+            "        <E911>\n" +
+            "            <CallerName>David</CallerName>\n" +
+            "            <Address>\n" +
+            "                <HouseNumber>900</HouseNumber>\n" +
+            "                <HouseSuffix></HouseSuffix>\n" +
+            "                <PreDirectional></PreDirectional>\n" +
+            "                <StreetName>MAIN CAMPUS</StreetName>\n" +
+            "                <StreetSuffix>DR</StreetSuffix>\n" +
+            "                <AddressLine2></AddressLine2>\n" +
+            "                <City>RALEIGH</City>\n" +
+            "                <StateCode>NC</StateCode>\n" +
+            "                <Zip>27606</Zip>\n" +
+            "                <PlusFour>5214</PlusFour>\n" +
+            "                <Country>United States</Country>\n" +
+            "                <AddressType>Billing</AddressType>\n" +
+            "            </Address>\n" +
+            "            <EmergencyNotificationGroup>\n" +
+            "                <Identifier>63865500-0904-46b1-9b4f-7bd237a26363</Identifier>\n" +
+            "                <Description>Building 5, 5th Floor.</Description>\n" +
+            "            </EmergencyNotificationGroup>\n" +
+            "        </E911>\n" +
+            "    </AlternateEndUserIdentifier>\n" +
+            "</AlternateEndUserIdentifierResponse>";
+
     public static final String listEmNotEndpointOrders = "<EmergencyNotificationEndpointOrderResponse>\n" +
             "    <Links>\n" +
             "        <first> -- link to first page of results -- </first>\n" +
