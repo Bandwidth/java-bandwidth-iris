@@ -489,6 +489,113 @@ public class IrisClientTestUtils {
      * Tns Xmls
      */
 
+    public static String e911TnDetails = "<TelephoneNumberResponse>\n" +
+            "    <TelephoneNumberDetails>\n" +
+            "        <City>JERSEY CITY</City>\n" +
+            "        <Lata>224</Lata>\n" +
+            "        <State>NJ</State>\n" +
+            "        <FullNumber>2018981023</FullNumber>\n" +
+            "        <Tier>0</Tier>\n" +
+            "        <VendorId>49</VendorId>\n" +
+            "        <VendorName>Bandwidth CLEC</VendorName>\n" +
+            "        <RateCenter>JERSEYCITY</RateCenter>\n" +
+            "        <Status>Inservice</Status>\n" +
+            "        <AccountId>14</AccountId>\n" +
+            "        <Site>\n" +
+            "            <Id>479</Id>\n" +
+            "            <Name>site_9b08f</Name>\n" +
+            "        </Site>\n" +
+            "        <SipPeer>\n" +
+            "            <PeerId>500014</PeerId>\n" +
+            "            <PeerName>a2750fad-3</PeerName>\n" +
+            "        </SipPeer>\n" +
+            "        <ServiceTypes>\n" +
+            "            <ServiceType>Voice</ServiceType>\n" +
+            "        </ServiceTypes>\n" +
+            "        <LastModified>2014-07-30T11:29:37.000Z</LastModified>\n" +
+            "        <InServiceDate>2014-07-30T11:29:37.000Z</InServiceDate>\n" +
+            "        <Features>\n" +
+            "            <E911>\n" +
+            "                <LastE911OrderOutcome>SUCCESS</LastE911OrderOutcome>\n" +
+            "                <SipPeerAddress>false</SipPeerAddress>\n" +
+            "                <CallerName>Test CallerName</CallerName>\n" +
+            "                <Address>\n" +
+            "                    <HouseNumber>901</HouseNumber>\n" +
+            "                    <StreetName>MAIN CAMPUS</StreetName>\n" +
+            "                    <StreetSuffix>DR</StreetSuffix>\n" +
+            "                    <City>RALEIGH</City>\n" +
+            "                    <StateCode>NC</StateCode>\n" +
+            "                    <Zip>27606</Zip>\n" +
+            "                    <PlusFour>5244</PlusFour>\n" +
+            "                    <Country>United States</Country>\n" +
+            "                </Address>\n" +
+            "                <EmergencyNotificationGroup>\n" +
+            "                    <Identifier>625e3ad9-c95e-4148-b2f7-d47a8dbdd0d9</Identifier>\n" +
+            "                    <Description>Building A</Description>\n" +
+            "                </EmergencyNotificationGroup>\n" +
+            "            </E911>\n" +
+            "            <Lidb>\n" +
+            "                <Status>Pending</Status>\n" +
+            "                <SubscriberInformation>Fred</SubscriberInformation>\n" +
+            "                <UseType>BUSINESS</UseType>\n" +
+            "                <Visibility>PUBLIC</Visibility>\n" +
+            "            </Lidb>\n" +
+            "            <Dlda>\n" +
+            "                <Status>Success</Status>\n" +
+            "                <SubscriberType>BUSINESS</SubscriberType>\n" +
+            "                <ListingType>LISTED</ListingType>\n" +
+            "                <ListingName>\n" +
+            "                    <FirstName>Joe</FirstName>\n" +
+            "                    <LastName>Smith</LastName>\n" +
+            "                </ListingName>\n" +
+            "                <ListAddress>true</ListAddress>\n" +
+            "                <Address>\n" +
+            "                    <HouseNumber>12</HouseNumber>\n" +
+            "                    <StreetName>ELM</StreetName>\n" +
+            "                    <City>New York</City>\n" +
+            "                    <StateCode>NY</StateCode>\n" +
+            "                    <Zip>10007</Zip>\n" +
+            "                    <Country>United States</Country>\n" +
+            "                    <AddressType>Dlda</AddressType>\n" +
+            "                </Address>\n" +
+            "            </Dlda>\n" +
+            "        </Features>\n" +
+            "        <TnAttributes>\n" +
+            "            <TnAttribute>Hosted</TnAttribute>\n" +
+            "        </TnAttributes>\n" +
+            "        <HostedTelephoneNumberDetails>\n" +
+            "            <HostedTelephoneNumberDetail>\n" +
+            "                <AccountId>12346160</AccountId>\n" +
+            "                <Site>\n" +
+            "                    <Id>487</Id>\n" +
+            "                    <Name>site_Mw4FX</Name>\n" +
+            "                </Site>\n" +
+            "                <SipPeer>\n" +
+            "                    <PeerId>500026</PeerId>\n" +
+            "                    <PeerName>sippeeremhlO</PeerName>\n" +
+            "                    <IsDefaultPeer>true</IsDefaultPeer>\n" +
+            "                </SipPeer>\n" +
+            "                <ServiceTypes>\n" +
+            "                    <ServiceType>Hosted Messaging</ServiceType>\n" +
+            "                </ServiceTypes>\n" +
+            "                <MessagingSettings>\n" +
+            "                    <SmsEnabled>true</SmsEnabled>\n" +
+            "                    <CampaignId>fYtaiwCESO7Z7sgnc3smfMOg1JgMZ16FCQ1FtFosjHRUSkJVNWYW5p70gdVWGTGe</CampaignId>\n" +
+            "                    <MessageClass>V4578Qab0yppj6E4xumcMbmE5d6IPY9FWT37xI9gHt6AGoiEihurpYLNuV5EfbTn </MessageClass>\n" +
+            "                    <A2pState>overridden</A2pState>\n" +
+            "                    <AssignedNnRoute>\n" +
+            "                        <Nnid>2183991</Nnid>\n" +
+            "                        <Name>7ae5LXMn</Name>\n" +
+            "                    </AssignedNnRoute>\n" +
+            "                </MessagingSettings>\n" +
+            "                <TnAttributes>\n" +
+            "                    <TnAttribute>Hosted</TnAttribute>\n" +
+            "                </TnAttributes>\n" +
+            "            </HostedTelephoneNumberDetail>\n" +
+            "        </HostedTelephoneNumberDetails>\n" +
+            "    </TelephoneNumberDetails>\n" +
+            "</TelephoneNumberResponse>";
+
     public static String validTnDetailsResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><TelephoneNumberResponse><TelephoneNumberDetails><City>MOUNT OLIVE</City><Lata>426</Lata><State>NC</State><FullNumber>9195551212</FullNumber><Tier>0</Tier><VendorId>49</VendorId><VendorName>Bandwidth CLEC</VendorName><RateCenter>MOUNTOLIVE</RateCenter><Status>Inservice</Status><AccountId>9900096</AccountId><LastModified>2014-10-14T20:01:53.000Z</LastModified></TelephoneNumberDetails></TelephoneNumberResponse>";
     public static String validTnRateCenterResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><TelephoneNumberResponse><TelephoneNumberDetails><State>NC</State><RateCenter>MOUNTOLIVE</RateCenter></TelephoneNumberDetails></TelephoneNumberResponse>";
     public static String validTnLataResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><TelephoneNumberResponse><TelephoneNumberDetails><Lata>426</Lata></TelephoneNumberDetails></TelephoneNumberResponse>";

@@ -26,6 +26,9 @@ public class TelephoneNumberDetails extends TelephoneNumberDetail {
     @XmlElement(name = "LastModified")
     private String lastModified;
 
+    @XmlElement(name = "Features")
+    private Features features;
+
     public String getTier() {
         return tier;
     }
@@ -72,5 +75,13 @@ public class TelephoneNumberDetails extends TelephoneNumberDetail {
 
     public void setLastModified(String lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public Features getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(Features features) {
+        this.features = features;
     }
 }
