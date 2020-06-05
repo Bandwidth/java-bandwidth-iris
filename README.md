@@ -624,3 +624,16 @@ EmergencyNotificationEndpointOrderResponse response = EmergencyNotification.list
 ```java
 EmergencyNotificationEndpointOrderResponse response = EmergencyNotification.getEndpointOrder(client, orderId);
 ```
+
+## Aeuis 
+
+### Get Aeui
+
+```java
+AlternateEndUserIdentifierResponse response = Aeui.get(client, id);
+```
+
+### List Aeuis
+```java 
+AlternateEndUserIdentifiersResponse response = Aeui.list(client, query);
+```
