@@ -2,6 +2,355 @@ package com.bandwidth.iris.sdk;
 
 public class IrisClientTestUtils {
 
+    public static final String listAeuis = "<AlternateEndUserIdentifiersResponse>\n" +
+            "    <TotalCount>2</TotalCount>\n" +
+            "    <Links>\n" +
+            "        <first>Link=&lt;http://localhost:8080/iris/accounts/14/aeuis?page=1&amp;size=500&gt;;rel=\"first\";</first>\n" +
+            "    </Links>\n" +
+            "    <AlternateEndUserIdentifiers>\n" +
+            "        <AlternateEndUserIdentifier>\n" +
+            "            <Identifier>DavidAcid</Identifier>\n" +
+            "            <CallbackNumber>8042105760</CallbackNumber>\n" +
+            "            <EmergencyNotificationGroup>\n" +
+            "                <Identifier>63865500-0904-46b1-9b4f-7bd237a26363</Identifier>\n" +
+            "                <Description>Building 5, 5th Floor.</Description>\n" +
+            "            </EmergencyNotificationGroup>\n" +
+            "        </AlternateEndUserIdentifier>\n" +
+            "        <AlternateEndUserIdentifier>\n" +
+            "            <Identifier>JohnAcid</Identifier>\n" +
+            "            <CallbackNumber>8042105618</CallbackNumber>\n" +
+            "        </AlternateEndUserIdentifier>\n" +
+            "    </AlternateEndUserIdentifiers>\n" +
+            "</AlternateEndUserIdentifiersResponse>";
+
+    public static final String getAeuis = "<AlternateEndUserIdentifierResponse>\n" +
+            "    <AlternateEndUserIdentifier>\n" +
+            "        <Identifier>DavidAcid</Identifier>\n" +
+            "        <CallbackNumber>8042105760</CallbackNumber>\n" +
+            "        <E911>\n" +
+            "            <CallerName>David</CallerName>\n" +
+            "            <Address>\n" +
+            "                <HouseNumber>900</HouseNumber>\n" +
+            "                <HouseSuffix></HouseSuffix>\n" +
+            "                <PreDirectional></PreDirectional>\n" +
+            "                <StreetName>MAIN CAMPUS</StreetName>\n" +
+            "                <StreetSuffix>DR</StreetSuffix>\n" +
+            "                <AddressLine2></AddressLine2>\n" +
+            "                <City>RALEIGH</City>\n" +
+            "                <StateCode>NC</StateCode>\n" +
+            "                <Zip>27606</Zip>\n" +
+            "                <PlusFour>5214</PlusFour>\n" +
+            "                <Country>United States</Country>\n" +
+            "                <AddressType>Billing</AddressType>\n" +
+            "            </Address>\n" +
+            "            <EmergencyNotificationGroup>\n" +
+            "                <Identifier>63865500-0904-46b1-9b4f-7bd237a26363</Identifier>\n" +
+            "                <Description>Building 5, 5th Floor.</Description>\n" +
+            "            </EmergencyNotificationGroup>\n" +
+            "        </E911>\n" +
+            "    </AlternateEndUserIdentifier>\n" +
+            "</AlternateEndUserIdentifierResponse>";
+
+    public static final String listEmNotEndpointOrders = "<EmergencyNotificationEndpointOrderResponse>\n" +
+            "    <Links>\n" +
+            "        <first> -- link to first page of results -- </first>\n" +
+            "        <next> -- link to next page of results -- </next>\n" +
+            "    </Links>\n" +
+            "    <EmergencyNotificationEndpointOrders>\n" +
+            "        <EmergencyNotificationEndpointOrder>\n" +
+            "            <OrderId>3e9a852e-2d1d-4e2d-84c3-87223a78cb70</OrderId>\n" +
+            "            <OrderCreatedDate>2020-01-23T18:34:17.284Z</OrderCreatedDate>\n" +
+            "            <CreatedBy>jgilmore</CreatedBy>\n" +
+            "            <ProcessingStatus>COMPLETED</ProcessingStatus>\n" +
+            "            <CustomerOrderId>ALG-31233884</CustomerOrderId>\n" +
+            "            <EmergencyNotificationEndpointAssociations>\n" +
+            "                <EmergencyNotificationGroup>\n" +
+            "                    <Identifier>3e9a852e-2d1d-4e2d-84c3-04595ba2eb93</Identifier>\n" +
+            "                </EmergencyNotificationGroup>\n" +
+            "                <AddedAssociations>\n" +
+            "                    <EepToEngAssociations>\n" +
+            "                        <EepTns>\n" +
+            "                            <TelephoneNumber>2248838829</TelephoneNumber>\n" +
+            "                            <TelephoneNumber>4052397735</TelephoneNumber>\n" +
+            "                        </EepTns>\n" +
+            "                        <EepAeuiIds>\n" +
+            "                            <Identifier>Fred992834</Identifier>\n" +
+            "                            <Identifier>Bob00359</Identifier>\n" +
+            "                        </EepAeuiIds>\n" +
+            "                    </EepToEngAssociations>\n" +
+            "                    <ErrorList />\n" +
+            "                </AddedAssociations>\n" +
+            "            </EmergencyNotificationEndpointAssociations>\n" +
+            "        </EmergencyNotificationEndpointOrder>\n" +
+            "        <EmergencyNotificationEndpointOrder>\n" +
+            "        </EmergencyNotificationEndpointOrder>\n" +
+            "        <EmergencyNotificationEndpointOrder>\n" +
+            "        </EmergencyNotificationEndpointOrder>\n" +
+            "    </EmergencyNotificationEndpointOrders>\n" +
+            "</EmergencyNotificationEndpointOrderResponse>";
+
+    public static final String getEmNotEndpointOrderResponse = "<EmergencyNotificationEndpointOrderResponse>\n" +
+            "    <EmergencyNotificationEndpointOrder>\n" +
+            "        <OrderId>3e9a852e-2d1d-4e2d-84c3-87223a78cb70</OrderId>\n" +
+            "        <OrderCreatedDate>2020-01-23T18:34:17.284Z</OrderCreatedDate>\n" +
+            "        <CreatedBy>jgilmore</CreatedBy>\n" +
+            "        <ProcessingStatus>COMPLETED</ProcessingStatus>\n" +
+            "        <CustomerOrderId>ALG-31233884</CustomerOrderId>\n" +
+            "        <EmergencyNotificationEndpointAssociations>\n" +
+            "            <EmergencyNotificationGroup>\n" +
+            "                <Identifier>3e9a852e-2d1d-4e2d-84c3-04595ba2eb93</Identifier>\n" +
+            "            </EmergencyNotificationGroup>\n" +
+            "            <!-- If the order created emergency endpoint to emergency notification group associations -->\n" +
+            "            <AddedAssociations>\n" +
+            "                <EepToEngAssociations>\n" +
+            "                    <EepTns>\n" +
+            "                        <TelephoneNumber>2248838829</TelephoneNumber>\n" +
+            "                        <TelephoneNumber>4052397735</TelephoneNumber>\n" +
+            "                    </EepTns>\n" +
+            "                    <EepAeuiIds>\n" +
+            "                        <Identifier>Fred992834</Identifier>\n" +
+            "                        <Identifier>Bob00359</Identifier>\n" +
+            "                    </EepAeuiIds>\n" +
+            "                </EepToEngAssociations>\n" +
+            "                <ErrorList />\n" +
+            "            </AddedAssociations>\n" +
+            "        </EmergencyNotificationEndpointAssociations>\n" +
+            "    </EmergencyNotificationEndpointOrder>\n" +
+            "</EmergencyNotificationEndpointOrderResponse>";
+
+    public static final String getEmNotGroup = "<EmergencyNotificationGroupsResponse>\n" +
+            "    <EmergencyNotificationGroup>\n" +
+            "        <Identifier>63865500-0904-46b1-9b4f-7bd237a26363</Identifier>\n" +
+            "        <CreatedDate>2020-01-23T18:34:17.284Z</CreatedDate>\n" +
+            "        <ModifiedBy>jgilmore</ModifiedBy>\n" +
+            "        <ModifiedDate>2020-01-23T18:34:17.284Z</ModifiedDate>\n" +
+            "        <Description>This is a description of the emergency notification group.</Description>\n" +
+            "        <EmergencyNotificationRecipients>\n" +
+            "            <EmergencyNotificationRecipient>\n" +
+            "                <Identifier>63865500-0904-46b1-9b4f-7bd237a26363</Identifier>\n" +
+            "            </EmergencyNotificationRecipient>\n" +
+            "            <EmergencyNotificationRecipient>\n" +
+            "                <Identifier>ef47eb61-e3b1-449d-834b-0fbc5a11da30</Identifier>\n" +
+            "            </EmergencyNotificationRecipient>\n" +
+            "        </EmergencyNotificationRecipients>\n" +
+            "    </EmergencyNotificationGroup>\n" +
+            "</EmergencyNotificationGroupsResponse>";
+
+    public static final String getListEmergencyNotificationGroups = "<EmergencyNotificationGroupsResponse>\n" +
+            "    <Links>\n" +
+            "        <!-- The 'first' link always gets the most recent results. -->\n" +
+            "        <first> -- link to first page of results -- </first>\n" +
+            "        <!-- If the 'next' link is present, there are more than 'size' results. -->\n" +
+            "        <!-- Use the 'next' link to fetch the next set of results. -->\n" +
+            "        <next> -- link to next page of results -- </next>\n" +
+            "    </Links>\n" +
+            "    <EmergencyNotificationGroups>\n" +
+            "        <EmergencyNotificationGroup>\n" +
+            "            <Identifier>63865500-0904-46b1-9b4f-7bd237a26363</Identifier>\n" +
+            "            <CreatedDate>2020-01-23T18:34:17.284Z</CreatedDate>\n" +
+            "            <ModifiedBy>jgilmore</ModifiedBy>\n" +
+            "            <ModifiedDate>2020-01-23T18:34:17.284Z</ModifiedDate>\n" +
+            "            <Description>This is a description of the emergency notification group.</Description>\n" +
+            "            <EmergencyNotificationRecipients>\n" +
+            "                <!-- Specify the 'EnrDetails' query parameter to see full details for the emergency notification recipients -->\n" +
+            "                <EmergencyNotificationRecipient>\n" +
+            "                    <Identifier>63865500-0904-46b1-9b4f-7bd237a26363</Identifier>\n" +
+            "                </EmergencyNotificationRecipient>\n" +
+            "                <EmergencyNotificationRecipient>\n" +
+            "                    <Identifier>ef47eb61-e3b1-449d-834b-0fbc5a11da30</Identifier>\n" +
+            "                </EmergencyNotificationRecipient>\n" +
+            "            </EmergencyNotificationRecipients>\n" +
+            "        </EmergencyNotificationGroup>\n" +
+            "        <EmergencyNotificationGroup>\n" +
+            "            <Identifier>29477382-23947-23c-2349-aa8238b22743</Identifier>\n" +
+            "            <CreatedDate>2020-01-23T18:36:51.987Z</CreatedDate>\n" +
+            "            <ModifiedBy>jgilmore</ModifiedBy>\n" +
+            "            <ModifiedDate>2020-01-23T18:36:51.987Z</ModifiedDate>\n" +
+            "            <Description>This is a description of the emergency notification group.</Description>\n" +
+            "            <EmergencyNotificationRecipients>\n" +
+            "                <!-- Specify the 'EnrDetails' query parameter to see full details for the emergency notification recipients -->\n" +
+            "                <EmergencyNotificationRecipient>\n" +
+            "                    <Identifier>37742335-8722-3abc-8722-e2434f123a4d</Identifier>\n" +
+            "                </EmergencyNotificationRecipient>\n" +
+            "            </EmergencyNotificationRecipients>\n" +
+            "        </EmergencyNotificationGroup>\n" +
+            "    </EmergencyNotificationGroups>\n" +
+            "</EmergencyNotificationGroupsResponse>";
+
+    public static final String listEmergencyNotificationGroupOrders = "<EmergencyNotificationGroupOrderResponse>\n" +
+            "    <Links>\n" +
+            "        <first>Link=&lt;http://localhost:8080/v1.0/accounts/12346371/emergencyNotificationGroupOrders&gt;;rel=\"first\";</first>\n" +
+            "    </Links>\n" +
+            "    <EmergencyNotificationGroupOrders>\n" +
+            "        <EmergencyNotificationGroupOrder>\n" +
+            "            <OrderId>092815dc-9ced-4d67-a070-a80eb243b914</OrderId>\n" +
+            "            <OrderCreatedDate>2020-04-29T15:40:01.449Z</OrderCreatedDate>\n" +
+            "            <CreatedBy>systemUser</CreatedBy>\n" +
+            "            <ProcessingStatus>COMPLETED</ProcessingStatus>\n" +
+            "            <CustomerOrderId>QTWeKMys</CustomerOrderId>\n" +
+            "            <AddedEmergencyNotificationGroup>\n" +
+            "                <Identifier>6daa55e1-e499-4cf0-9f3d-9524215f1bee</Identifier>\n" +
+            "                <Description>enr test description 3</Description>\n" +
+            "                <AddedEmergencyNotificationRecipients>\n" +
+            "                    <EmergencyNotificationRecipient>\n" +
+            "                        <Identifier>44f203915ca249b7b69bbc084af09a</Identifier>\n" +
+            "                        <Description>TestDesc SEHsbDMM</Description>\n" +
+            "                        <Type>SMS</Type>\n" +
+            "                        <Sms>\n" +
+            "                            <TelephoneNumber>15638765448</TelephoneNumber>\n" +
+            "                        </Sms>\n" +
+            "                    </EmergencyNotificationRecipient>\n" +
+            "                </AddedEmergencyNotificationRecipients>\n" +
+            "            </AddedEmergencyNotificationGroup>\n" +
+            "        </EmergencyNotificationGroupOrder>\n" +
+            "        <EmergencyNotificationGroupOrder>\n" +
+            "            <OrderId>89b4e0a1-2789-43fb-b948-38d368159142</OrderId>\n" +
+            "            <OrderCreatedDate>2020-04-29T15:39:59.325Z</OrderCreatedDate>\n" +
+            "            <CreatedBy>systemUser</CreatedBy>\n" +
+            "            <ProcessingStatus>COMPLETED</ProcessingStatus>\n" +
+            "            <CustomerOrderId>SDWupQpf</CustomerOrderId>\n" +
+            "            <AddedEmergencyNotificationGroup>\n" +
+            "                <Identifier>b49fa543-5bb3-4b9d-9213-96c8b63e77f5</Identifier>\n" +
+            "                <Description>enr test description 2</Description>\n" +
+            "                <AddedEmergencyNotificationRecipients>\n" +
+            "                    <EmergencyNotificationRecipient>\n" +
+            "                        <Identifier>c719e060a6ba4212a2c0642b87a784</Identifier>\n" +
+            "                        <Description>TestDesc zscxcAGG</Description>\n" +
+            "                        <Type>SMS</Type>\n" +
+            "                        <Sms>\n" +
+            "                            <TelephoneNumber>15678765448</TelephoneNumber>\n" +
+            "                        </Sms>\n" +
+            "                    </EmergencyNotificationRecipient>\n" +
+            "                    <EmergencyNotificationRecipient>\n" +
+            "                        <Identifier>93ad72dfe59c4992be6f8aa625466d</Identifier>\n" +
+            "                        <Description>TestDesc RTflsKBz</Description>\n" +
+            "                        <Type>TTS</Type>\n" +
+            "                        <Tts>\n" +
+            "                            <TelephoneNumber>17678765449</TelephoneNumber>\n" +
+            "                        </Tts>\n" +
+            "                    </EmergencyNotificationRecipient>\n" +
+            "                </AddedEmergencyNotificationRecipients>\n" +
+            "            </AddedEmergencyNotificationGroup>\n" +
+            "        </EmergencyNotificationGroupOrder>\n" +
+            "        <EmergencyNotificationGroupOrder>\n" +
+            "            <OrderId>247d1425-4247-4b27-99d8-83ce30038b14</OrderId>\n" +
+            "            <OrderCreatedDate>2020-04-29T15:39:57.058Z</OrderCreatedDate>\n" +
+            "            <CreatedBy>systemUser</CreatedBy>\n" +
+            "            <ProcessingStatus>COMPLETED</ProcessingStatus>\n" +
+            "            <CustomerOrderId>vgshuNMB</CustomerOrderId>\n" +
+            "            <AddedEmergencyNotificationGroup>\n" +
+            "                <Identifier>69a3d588-f314-42ca-8726-faa824bdf4be</Identifier>\n" +
+            "                <Description>eng test description</Description>\n" +
+            "                <AddedEmergencyNotificationRecipients>\n" +
+            "                    <EmergencyNotificationRecipient>\n" +
+            "                        <Identifier>aab78f87074940f1aaaf1c9658be4b</Identifier>\n" +
+            "                        <Description>enr test description</Description>\n" +
+            "                        <Type>EMAIL</Type>\n" +
+            "                        <EmailAddress>testEmail@gmail.com</EmailAddress>\n" +
+            "                    </EmergencyNotificationRecipient>\n" +
+            "                    <EmergencyNotificationRecipient>\n" +
+            "                        <Identifier>852e9eee161b4da6823c91173b05c4</Identifier>\n" +
+            "                        <Description>TestDesc WkHqpnNH</Description>\n" +
+            "                        <Type>TTS</Type>\n" +
+            "                        <Tts>\n" +
+            "                            <TelephoneNumber>15678765449</TelephoneNumber>\n" +
+            "                        </Tts>\n" +
+            "                    </EmergencyNotificationRecipient>\n" +
+            "                </AddedEmergencyNotificationRecipients>\n" +
+            "            </AddedEmergencyNotificationGroup>\n" +
+            "        </EmergencyNotificationGroupOrder>\n" +
+            "    </EmergencyNotificationGroupOrders>\n" +
+            "</EmergencyNotificationGroupOrderResponse>";
+
+    public static final String modifiedEmergencyNotificationGroupOrdersResponse = "<EmergencyNotificationGroupOrderResponse>\n" +
+            "    <OrderId>31e4be80-e816-432e-a554-1219ed4fc5e9</OrderId>\n" +
+            "    <OrderCreatedDate>2020-04-29T15:34:32.799</OrderCreatedDate>\n" +
+            "    <CreatedBy>systemUser</CreatedBy>\n" +
+            "    <ProcessingStatus>PROCESSING</ProcessingStatus>\n" +
+            "    <ModifiedEmergencyNotificationGroup>\n" +
+            "        <Identifier>5da0859b-2af8-42a3-85dd-dad4ba5f7503</Identifier>\n" +
+            "        <Description>oXHGGVKwmd</Description>\n" +
+            "        <AddedEmergencyNotificationRecipients>\n" +
+            "            <EmergencyNotificationRecipient>\n" +
+            "                <Identifier>f2eaa7be771241af9b031584875a60</Identifier>>\n" +
+            "            </EmergencyNotificationRecipient>\n" +
+            "        </AddedEmergencyNotificationRecipients>\n" +
+            "    </ModifiedEmergencyNotificationGroup>\n" +
+            "</EmergencyNotificationGroupOrderResponse>";
+
+    public static final String addedEmergencyNotificationGroupsResponse = "<EmergencyNotificationGroupOrderResponse>\n" +
+            "    <OrderId>900b3646-18df-4626-b237-3a8de648ebf6</OrderId>\n" +
+            "    <OrderCreatedDate>2020-04-29T15:27:16.151</OrderCreatedDate>\n" +
+            "    <CreatedBy>systemUser</CreatedBy>\n" +
+            "    <ProcessingStatus>PROCESSING</ProcessingStatus>\n" +
+            "    <CustomerOrderId>UbOxhMnp</CustomerOrderId>\n" +
+            "    <AddedEmergencyNotificationGroup>\n" +
+            "        <Identifier>52897b97-3592-43fe-aa3f-857cf96671ee</Identifier>\n" +
+            "        <Description>JgHzUzIchD</Description>\n" +
+            "        <AddedEmergencyNotificationRecipients>\n" +
+            "            <EmergencyNotificationRecipient>\n" +
+            "                <Identifier>c7f74671edd8410d9a4c0f8e985e0a</Identifier>\n" +
+            "            </EmergencyNotificationRecipient>\n" +
+            "            <EmergencyNotificationRecipient>\n" +
+            "                <Identifier>74ac30535b414d29bc36d50572f553</Identifier>\n" +
+            "            </EmergencyNotificationRecipient>\n" +
+            "            <EmergencyNotificationRecipient>\n" +
+            "                <Identifier>b910df3245ce4192aee052f583259f</Identifier>\n" +
+            "            </EmergencyNotificationRecipient>\n" +
+            "        </AddedEmergencyNotificationRecipients>\n" +
+            "    </AddedEmergencyNotificationGroup>\n" +
+            "</EmergencyNotificationGroupOrderResponse>";
+
+    public static final String listEmergencyNotificationRecipientsResponse = "<EmergencyNotificationRecipientsResponse>\n" +
+            "    <Links>\n" +
+            "        <first> -- link to first page of results -- </first>\n" +
+            "        <next> -- link to next page of results -- </next>\n" +
+            "    </Links>\n" +
+            "    <EmergencyNotificationRecipients>\n" +
+            "        <EmergencyNotificationRecipient>\n" +
+            "            <Identifier> 63865500-0904-46b1-9b4f-7bd237a26363 </Identifier>\n" +
+            "            <CreatedDate>2020-03-18T21:26:47.403Z</CreatedDate>\n" +
+            "            <LastModifiedDate>2020-03-18T21:26:47.403Z</LastModifiedDate>\n" +
+            "            <ModifiedByUser>jgilmore</ModifiedByUser>\n" +
+            "            <Description> This is a description of the emergency notification recipient. </Description>\n" +
+            "            <Type>CALLBACK</Type>\n" +
+            "            <Callback>\n" +
+            "                <Url>https://foo.bar/baz</Url>\n" +
+            "                <Credentials>\n" +
+            "                    <Username>jgilmore</Username>\n" +
+            "                    <!-- CallbackPassword is omitted for security -->\n" +
+            "                </Credentials>\n" +
+            "            </Callback>\n" +
+            "        </EmergencyNotificationRecipient>\n" +
+            "        <EmergencyNotificationRecipient>\n" +
+            "            <Identifier> 63865500-0904-46b1-9b4f-7bd237a26363 </Identifier>\n" +
+            "            <CreatedDate>2020-03-22T12:13:25.782Z</CreatedDate>\n" +
+            "            <LastModifiedDate>2020-03-22T12:13:25.782Z</LastModifiedDate>\n" +
+            "            <ModifiedByUser>gfranklin</ModifiedByUser>\n" +
+            "            <Description> This is a description of the emergency notification recipient. </Description>\n" +
+            "            <Type>EMAIL</Type>\n" +
+            "            <EmailAddress>fred@gmail.com</EmailAddress>\n" +
+            "        </EmergencyNotificationRecipient>\n" +
+            "    </EmergencyNotificationRecipients>\n" +
+            "</EmergencyNotificationRecipientsResponse>";
+
+    public static final String emergencyNotificationRecipientsResponse = "<EmergencyNotificationRecipientsResponse>\n" +
+            "    <EmergencyNotificationRecipient>\n" +
+            "        <Identifier> 63865500-0904-46b1-9b4f-7bd237a26363 </Identifier>\n" +
+            "        <CreatedDate>2020-03-18T21:26:47.403Z</CreatedDate>\n" +
+            "        <LastModifiedDate>2020-03-18T21:26:47.403Z</LastModifiedDate>\n" +
+            "        <ModifiedByUser>jgilmore</ModifiedByUser>\n" +
+            "        <Description> This is a description of the emergency notification recipient. </Description>\n" +
+            "        <Type>CALLBACK</Type>\n" +
+            "        <Callback>\n" +
+            "            <Url>https://foo.bar/baz</Url>\n" +
+            "            <Credentials>\n" +
+            "                <Username>jgilmore</Username>\n" +
+            "            </Credentials>\n" +
+            "        </Callback>\n" +
+            "    </EmergencyNotificationRecipient>\n" +
+            "</EmergencyNotificationRecipientsResponse>";
+
     public static final String fileListLoas = "<fileListResponse>\n" +
             "    <fileCount>2</fileCount>\n" +
             "    <fileNames>803f3cc5-beae-469e-bd65-e9891ccdffb9-1092874634747.pdf</fileNames>\n" +
@@ -188,6 +537,113 @@ public class IrisClientTestUtils {
     /**
      * Tns Xmls
      */
+
+    public static String e911TnDetails = "<TelephoneNumberResponse>\n" +
+            "    <TelephoneNumberDetails>\n" +
+            "        <City>JERSEY CITY</City>\n" +
+            "        <Lata>224</Lata>\n" +
+            "        <State>NJ</State>\n" +
+            "        <FullNumber>2018981023</FullNumber>\n" +
+            "        <Tier>0</Tier>\n" +
+            "        <VendorId>49</VendorId>\n" +
+            "        <VendorName>Bandwidth CLEC</VendorName>\n" +
+            "        <RateCenter>JERSEYCITY</RateCenter>\n" +
+            "        <Status>Inservice</Status>\n" +
+            "        <AccountId>14</AccountId>\n" +
+            "        <Site>\n" +
+            "            <Id>479</Id>\n" +
+            "            <Name>site_9b08f</Name>\n" +
+            "        </Site>\n" +
+            "        <SipPeer>\n" +
+            "            <PeerId>500014</PeerId>\n" +
+            "            <PeerName>a2750fad-3</PeerName>\n" +
+            "        </SipPeer>\n" +
+            "        <ServiceTypes>\n" +
+            "            <ServiceType>Voice</ServiceType>\n" +
+            "        </ServiceTypes>\n" +
+            "        <LastModified>2014-07-30T11:29:37.000Z</LastModified>\n" +
+            "        <InServiceDate>2014-07-30T11:29:37.000Z</InServiceDate>\n" +
+            "        <Features>\n" +
+            "            <E911>\n" +
+            "                <LastE911OrderOutcome>SUCCESS</LastE911OrderOutcome>\n" +
+            "                <SipPeerAddress>false</SipPeerAddress>\n" +
+            "                <CallerName>Test CallerName</CallerName>\n" +
+            "                <Address>\n" +
+            "                    <HouseNumber>901</HouseNumber>\n" +
+            "                    <StreetName>MAIN CAMPUS</StreetName>\n" +
+            "                    <StreetSuffix>DR</StreetSuffix>\n" +
+            "                    <City>RALEIGH</City>\n" +
+            "                    <StateCode>NC</StateCode>\n" +
+            "                    <Zip>27606</Zip>\n" +
+            "                    <PlusFour>5244</PlusFour>\n" +
+            "                    <Country>United States</Country>\n" +
+            "                </Address>\n" +
+            "                <EmergencyNotificationGroup>\n" +
+            "                    <Identifier>625e3ad9-c95e-4148-b2f7-d47a8dbdd0d9</Identifier>\n" +
+            "                    <Description>Building A</Description>\n" +
+            "                </EmergencyNotificationGroup>\n" +
+            "            </E911>\n" +
+            "            <Lidb>\n" +
+            "                <Status>Pending</Status>\n" +
+            "                <SubscriberInformation>Fred</SubscriberInformation>\n" +
+            "                <UseType>BUSINESS</UseType>\n" +
+            "                <Visibility>PUBLIC</Visibility>\n" +
+            "            </Lidb>\n" +
+            "            <Dlda>\n" +
+            "                <Status>Success</Status>\n" +
+            "                <SubscriberType>BUSINESS</SubscriberType>\n" +
+            "                <ListingType>LISTED</ListingType>\n" +
+            "                <ListingName>\n" +
+            "                    <FirstName>Joe</FirstName>\n" +
+            "                    <LastName>Smith</LastName>\n" +
+            "                </ListingName>\n" +
+            "                <ListAddress>true</ListAddress>\n" +
+            "                <Address>\n" +
+            "                    <HouseNumber>12</HouseNumber>\n" +
+            "                    <StreetName>ELM</StreetName>\n" +
+            "                    <City>New York</City>\n" +
+            "                    <StateCode>NY</StateCode>\n" +
+            "                    <Zip>10007</Zip>\n" +
+            "                    <Country>United States</Country>\n" +
+            "                    <AddressType>Dlda</AddressType>\n" +
+            "                </Address>\n" +
+            "            </Dlda>\n" +
+            "        </Features>\n" +
+            "        <TnAttributes>\n" +
+            "            <TnAttribute>Hosted</TnAttribute>\n" +
+            "        </TnAttributes>\n" +
+            "        <HostedTelephoneNumberDetails>\n" +
+            "            <HostedTelephoneNumberDetail>\n" +
+            "                <AccountId>12346160</AccountId>\n" +
+            "                <Site>\n" +
+            "                    <Id>487</Id>\n" +
+            "                    <Name>site_Mw4FX</Name>\n" +
+            "                </Site>\n" +
+            "                <SipPeer>\n" +
+            "                    <PeerId>500026</PeerId>\n" +
+            "                    <PeerName>sippeeremhlO</PeerName>\n" +
+            "                    <IsDefaultPeer>true</IsDefaultPeer>\n" +
+            "                </SipPeer>\n" +
+            "                <ServiceTypes>\n" +
+            "                    <ServiceType>Hosted Messaging</ServiceType>\n" +
+            "                </ServiceTypes>\n" +
+            "                <MessagingSettings>\n" +
+            "                    <SmsEnabled>true</SmsEnabled>\n" +
+            "                    <CampaignId>fYtaiwCESO7Z7sgnc3smfMOg1JgMZ16FCQ1FtFosjHRUSkJVNWYW5p70gdVWGTGe</CampaignId>\n" +
+            "                    <MessageClass>V4578Qab0yppj6E4xumcMbmE5d6IPY9FWT37xI9gHt6AGoiEihurpYLNuV5EfbTn </MessageClass>\n" +
+            "                    <A2pState>overridden</A2pState>\n" +
+            "                    <AssignedNnRoute>\n" +
+            "                        <Nnid>2183991</Nnid>\n" +
+            "                        <Name>7ae5LXMn</Name>\n" +
+            "                    </AssignedNnRoute>\n" +
+            "                </MessagingSettings>\n" +
+            "                <TnAttributes>\n" +
+            "                    <TnAttribute>Hosted</TnAttribute>\n" +
+            "                </TnAttributes>\n" +
+            "            </HostedTelephoneNumberDetail>\n" +
+            "        </HostedTelephoneNumberDetails>\n" +
+            "    </TelephoneNumberDetails>\n" +
+            "</TelephoneNumberResponse>";
 
     public static String validTnDetailsResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><TelephoneNumberResponse><TelephoneNumberDetails><City>MOUNT OLIVE</City><Lata>426</Lata><State>NC</State><FullNumber>9195551212</FullNumber><Tier>0</Tier><VendorId>49</VendorId><VendorName>Bandwidth CLEC</VendorName><RateCenter>MOUNTOLIVE</RateCenter><Status>Inservice</Status><AccountId>9900096</AccountId><LastModified>2014-10-14T20:01:53.000Z</LastModified></TelephoneNumberDetails></TelephoneNumberResponse>";
     public static String validTnRateCenterResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><TelephoneNumberResponse><TelephoneNumberDetails><State>NC</State><RateCenter>MOUNTOLIVE</RateCenter></TelephoneNumberDetails></TelephoneNumberResponse>";

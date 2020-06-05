@@ -22,6 +22,23 @@ public class TnTests extends BaseModelTests {
     }
 
     @Test
+    public void testGetTnDetailsWithE911() throws Exception {
+        String url = "/v1.0/tns/9195551212/tndetails";
+        stubFor(get(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.e911TnDetails)));
+
+        TelephoneNumberDetails details = Tns.getTnDetails(getDefaultClient(), "9195551212");
+        assertNotNull(details);
+        assertEquals("SUCCESS", details.getFeatures().getE911().getLastE911OrderOutcome());
+        assertEquals("Test CallerName", details.getFeatures().getE911().getCallerName());
+        assertEquals("625e3ad9-c95e-4148-b2f7-d47a8dbdd0d9", details.getFeatures().getE911().getEmergencyNotificationGroup().getIdentifier());
+        assertEquals("Building A", details.getFeatures().getE911().getEmergencyNotificationGroup().getDescription());
+
+        assertNotNull( details.getFeatures().getE911().getAddress());
+    }
+
+    @Test
     public void testList() throws Exception {
         String url = "/v1.0/tns";
         stubFor(get(urlMatching(url))

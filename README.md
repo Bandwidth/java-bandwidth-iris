@@ -172,7 +172,7 @@ ResponseSelectWrapper wrapper = DldaOrder.list(client, query);
 Map<String, Object> query = new HashMap<String, Object>();
 query.put("state", "NC");
 
-TNs tns = InserviceNumber.list(getDefaultClient(), query);
+TNs tns = InserviceNumber.list(client, query);
 ```
 
 ## Lidb
@@ -362,7 +362,7 @@ EmailSubscription emailSubscription = new EmailSubscription();
 emailSubscription.setEmail("test@test.com");
 emailSubscription.setDigestRequested("NONE");
 subscription.setEmailSubscription(emailSubscription);
-Subscription createdSubscription = Subscription.create(getDefaultClient(), subscription);
+Subscription createdSubscription = Subscription.create(client, subscription);
 ```
 ### Get Subscription
 ```Java
@@ -405,12 +405,12 @@ r = Reservation.create(client, r);
 ```
 ### Get TN Reservation
 ```Java
-Reservation r = Reservation.get(getDefaultClient(), "9195551212");
+Reservation r = Reservation.get(client, "9195551212");
 
 ```
 ### Delete TN Reservation
 ```Java
-Reservation r = Reservation.get(getDefaultClient(), "9195551212");
+Reservation r = Reservation.get(client, "9195551212");
 r.delete();
 
 ```
@@ -539,4 +539,101 @@ Note note = new Note();
 note.setDescription("This is a csr note");
 
 IrisResponse response = Csr.UpdateNote(client, orderId, noteId, note );
+```
+
+## Emergency Notification 
+
+### Create Recipients 
+```java
+EmergencyNotificationRecipient recipient = new EmergencyNotificationRecipient();
+recipient.setEmailAddress("test@example.com");
+
+EmergencyNotificationRecipientsResponse response = EmergencyNotification.createRecipients(client, recipient);
+```
+
+### List Recipients 
+```java
+Map<String, String> query = new HashMap<String, Object>();
+query.add("ModifiedByUser", "jgilmore");
+
+EmergencyNotificationRecipientsResponse response = EmergencyNotification.listRecipients(client, query);
+```
+
+### Get Recipients
+```java
+EmergencyNotificationRecipientsResponse response = EmergencyNotification.getRecipients(client, recipientsId);
+```
+
+### Replace Recipients 
+```java
+EmergencyNotificationRecipient recipient = new EmergencyNotificationRecipient();
+recipient.setEmailAddress("test@example.com");
+
+EmergencyNotificationRecipientsResponse response = EmergencyNotification.replaceRecipients(client, recipient, recipientsId);
+```
+
+### Delete Recipient
+```java
+IrisResponse response = EmergencyNotification.deleteRecipients(client, recipientsId);
+```
+
+### Create Group Orders
+```java
+EmergencyNotificationGroupOrder groupOrder = new EmergencyNotificationGroupOrder();
+groupOrder.setCustomerOrderId("customerId");
+
+EmergencyNotificationGroupOrderResponse response = EmergencyNotification.createGroupOrders(client, groupOrder);
+```
+
+### Modify Group Orders
+```java
+EmergencyNotificationGroupOrderResponse response = EmergencyNotification.createGroupOrders(client, new EmergencyNotificationGroupOrder());
+```
+
+### List Group Orders
+```java
+EmergencyNotificationGroupOrderResponse response = EmergencyNotification.listGroupOrders(client, query);
+```
+
+### Get Group Orders
+```java
+EmergencyNotificationGroupOrderResponse response = EmergencyNotification.getGroupOrders(client, orderId);
+```
+
+### List Groups
+```java
+EmergencyNotificationGroupsResponse response = EmergencyNotification.listGroups(client, query);
+```
+
+### Get Groups
+```java
+EmergencyNotificationGroupsResponse response = EmergencyNotification.getGroups(client, orderId);
+```
+
+### Create Endpoint Order
+```java
+EmergencyNotificationEndpointOrderResponse response = EmergencyNotification.createEndpointOrder(client, new EmergencyNotificationEndpointOrder());
+```
+
+### List Endpoint Orders 
+```java
+EmergencyNotificationEndpointOrderResponse response = EmergencyNotification.listEndpointOrders(client, query);
+```
+
+### Get Endpoint Orders
+```java
+EmergencyNotificationEndpointOrderResponse response = EmergencyNotification.getEndpointOrder(client, orderId);
+```
+
+## Aeuis 
+
+### Get Aeui
+
+```java
+AlternateEndUserIdentifierResponse response = Aeui.get(client, id);
+```
+
+### List Aeuis
+```java 
+AlternateEndUserIdentifiersResponse response = Aeui.list(client, query);
 ```
