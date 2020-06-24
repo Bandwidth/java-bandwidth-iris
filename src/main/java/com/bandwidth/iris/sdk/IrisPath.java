@@ -32,4 +32,5 @@ public class IrisPath {
     public static final String EMERGENCY_NOTIFICATION_GROUP_ORDERS = "emergencyNotificationGroupOrders";
     public static final String EMERGENCY_NOTIFICATION_GROUPS = "emergencyNotificationGroups";
     public static final String EMERGENCY_NOTIFICATION_ENDPOINT_ORDERS = "emergencyNotificationEndpointOrders";
+    public static final String TN_OPTIONS = "tnoptions";
 }
