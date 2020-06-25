@@ -686,7 +686,7 @@ order.setTnOptionGroups(new ArrayList<>());
 order.setCustomerOrderId("TnOptionOrder1");
 
 TnOptionGroup optionGroup = new TnOptionGroup();
-optionGroup.setSms("true");// SMS set true here
+optionGroup.setSms("on");// SMS set true here
 optionGroup.setTelephoneNumbers(new ArrayList<>());
 optionGroup.getTelephoneNumbers().add("2018551020");
 
