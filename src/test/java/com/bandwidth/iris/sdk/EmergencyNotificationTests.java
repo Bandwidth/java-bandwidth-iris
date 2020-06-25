@@ -16,6 +16,7 @@ public class EmergencyNotificationTests extends BaseModelTests {
     public void TestCreateRecipients() throws Exception {
         String url = "/v1.0/accounts/accountId/emergencyNotificationRecipients";
         stubFor(post(urlMatching(url))
+                .withHeader("User-Agent", equalTo(IrisClient.USER_AGENT))
                 .willReturn(aResponse()
                         .withStatus(201).withBody(IrisClientTestUtils.emergencyNotificationRecipientsResponse)));
 
