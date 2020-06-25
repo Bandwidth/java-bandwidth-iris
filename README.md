@@ -637,3 +637,86 @@ AlternateEndUserIdentifierResponse response = Aeui.get(client, id);
 ```java 
 AlternateEndUserIdentifiersResponse response = Aeui.list(client, query);
 ```
+
+## Tn Options
+
+### Tn Options Create
+
+Creates a TN Option order to assign line features to the telephone number.
+
+#### Create PortOutPasscode
+
+```java
+TnOptionOrder order = new TnOptionOrder();
+order.setTnOptionGroups(new ArrayList<>());
+order.setCustomerOrderId("TnOptionOrder1");
+
+TnOptionGroup optionGroup = new TnOptionGroup();
+optionGroup.setPortOutPasscode("12abd38");// PortOutPasscode set here
+optionGroup.setTelephoneNumbers(new ArrayList<>());
+optionGroup.getTelephoneNumbers().add("2018551020");
+
+order.getTnOptionGroups().add(optionGroup);
+
+TnOptionOrderResponse response = TnOptions.create(client, order);
+```
+
+#### Create Call Forward Number
+
+```java
+TnOptionOrder order = new TnOptionOrder();
+order.setTnOptionGroups(new ArrayList<>());
+order.setCustomerOrderId("TnOptionOrder1");
+
+TnOptionGroup optionGroup = new TnOptionGroup();
+optionGroup.setCallForward("2018551022");// Call Forward set here
+optionGroup.setTelephoneNumbers(new ArrayList<>());
+optionGroup.getTelephoneNumbers().add("2018551020");
+
+order.getTnOptionGroups().add(optionGroup);
+
+TnOptionOrderResponse response = TnOptions.create(client, order);
+```
+
+#### Enable SMS
+
+```java
+TnOptionOrder order = new TnOptionOrder();
+order.setTnOptionGroups(new ArrayList<>());
+order.setCustomerOrderId("TnOptionOrder1");
+
+TnOptionGroup optionGroup = new TnOptionGroup();
+optionGroup.setSms("on");// SMS set true here
+optionGroup.setTelephoneNumbers(new ArrayList<>());
+optionGroup.getTelephoneNumbers().add("2018551020");
+
+order.getTnOptionGroups().add(optionGroup);
+
+TnOptionOrderResponse response = TnOptions.create(client, order);
+```
+
+### Get Tn Option (No Error)
+
+```java
+TnOptionOrder response = TnOptions.get(client, orderId);
+```
+
+### Get Tn Option (With Error)
+
+```java
+TnOptionOrder response = TnOptions.get(client, orderId);
+
+System.out.println(response.getErrors().size());// 1
+System.out.println(response.getErrors().get(0).getCode()); // 5076
+System.out.println(response.getErrors().get(0).getDescription()); // Telephone number is not available.
+System.out.println(response.getErrors().get(0).getTelephoneNumber());// 2018551025
+```
+
+### List Tn Options
+
+```java
+HashMap<String, Object> query = new HashMap<>();
+query.put("tn", "9199918388");
+
+TnOptionOrders response = TnOptions.list(client, query);
+```
