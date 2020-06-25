@@ -3,6 +3,7 @@ package com.bandwidth.iris.sdk;
 import com.bandwidth.iris.sdk.model.*;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,11 +16,22 @@ public class TnOptionsTests extends BaseModelTests {
     public void TestCreate() throws Exception {
         String url = "/v1.0/accounts/accountId/tnoptions";
         stubFor(post(urlMatching(url))
+                .withRequestBody(equalToXml("<TnOptionOrder><CustomerOrderId>TnOptionOrder1</CustomerOrderId><TnOptionGroups><TnOptionGroup><PortOutPasscode>12abd38</PortOutPasscode><TelephoneNumbers><TelephoneNumber>2018551020</TelephoneNumber></TelephoneNumbers></TnOptionGroup></TnOptionGroups></TnOptionOrder>"))
                 .willReturn(aResponse()
                         .withStatus(201).withBody(IrisClientTestUtils.createTnOptionResponse)));
 
+        TnOptionOrder order = new TnOptionOrder();
+        order.setTnOptionGroups(new ArrayList<>());
+        order.setCustomerOrderId("TnOptionOrder1");
 
-        TnOptionOrderResponse response = TnOptions.create(getDefaultClient(), new TnOptionOrder());
+        TnOptionGroup optionGroup = new TnOptionGroup();
+        optionGroup.setPortOutPasscode("12abd38");
+        optionGroup.setTelephoneNumbers(new ArrayList<>());
+        optionGroup.getTelephoneNumbers().add("2018551020");
+
+        order.getTnOptionGroups().add(optionGroup);
+
+        TnOptionOrderResponse response = TnOptions.create(getDefaultClient(), order);
 
         TnOptionOrder option = response.getTnOptionOrder();
         List<TnOptionGroup> list = option.getTnOptionGroups();

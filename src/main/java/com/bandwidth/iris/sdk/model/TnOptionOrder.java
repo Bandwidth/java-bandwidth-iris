@@ -7,6 +7,9 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TnOptionOrder extends BaseModel {
 
+    @XmlElement(name = "CustomerOrderId")
+    private String customerOrderId;
+
     @XmlElement(name = "OrderCreateDate")
     private String orderCreateDate;
 
@@ -32,6 +35,14 @@ public class TnOptionOrder extends BaseModel {
     @XmlElementWrapper(name = "ErrorList")
     @XmlElement(name = "Error")
     private List<Error> errors;
+
+    public String getCustomerOrderId() {
+        return customerOrderId;
+    }
+
+    public void setCustomerOrderId(String customerOrderId) {
+        this.customerOrderId = customerOrderId;
+    }
 
     public String getOrderCreateDate() {
         return orderCreateDate;

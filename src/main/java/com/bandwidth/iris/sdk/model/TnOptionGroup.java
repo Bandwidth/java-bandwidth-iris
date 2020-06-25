@@ -37,6 +37,9 @@ public class TnOptionGroup extends BaseModel {
     @XmlElement(name = "CallForward")
     private String callForward;
 
+    @XmlElement(name = "PortOutPasscode")
+    private String portOutPasscode;
+
     @XmlElement(name = "Protected")
     private String protectedOpt;
 
@@ -54,6 +57,14 @@ public class TnOptionGroup extends BaseModel {
 
     @XmlElement(name = "A2pSettings")
     private A2pSettings a2pSettings;
+
+    public String getPortOutPasscode() {
+        return portOutPasscode;
+    }
+
+    public void setPortOutPasscode(String portOutPasscode) {
+        this.portOutPasscode = portOutPasscode;
+    }
 
     public String getCallingNameDisplay() {
         return callingNameDisplay;
