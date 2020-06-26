@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class IrisClient {
 
-    public static final String USER_AGENT = "java-bandwidth-iris-1.9";
+    public static final String USER_AGENT = "java-bandwidth-iris-" + IrisClient.class.getPackage().getSpecificationVersion();
 
     private static final String defaultUri = "https://dashboard.bandwidth.com/api";
     private static final String defaultVersion = "v1.0";
