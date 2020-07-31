@@ -109,6 +109,9 @@ public class IrisClient {
 
     public IrisResponse put(String uri, BaseModel data) throws Exception {
         HttpPut put = new HttpPut(uri);
+        StringEntity putBody = new StringEntity(XmlUtils.toXml(data));
+        put.addHeader("Content-Type", "application/xml");
+        put.setEntity(putBody);
         return executeRequest(put);
     }
 
