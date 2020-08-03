@@ -15,6 +15,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import java.io.FileOutputStream;
 
@@ -25,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IrisClient {
+
+    public static final String USER_AGENT = "java-bandwidth-iris-" + IrisClient.class.getPackage().getSpecificationVersion();
 
     private static final String defaultUri = "https://dashboard.bandwidth.com/api";
     private static final String defaultVersion = "v1.0";
@@ -162,6 +165,8 @@ public class IrisClient {
     }
 
     protected IrisResponse executeRequest(HttpUriRequest request) throws Exception {
+        request.addHeader("User-Agent", USER_AGENT);
+
         Map<String, String> headers = new HashMap<String, String>();
         IrisResponse irisResponse = new IrisResponse();
         HttpResponse response = httpClient.execute(request);
