@@ -53,8 +53,8 @@ public class ImportTnOrder extends BaseModel {
     @XmlElement(name = "Error")
     private List<Error> errors;
 
-    public static ImportTnOrderResponse Create(IrisClient client, ImportTnOrder order) throws Exception {
-        return client.post( client.buildAccountModelUri( new String[] { IrisPath.IMPORT_TN_ORDERS } ), order, ImportTnOrderResponse.class);
+    public static ImportTnOrdersResponse Create(IrisClient client, ImportTnOrder order) throws Exception {
+        return client.post( client.buildAccountModelUri( new String[] { IrisPath.IMPORT_TN_ORDERS } ), order, ImportTnOrdersResponse.class);
     }
 
     public static ImportTnOrders List(IrisClient client, Map<String, Object> query)  throws Exception {
