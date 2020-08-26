@@ -24,7 +24,7 @@ public class ImportTnOrderTests extends BaseModelTests {
 
         ImportTnOrder order = new ImportTnOrder();
 
-        ImportTnOrderResponse response = ImportTnOrder.Create(getDefaultClient(), order );
+        ImportTnOrdersResponse response = ImportTnOrder.Create(getDefaultClient(), order );
         ImportTnOrder tnOrder = response.getImportTnOrder();
 
         assertEquals("id", tnOrder.getCustomerOrderId());
