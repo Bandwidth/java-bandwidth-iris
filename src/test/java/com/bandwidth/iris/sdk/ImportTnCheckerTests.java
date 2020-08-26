@@ -7,6 +7,9 @@ import com.bandwidth.iris.sdk.model.ImportTnCheckerResponse;
 import com.bandwidth.iris.sdk.model.ImportTnError;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static org.junit.Assert.assertEquals;
@@ -21,8 +24,12 @@ public class ImportTnCheckerTests extends BaseModelTests  {
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.importTnCheckerResponse)));
 
+        List<String> numbers = new ArrayList<String>();
+        numbers.add("9192345678");
+
 
         ImportTnCheckerPayload payload = new ImportTnCheckerPayload();
+        payload.setTelephoneNumberList(numbers);
 
         ImportTnCheckerResponse response = ImportTnChecker.Check(getDefaultClient(), payload );
         ImportTnCheckerPayload resPayload = response.getImportTnCheckerPayload();

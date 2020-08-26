@@ -5,9 +5,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="ImportTnOrderResponse")
+@XmlRootElement(name="ImportTnOrdersResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ImportTnOrderResponse {
+public class ImportTnOrdersResponse {
 
     @XmlElement(name = "ImportTnOrder")
     private ImportTnOrder importTnOrder;

@@ -26,6 +26,25 @@ public class Subscriber {
     @XmlElement(name = "MiddleInitial")
     private String middleInitial;
 
+    @XmlElement(name = "Name")
+    private String name;
+
+    public String getMiddleInitial() {
+        return middleInitial;
+    }
+
+    public void setMiddleInitial(String middleInitial) {
+        this.middleInitial = middleInitial;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getSubscriberType() {
         return subscriberType;
     }

@@ -10,16 +10,16 @@ public class ImportTnCheckerPayload extends BaseModel {
 
     @XmlElementWrapper(name = "TelephoneNumbers")
     @XmlElement(name = "TelephoneNumber")
-    private List<TelephoneNumber> telephoneNumberList;
+    private List<String> telephoneNumberList;
     @XmlElementWrapper(name = "ImportTnErrors")
     @XmlElement(name ="ImportTnError")
     private List<ImportTnError> importTnErrorList;
 
-    public List<TelephoneNumber> getTelephoneNumberList() {
+    public List<String> getTelephoneNumberList() {
         return telephoneNumberList;
     }
 
-    public void setTelephoneNumberList(List<TelephoneNumber> telephoneNumberList) {
+    public void setTelephoneNumberList(List<String> telephoneNumberList) {
         this.telephoneNumberList = telephoneNumberList;
     }
 
