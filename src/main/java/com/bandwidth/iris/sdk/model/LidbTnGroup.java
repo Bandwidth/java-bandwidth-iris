@@ -17,7 +17,7 @@ public class LidbTnGroup {
     @XmlElement(name = "UseType")
     private String useType;
 
-    @XmlElement(name = "Visibilty")
+    @XmlElement(name = "Visibility")
     private String visibility;
 
     public List<String> getTelephoneNumberList() {
