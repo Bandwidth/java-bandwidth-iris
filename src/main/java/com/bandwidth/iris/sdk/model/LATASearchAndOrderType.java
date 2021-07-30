@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "LATASearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LATASearchAndOrderType {
-    @XmlElement(name = "Lata")
+    @XmlElement(name = "LATA")
     private String lata;
 
     public String getLata() {
