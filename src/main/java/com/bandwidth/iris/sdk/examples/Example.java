@@ -2,24 +2,14 @@ package com.bandwidth.iris.sdk.examples;
 
 import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.model.*;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 
 import java.io.File;
 import java.util.*;
 
 public class Example {
     private static Site SITE = null;
-    private static SipPeer SIP_PEER = null;
 
-    public static void main(String[] args) throws Exception {
-        org.apache.log4j.BasicConfigurator.configure();
-        Logger.getRootLogger().setLevel(Level.INFO);
-        ConsoleAppender a = (ConsoleAppender) Logger.getRootLogger().getAllAppenders().nextElement();
-        a.setLayout(new PatternLayout("%d{ABSOLUTE} %5p %c{1}:%L - [%t] %m%n"));
-
+    public static void main(String[] args) {
         try {
             printCreateSite();
             printCreateAndGetSipPeer();
@@ -37,7 +27,6 @@ public class Example {
         } catch (Exception e) {
             System.out.println("Got error: " + e.getMessage());
         }
-
     }
 
     private static void printAvailableNpaNxx() throws Exception {
@@ -209,7 +198,6 @@ public class Example {
 
         peer = SipPeer.create(getClient(), SITE.getId(), peer);
         System.out.println("Created SipPeer: " + peer.getPeerId());
-        SIP_PEER = peer;
 
         printMessage("Ending create and get sip peer");
     }
@@ -244,9 +232,9 @@ public class Example {
 
     private static IrisClient getClient() {
         Map<String, String> env = System.getenv();
-        String accountId = env.get("BANDWIDTH_IRIS_ACCOUNTID");
-        String username = env.get("BANDWIDTH_IRIS_USERNAME");
-        String password = env.get("BANDWIDTH_IRIS_PASSWORD");
+        String accountId = env.get("BW_ACCOUNT_ID");
+        String username = env.get("BW_USERNAME");
+        String password = env.get("BW_PASSWORD");
         String url = env.get("BANDWIDTH_IRIS_URL");
 
         return new IrisClient(url, accountId, username, password, "v1.0");

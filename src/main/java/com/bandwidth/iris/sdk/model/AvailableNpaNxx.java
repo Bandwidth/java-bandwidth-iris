@@ -28,7 +28,7 @@ public class AvailableNpaNxx {
     @XmlElement(name = "Quantity")
     private int quantity;
     @XmlElement(name = "State")
-    private int state;
+    private String state;
 
     public static List<AvailableNpaNxx> list(IrisClient client, Map<String, Object> query)
             throws Exception {
@@ -75,11 +75,11 @@ public class AvailableNpaNxx {
         this.quantity = quantity;
     }
 
-    public int getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(String state) {
         this.state = state;
     }
 }

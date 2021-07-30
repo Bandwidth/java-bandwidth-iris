@@ -6,7 +6,6 @@ import com.bandwidth.iris.sdk.IrisResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
 
 import org.apache.http.HttpStatus;
-import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -19,7 +18,6 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Reservation extends BaseModel {
 
-    private static final Logger LOG = Logger.getLogger(Site.class);
     @XmlElement(name = "ReservationId")
     private String reservationId;
     @XmlElement(name = "AccountId")

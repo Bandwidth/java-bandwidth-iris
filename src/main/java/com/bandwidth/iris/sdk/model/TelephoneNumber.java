@@ -16,7 +16,7 @@ public class TelephoneNumber {
     @XmlElement(name = "City")
     protected String city;
 
-    @XmlElement(name = "Lata")
+    @XmlElement(name = "LATA")
     protected String lata;
 
     @XmlElement(name = "State")
