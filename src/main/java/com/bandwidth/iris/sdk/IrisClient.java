@@ -15,9 +15,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-import java.io.FileOutputStream;
 
 import javax.xml.stream.XMLInputFactory;
 import java.io.File;

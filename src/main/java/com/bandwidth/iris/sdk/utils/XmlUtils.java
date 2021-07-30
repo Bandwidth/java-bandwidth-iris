@@ -1,7 +1,5 @@
 package com.bandwidth.iris.sdk.utils;
 
-import org.apache.log4j.Logger;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -13,8 +11,6 @@ import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 
 public class XmlUtils {
-
-    private static final Logger LOG = Logger.getLogger(XmlUtils.class);
 
     private static XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 
