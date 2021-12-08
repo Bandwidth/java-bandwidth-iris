@@ -43,7 +43,7 @@ To run each of the examples, set them as run targets in your IDE, then set the f
 export BANDWIDTH_IRIS_ACCOUNTID=<youraccountid>
 export BANDWIDTH_IRIS_USERNAME=<yourusername>
 export BANDWIDTH_IRIS_PASSWORD=<yourpassword>
-export BANDWIDTH_IRIS_URL=https://api.inetwork.com //OR https://api.test.inetwork.com if you are working on test network
+export BANDWIDTH_IRIS_URL=https://dashboard.bandwidth.com
 ```
 
 
