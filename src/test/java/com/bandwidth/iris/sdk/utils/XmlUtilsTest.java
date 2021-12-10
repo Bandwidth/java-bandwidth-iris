@@ -1,26 +1,12 @@
 package com.bandwidth.iris.sdk.utils;
 
 import com.bandwidth.iris.sdk.model.*;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class XmlUtilsTest {
-    @Before
-    public void setUp() throws ConfigurationException {
-        org.apache.log4j.BasicConfigurator.configure();
-        Logger.getRootLogger().setLevel(Level.DEBUG);
-        ConsoleAppender a = (ConsoleAppender) Logger.getRootLogger().getAllAppenders().nextElement();
-        a.setLayout(new PatternLayout("%d{ABSOLUTE} %5p %c{1}:%L - [%t] %m%n"));
-
-    }
 
     @Test
     public void testSerializeExistingTelephoneNumberOrderToXml() throws Exception {
