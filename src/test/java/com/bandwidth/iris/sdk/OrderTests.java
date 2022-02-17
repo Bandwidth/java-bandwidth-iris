@@ -115,4 +115,29 @@ public class OrderTests extends BaseModelTests {
         assertEquals("RECEIVED", response.getOrderStatus());
     }
 
+    @Test
+    public void rateCenterSearchAndOrderTypeTestCreate() throws Exception {
+        String ordersUrl = "/v1.0/accounts/accountId/orders";
+        stubFor(post(urlMatching(ordersUrl))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/xml")
+                        .withBody(IrisClientTestUtils.validOrderResponseXml)));
+
+        Order order = new Order();
+        order.setName("Test RateCenterSearchAndOrderType Order");
+
+        RateCenterSearchAndOrderType rateCenterSearchAndOrderType = new RateCenterSearchAndOrderType();
+        rateCenterSearchAndOrderType.setEnableLCA(false);
+        rateCenterSearchAndOrderType.setQuantity(1);
+        rateCenterSearchAndOrderType.setRateCenter("DOVER");    // No inventory available here 
+        rateCenterSearchAndOrderType.setState("NH");
+
+        order.setRateCenterSearchAndOrderType(rateCenterSearchAndOrderType);
+
+        OrderResponse createdOrder = Order.create(getDefaultClient(), order);
+        assertEquals(createdOrder.getOrder().getid(), "someid");
+        assertEquals(createdOrder.getOrder().getName(), "Test RateCenterSearchAndOrderType Order");
+    }
+
 }

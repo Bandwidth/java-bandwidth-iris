@@ -14,6 +14,9 @@ public class RateCenterSearchAndOrderType extends BaseOrderType {
     @XmlElement(name = "State")
     private String state;
 
+    @XmlElement(name = "EnableLCA")
+    private boolean enableLCA;
+
     public String getRateCenter() {
         return rateCenter;
     }
@@ -28,5 +31,13 @@ public class RateCenterSearchAndOrderType extends BaseOrderType {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public Boolean getEnableLCA() {
+        return enableLCA;
+    }
+
+    public void setEnableLCA(Boolean enableLCA) {
+        this.enableLCA = enableLCA;
     }
 }
