@@ -117,13 +117,6 @@ public class OrderTests extends BaseModelTests {
 
     @Test
     public void rateCenterSearchAndOrderTypeTestCreate() throws Exception {
-        String ordersUrl = "/v1.0/accounts/accountId/orders";
-        stubFor(post(urlMatching(ordersUrl))
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "application/xml")
-                        .withBody(IrisClientTestUtils.validOrderResponseXml)));
-
         Order order = new Order();
         order.setName("Test RateCenterSearchAndOrderType Order");
 
@@ -136,7 +129,6 @@ public class OrderTests extends BaseModelTests {
         order.setRateCenterSearchAndOrderType(rateCenterSearchAndOrderType);
 
         OrderResponse createdOrder = Order.create(getDefaultClient(), order);
-        assertEquals(createdOrder.getOrder().getid(), "someid");
         assertEquals(createdOrder.getOrder().getName(), "Test RateCenterSearchAndOrderType Order");
     }
 
