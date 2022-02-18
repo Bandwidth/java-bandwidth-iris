@@ -29,6 +29,10 @@ public class OrderResponse {
     @XmlElement(name = "LastModifiedDate")
     private Date lastModifiedDate;
 
+    @XmlElementWrapper(name = "ErrorList")
+    @XmlElement(name = "Error")
+    private List<Error> errorList = new ArrayList<Error>();
+
     @XmlElement(name = "OrderStatus")
     private String orderStatus;
 
@@ -93,6 +97,14 @@ public class OrderResponse {
 
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public List<Error> getErrorList() {
+        return errorList;
+    }
+
+    public void setErrorList(List<Error> errorList) {
+        this.errorList = errorList;
     }
 
     public String getOrderStatus() {

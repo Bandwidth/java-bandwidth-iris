@@ -48,6 +48,18 @@ public class OrderTests extends BaseModelTests {
         assertEquals(orderResponse.getOrder().getName(), "A New Order");
 
     }
+
+    @Test
+    public void testGetError() throws Exception {
+        String url = "/v1.0/accounts/accountId/orders/errorid";
+        stubFor(get(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody(IrisClientTestUtils.validOrderResponseErrorXml)));
+
+        OrderResponse orderResponse = Order.get(getDefaultClient(), "errorid");
+        assertEquals(orderResponse.getErrorList().get(0).getCode(), "5018");
+    }
     
     @Test
     public void testPartialOrderStatusCheck() throws Exception {
