@@ -127,4 +127,21 @@ public class OrderTests extends BaseModelTests {
         assertEquals("RECEIVED", response.getOrderStatus());
     }
 
+    @Test
+    public void rateCenterSearchAndOrderTypeTestCreate() throws Exception {
+        Order order = new Order();
+        order.setName("Test RateCenterSearchAndOrderType Order");
+
+        RateCenterSearchAndOrderType rateCenterSearchAndOrderType = new RateCenterSearchAndOrderType();
+        rateCenterSearchAndOrderType.setEnableLCA(false);
+        rateCenterSearchAndOrderType.setQuantity(1);
+        rateCenterSearchAndOrderType.setRateCenter("DOVER");    // No inventory available here 
+        rateCenterSearchAndOrderType.setState("NH");
+
+        order.setRateCenterSearchAndOrderType(rateCenterSearchAndOrderType);
+
+        OrderResponse createdOrder = Order.create(getDefaultClient(), order);
+        assertEquals(createdOrder.getOrder().getName(), "Test RateCenterSearchAndOrderType Order");
+    }
+
 }
