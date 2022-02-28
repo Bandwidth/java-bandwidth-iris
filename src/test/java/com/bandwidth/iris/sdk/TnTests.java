@@ -73,7 +73,6 @@ public class TnTests extends BaseModelTests {
         TelephoneNumberDetails details = Tns.getLata(getDefaultClient(), "9195551212");
         assertNotNull(details);
         assertEquals("426", details.getLata());
-
     }
 
     @Test
