@@ -18,9 +18,6 @@ public class XmlUtilsTest {
         o.setSiteId("1234");
         o.setPeerId("abcd");
         o.setExistingTelephoneNumberOrderType(existingTelephoneNumberOrderType);
-
-        System.out.println(XmlUtils.toXml(o));
-
     }
 
     @Test
@@ -31,7 +28,6 @@ public class XmlUtilsTest {
         DisconnectTelephoneNumberOrderType disconnectTelephoneNumberOrderType = new DisconnectTelephoneNumberOrderType();
         disconnectTelephoneNumberOrderType.getTelephoneNumberList().add("2055551212");
         order.setDisconnectTelephoneNumberOrderType(disconnectTelephoneNumberOrderType);
-        System.out.println(XmlUtils.toXml(order));
     }
 
     @Test
