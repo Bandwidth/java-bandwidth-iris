@@ -29,6 +29,9 @@ public class TelephoneNumberDetails extends TelephoneNumberDetail {
     @XmlElement(name = "Features")
     private Features features;
 
+    @XmlElement(name = "Lata")
+    private String lata;
+
     public String getTier() {
         return tier;
     }
@@ -83,5 +86,13 @@ public class TelephoneNumberDetails extends TelephoneNumberDetail {
 
     public void setFeatures(Features features) {
         this.features = features;
+    }
+
+    public String getLata() {
+        return lata;
+    }
+
+    public void setLata(String lata) {
+        this.lata = lata;
     }
 }

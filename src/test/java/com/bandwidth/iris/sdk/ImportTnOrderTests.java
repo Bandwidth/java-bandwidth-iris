@@ -19,7 +19,7 @@ public class ImportTnOrderTests extends BaseModelTests {
         String url = "/v1.0/accounts/accountId/importTnOrders";
         stubFor(post(urlMatching(url))
                 .willReturn(aResponse()
-                        .withStatus(200).withBody(IrisClientTestUtils.importTnOrderResponse)));
+                        .withStatus(200).withBody(IrisClientTestUtils.importTnOrdersResponse)));
 
 
         ImportTnOrder order = new ImportTnOrder();
