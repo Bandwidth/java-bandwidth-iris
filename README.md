@@ -306,7 +306,7 @@ peer = SipPeer.create(client, getFirstSite().getId(), peer);
 ```
 ### Get SIP Peer
 ```Java
-SipPeer peer = SipPeer.get(client, "peerId");
+SipPeer peer = SipPeer.get(client, "siteId", "peerId");
 ```
 ### List SIP Peers
 ```Java
