@@ -13,6 +13,9 @@ public class TelephoneNumber {
     @XmlElement(name = "FullNumber")
     protected String fullNumber;
 
+    @XmlElement(name = "TelephoneNumber")
+    protected String telephoneNumber;
+
     @XmlElement(name = "City")
     protected String city;
 
@@ -47,6 +50,14 @@ public class TelephoneNumber {
 
     public void setFullNumber(String fullNumber) {
         this.fullNumber = fullNumber;
+    }    
+    
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
     public String getCity() {

@@ -11,3 +11,6 @@ target
 
 # Eclipse
 .settings/
+
+# VS Code
+.vscode/
