@@ -424,6 +424,31 @@ ImportTnOrder order = new ImportTnOrder();
 order.setSiteId(100);
 order.setSipPeer(303);
 
+ServiceAddress address = new ServiceAddress();
+address.setHouseNumber("123");
+address.setStreetName("Main st");
+address.setCity("Raleigh");
+address.setStateCode("NC");
+address.setZip("27606");
+
+Subscriber sub = new Subscriber();
+sub.setBusinessName("test business llc");
+sub.setName("Bandwidth");
+sub.setFirstName("Band");
+sub.setLastName("Width");
+sub.setServiceAddress(address);
+
+TelephoneNumber tn1 = new TelephoneNumber();
+tn1.setTelephoneNumber("9195551234");
+List<TelephoneNumber> telephoneNumberList = new ArrayList<TelephoneNumber>();
+telephoneNumberList.add(tn1);
+
+order.setSiteId(14480);
+order.setSipPeer(522211);
+order.setTelephoneNumberList(telephoneNumberList);
+order.setSubscriber(sub);
+order.setLoaAuthorizingPerson("Bandwidth");
+
 ImportTnOrderResponse response = ImportTnOrder.Create(client, order );
 ```
 

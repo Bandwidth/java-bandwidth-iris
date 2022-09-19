@@ -48,7 +48,7 @@ public class ImportTnOrderTests extends BaseModelTests {
         order.setSipPeer(522211);
         order.setTelephoneNumberList(telephoneNumberList);
         order.setSubscriber(sub);
-        order.setLoaAuthorizingPerson("ping pong");
+        order.setLoaAuthorizingPerson("Bandwidth");
 
         ImportTnOrdersResponse response = ImportTnOrder.Create(getDefaultClient(), order );
         ImportTnOrder tnOrder = response.getImportTnOrder();
