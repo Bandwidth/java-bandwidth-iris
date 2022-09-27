@@ -4,6 +4,7 @@ import com.bandwidth.iris.sdk.model.*;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -23,6 +24,31 @@ public class ImportTnOrderTests extends BaseModelTests {
 
 
         ImportTnOrder order = new ImportTnOrder();
+
+        ServiceAddress address = new ServiceAddress();
+        address.setHouseNumber("123");
+        address.setStreetName("Main st");
+        address.setCity("Raleigh");
+        address.setStateCode("NC");
+        address.setZip("27606");
+
+        Subscriber sub = new Subscriber();
+        sub.setBusinessName("test business llc");
+        sub.setName("Bandwidth");
+        sub.setFirstName("Band");
+        sub.setLastName("Width");
+        sub.setServiceAddress(address);
+
+        TelephoneNumber tn1 = new TelephoneNumber();
+        tn1.setTelephoneNumber("9195551234");
+        List<TelephoneNumber> telephoneNumberList = new ArrayList<TelephoneNumber>();
+        telephoneNumberList.add(tn1);
+
+        order.setSiteId(14480);
+        order.setSipPeer(522211);
+        order.setTelephoneNumberList(telephoneNumberList);
+        order.setSubscriber(sub);
+        order.setLoaAuthorizingPerson("Bandwidth");
 
         ImportTnOrdersResponse response = ImportTnOrder.Create(getDefaultClient(), order );
         ImportTnOrder tnOrder = response.getImportTnOrder();

@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="RemoveImportedTnOrderResponse")
+@XmlRootElement(name="RemoveImportedTnOrdersResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RemoveImportedTnOrderResponse {
 
@@ -18,5 +18,16 @@ public class RemoveImportedTnOrderResponse {
 
     public void setRemoveImportedTnOrder(RemoveImportedTnOrder removeImportedTnOrder) {
         this.removeImportedTnOrder = removeImportedTnOrder;
+    }
+    
+    @XmlElement(name = "ResponseStatus")
+    private ResponseStatus responseStatus;
+
+    public ResponseStatus getResponseStatus() {
+        return responseStatus;
+    }
+
+    public void setResponseStatus(ResponseStatus responseStatus) {
+        this.responseStatus = responseStatus;
     }
 }

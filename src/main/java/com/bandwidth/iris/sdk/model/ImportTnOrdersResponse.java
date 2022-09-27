@@ -19,4 +19,15 @@ public class ImportTnOrdersResponse {
     public void setImportTnOrder(ImportTnOrder importTnOrder) {
         this.importTnOrder = importTnOrder;
     }
+
+    @XmlElement(name = "ResponseStatus")
+    private ResponseStatus responseStatus;
+
+    public ResponseStatus getResponseStatus() {
+        return responseStatus;
+    }
+
+    public void setResponseStatus(ResponseStatus responseStatus) {
+        this.responseStatus = responseStatus;
+    }
 }
