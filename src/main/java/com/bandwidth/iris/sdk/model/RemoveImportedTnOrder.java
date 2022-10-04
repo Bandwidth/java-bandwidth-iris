@@ -24,7 +24,6 @@ public class RemoveImportedTnOrder extends BaseModel{
     @XmlElement(name = "LastModifiedDate")
     private String lastModifiedDate;
     @XmlElementWrapper(name = "TelephoneNumbers")
-    @XmlElement(name = "TelephoneNumber")
     private List<TelephoneNumber> telephoneNumberList;
     @XmlElement(name = "ProcessingStatus")
     private String processingStatus;
