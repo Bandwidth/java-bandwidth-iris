@@ -39,10 +39,8 @@ public class ImportTnOrderTests extends BaseModelTests {
         sub.setLastName("Width");
         sub.setServiceAddress(address);
 
-        TelephoneNumber tn1 = new TelephoneNumber();
-        tn1.setTelephoneNumber("9195551234");
-        List<TelephoneNumber> telephoneNumberList = new ArrayList<TelephoneNumber>();
-        telephoneNumberList.add(tn1);
+        List<String> telephoneNumberList = new ArrayList<String>();
+        telephoneNumberList.add("9195551234");
 
         order.setSiteId(14480);
         order.setSipPeer(522211);

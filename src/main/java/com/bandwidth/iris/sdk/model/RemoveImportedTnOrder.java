@@ -13,20 +13,29 @@ public class RemoveImportedTnOrder extends BaseModel{
 
     @XmlElement(name = "CustomerOrderId")
     private String customerOrderId;
+
     @XmlElement(name = "OrderCreateDate")
     private String orderCreateDate;
+
     @XmlElement(name= "AccountId")
     private String accountId;
+
     @XmlElement(name = "CreatedByUser")
     private String createdByUser;
+
     @XmlElement(name = "OrderId")
     private String orderId;
+
     @XmlElement(name = "LastModifiedDate")
     private String lastModifiedDate;
+
     @XmlElementWrapper(name = "TelephoneNumbers")
-    private List<TelephoneNumber> telephoneNumberList;
+    @XmlElement(name = "TelephoneNumber")
+    private List<String> telephoneNumberList;
+
     @XmlElement(name = "ProcessingStatus")
     private String processingStatus;
+
     @XmlElementWrapper(name = "Errors")
     @XmlElement(name = "Error")
     private List<Error> errors;
@@ -96,11 +105,11 @@ public class RemoveImportedTnOrder extends BaseModel{
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public List<TelephoneNumber> getTelephoneNumberList() {
+    public List<String> getTelephoneNumberList() {
         return telephoneNumberList;
     }
 
-    public void setTelephoneNumberList(List<TelephoneNumber> telephoneNumberList) {
+    public void setTelephoneNumberList(List<String> telephoneNumberList) {
         this.telephoneNumberList = telephoneNumberList;
     }
 
