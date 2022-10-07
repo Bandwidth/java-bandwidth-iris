@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 
 @XmlRootElement(name = "TelephoneNumber")
@@ -24,14 +25,19 @@ public class TelephoneNumber {
 
     @XmlElement(name = "State")
     protected String state;
+
     @XmlElement(name = "RateCenter")
     protected String rateCenter;
+
     @XmlElement(name = "Tier")
     private String tier;
+
     @XmlElement(name = "VendorId")
     private String vendorId;
+
     @XmlElement(name = "VendorName")
     private String vendorName;
+
     @XmlElement(name = "Status")
     private String status;
 
@@ -50,8 +56,8 @@ public class TelephoneNumber {
 
     public void setFullNumber(String fullNumber) {
         this.fullNumber = fullNumber;
-    }    
-    
+    }
+
     public String getTelephoneNumber() {
         return telephoneNumber;
     }

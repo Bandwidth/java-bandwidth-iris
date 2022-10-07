@@ -47,7 +47,7 @@ export BANDWIDTH_IRIS_URL=https://dashboard.bandwidth.com
 ```
 
 
-## API Objects 
+## API Objects
 ### General principles
 When fetching objects from the API, it will always return an object that has the client
 instantiated so that you can call dependent methods as well as update, delete.
@@ -120,7 +120,7 @@ for(CoveredRateCenter rc : rateCenters){
 ```
 
 
-## Disconnect Numbers 
+## Disconnect Numbers
 The Disconnect object is used to disconnect numbers from an account.  Creates a disconnect order that can be tracked
 
 ### Create Disconnect
@@ -327,7 +327,7 @@ peer.moveTns(sipPeerTelephoneNumbers);
 ## Sites
 
 ### Create A Site
-A site is what is called Location in the web UI. 
+A site is what is called Location in the web UI.
 ```Java
 Site s = new Site();
 s.setName("My New Site");
@@ -438,10 +438,8 @@ sub.setFirstName("Band");
 sub.setLastName("Width");
 sub.setServiceAddress(address);
 
-TelephoneNumber tn1 = new TelephoneNumber();
-tn1.setTelephoneNumber("9195551234");
-List<TelephoneNumber> telephoneNumberList = new ArrayList<TelephoneNumber>();
-telephoneNumberList.add(tn1);
+List<String> telephoneNumberList = new ArrayList<String>();
+telephoneNumberList.add("9195551234");
 
 order.setSiteId(14480);
 order.setSipPeer(522211);
@@ -452,7 +450,7 @@ order.setLoaAuthorizingPerson("Bandwidth");
 ImportTnOrderResponse response = ImportTnOrder.Create(client, order );
 ```
 
-### List ImportTnOrders 
+### List ImportTnOrders
 
 ```Java
 Map<String, Object> query = new HashMap<>();
@@ -473,18 +471,21 @@ ImportTnOrder response = ImportTnOrder.Get(client, orderId );
 OrderHistoryWrapper response = ImportTnOrder.GetHistory(client, orderId );
 ```
 
-## RemoveImportedTnOrders 
+## RemoveImportedTnOrders
 
 ### Create RemoveImportedTnOrder
 
 ```Java
+List<String> tnList = new ArrayList<String>();
+telephoneNumberList.add("9195551234");
+
 RemoveImportedTnOrder order = new RemoveImportedTnOrder();
 order.setTelephoneNumberList( tnList );
 
 RemoveImportedTnOrderResponse response = RemoveImportedTnOrder.Create(client, order);
 ```
 
-### List RemoveImportedTnOrders 
+### List RemoveImportedTnOrders
 
 ```Java
 Map<String, Object> query = new HashMap<>();
@@ -505,7 +506,7 @@ RemoveImportedTnOrder response = RemoveImportedTnOrder.Get(client, orderId);
 OrderHistoryWrapper response = RemoveImportedTnOrder.GetHistory(client, orderId);
 ```
 
-## ImportTnChecker 
+## ImportTnChecker
 
 ### Check Importability of Tns
 
@@ -516,9 +517,9 @@ payload.setTelephoneNumberList( tnList );
 ImportTnCheckerResponse response = ImportTnChecker.Check(client, payload);
 ```
 
-## Csr Order 
+## Csr Order
 
-### Create Csr 
+### Create Csr
 
 ```Java
 Csr csr = new Csr();
@@ -542,7 +543,7 @@ csr.setCity("Raleigh");
 CsrResponse response = Csr.Replace(client, orderId, csr);
 ```
 
-### Get Csr Notes 
+### Get Csr Notes
 
 ```Java
 Notes response = Csr.GetNotes(client, orderId);
@@ -566,9 +567,9 @@ note.setDescription("This is a csr note");
 IrisResponse response = Csr.UpdateNote(client, orderId, noteId, note );
 ```
 
-## Emergency Notification 
+## Emergency Notification
 
-### Create Recipients 
+### Create Recipients
 ```java
 EmergencyNotificationRecipient recipient = new EmergencyNotificationRecipient();
 recipient.setEmailAddress("test@example.com");
@@ -576,7 +577,7 @@ recipient.setEmailAddress("test@example.com");
 EmergencyNotificationRecipientsResponse response = EmergencyNotification.createRecipients(client, recipient);
 ```
 
-### List Recipients 
+### List Recipients
 ```java
 Map<String, String> query = new HashMap<String, Object>();
 query.add("ModifiedByUser", "jgilmore");
@@ -589,7 +590,7 @@ EmergencyNotificationRecipientsResponse response = EmergencyNotification.listRec
 EmergencyNotificationRecipientsResponse response = EmergencyNotification.getRecipients(client, recipientsId);
 ```
 
-### Replace Recipients 
+### Replace Recipients
 ```java
 EmergencyNotificationRecipient recipient = new EmergencyNotificationRecipient();
 recipient.setEmailAddress("test@example.com");
@@ -640,7 +641,7 @@ EmergencyNotificationGroupsResponse response = EmergencyNotification.getGroups(c
 EmergencyNotificationEndpointOrderResponse response = EmergencyNotification.createEndpointOrder(client, new EmergencyNotificationEndpointOrder());
 ```
 
-### List Endpoint Orders 
+### List Endpoint Orders
 ```java
 EmergencyNotificationEndpointOrderResponse response = EmergencyNotification.listEndpointOrders(client, query);
 ```
@@ -650,7 +651,7 @@ EmergencyNotificationEndpointOrderResponse response = EmergencyNotification.list
 EmergencyNotificationEndpointOrderResponse response = EmergencyNotification.getEndpointOrder(client, orderId);
 ```
 
-## Aeuis 
+## Aeuis
 
 ### Get Aeui
 
@@ -659,7 +660,7 @@ AlternateEndUserIdentifierResponse response = Aeui.get(client, id);
 ```
 
 ### List Aeuis
-```java 
+```java
 AlternateEndUserIdentifiersResponse response = Aeui.list(client, query);
 ```
 

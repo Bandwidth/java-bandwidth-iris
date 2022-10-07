@@ -43,8 +43,9 @@ public class ImportTnOrder extends BaseModel {
     @XmlElement(name = "LoaAuthorizingPerson")
     private String loaAuthorizingPerson;
 
-    @XmlElement(name = "TelephoneNumbers")
-    private List<TelephoneNumber> telephoneNumberList;
+    @XmlElementWrapper(name = "TelephoneNumbers")
+    @XmlElement(name = "TelephoneNumber")
+    private List<String> telephoneNumberList;
 
     @XmlElement(name="ProcessingStatus")
     private String processingStatus;
@@ -173,11 +174,11 @@ public class ImportTnOrder extends BaseModel {
         this.loaAuthorizingPerson = loaAuthorizingPerson;
     }
 
-    public List<TelephoneNumber> getTelephoneNumberList() {
+    public List<String> getTelephoneNumberList() {
         return telephoneNumberList;
     }
 
-    public void setTelephoneNumberList(List<TelephoneNumber> telephoneNumberList) {
+    public void setTelephoneNumberList(List<String> telephoneNumberList) {
         this.telephoneNumberList = telephoneNumberList;
     }
 
