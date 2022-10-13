@@ -1,9 +1,8 @@
 package com.bandwidth.iris.sdk.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @XmlRootElement(name = "TelephoneNumberDetails")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -31,6 +30,10 @@ public class TelephoneNumberDetails extends TelephoneNumberDetail {
 
     @XmlElement(name = "Lata")
     private String lata;
+
+    @XmlElementWrapper(name = "ServiceTypes")
+    @XmlElement(name = "ServiceType")
+    private List<String> serviceTypes = new ArrayList<>();
 
     public String getTier() {
         return tier;
@@ -95,4 +98,8 @@ public class TelephoneNumberDetails extends TelephoneNumberDetail {
     public void setLata(String lata) {
         this.lata = lata;
     }
+
+    public List<String> getServiceTypes() { return serviceTypes; }
+
+    public void setServiceTypes(List<String> serviceTypes) { this.serviceTypes = serviceTypes; }
 }
