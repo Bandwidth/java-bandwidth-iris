@@ -30,6 +30,8 @@ public class ImportTnCheckerTests extends BaseModelTests  {
 
         ImportTnCheckerPayload payload = new ImportTnCheckerPayload();
         payload.setTelephoneNumberList(numbers);
+        payload.setSipPeer(500025);
+        payload.setSiteId(486);
 
         ImportTnCheckerResponse response = ImportTnChecker.Check(getDefaultClient(), payload );
         ImportTnCheckerPayload resPayload = response.getImportTnCheckerPayload();
