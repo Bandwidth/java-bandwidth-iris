@@ -11,7 +11,7 @@ public class ImportTnCheckerPayload extends BaseModel {
     @XmlElement( name = "SiteId")
     private int siteId;
 
-    @XmlElement( name = "SipPeer")
+    @XmlElement( name = "SipPeerId")
     private int sipPeer;
 
     @XmlElementWrapper(name = "TelephoneNumbers")
