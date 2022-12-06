@@ -8,9 +8,16 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ImportTnCheckerPayload extends BaseModel {
 
+    @XmlElement( name = "SiteId")
+    private int siteId;
+
+    @XmlElement( name = "SipPeer")
+    private int sipPeer;
+
     @XmlElementWrapper(name = "TelephoneNumbers")
     @XmlElement(name = "TelephoneNumber")
     private List<String> telephoneNumberList;
+
     @XmlElementWrapper(name = "ImportTnErrors")
     @XmlElement(name ="ImportTnError")
     private List<ImportTnError> importTnErrorList;
@@ -29,5 +36,21 @@ public class ImportTnCheckerPayload extends BaseModel {
 
     public void setImportTnErrorList(List<ImportTnError> importTnErrorList) {
         this.importTnErrorList = importTnErrorList;
+    }
+
+    public int getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(int siteId) {
+        this.siteId = siteId;
+    }
+
+    public int getSipPeer() {
+        return sipPeer;
+    }
+
+    public void setSipPeer(int sipPeer) {
+        this.sipPeer = sipPeer;
     }
 }
