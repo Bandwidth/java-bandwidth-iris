@@ -14,10 +14,10 @@ public class ImportTnCheckerPayload extends BaseModel {
     @XmlElement( name = "SipPeerId")
     private int sipPeer;
 
-
     @XmlElementWrapper(name = "TelephoneNumbers")
     @XmlElement(name = "TelephoneNumber")
     private List<String> telephoneNumberList;
+
     @XmlElementWrapper(name = "ImportTnErrors")
     @XmlElement(name ="ImportTnError")
     private List<ImportTnError> importTnErrorList;
