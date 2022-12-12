@@ -9,10 +9,10 @@ import java.util.List;
 public class ImportTnCheckerPayload extends BaseModel {
 
     @XmlElement( name = "SiteId")
-    private int siteId;
+    private Integer siteId;
 
     @XmlElement( name = "SipPeerId")
-    private int sipPeer;
+    private Integer sipPeer;
 
     @XmlElementWrapper(name = "TelephoneNumbers")
     @XmlElement(name = "TelephoneNumber")
@@ -38,19 +38,19 @@ public class ImportTnCheckerPayload extends BaseModel {
         this.importTnErrorList = importTnErrorList;
     }
 
-    public int getSiteId() {
-        return siteId != 0 ? siteId : null;
+    public Integer getSiteId() {
+        return siteId;
     }
 
-    public void setSiteId(int siteId) {
+    public void setSiteId(Integer siteId) {
         this.siteId = siteId;
     }
 
-    public int getSipPeer() {
-        return sipPeer != 0 ? sipPeer : null;
+    public Integer getSipPeer() {
+        return sipPeer;
     }
 
-    public void setSipPeer(int sipPeer) {
+    public void setSipPeer(Integer sipPeer) {
         this.sipPeer = sipPeer;
     }
 }
