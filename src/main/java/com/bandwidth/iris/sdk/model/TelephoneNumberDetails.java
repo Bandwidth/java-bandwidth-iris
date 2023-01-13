@@ -31,6 +31,9 @@ public class TelephoneNumberDetails extends TelephoneNumberDetail {
     @XmlElement(name = "Lata")
     private String lata;
 
+    @XmlElement(name = "MessagingSettings")
+    private MessagingSettings messagingSettings;
+
     @XmlElementWrapper(name = "ServiceTypes")
     @XmlElement(name = "ServiceType")
     private List<String> serviceTypes = new ArrayList<>();
@@ -97,6 +100,14 @@ public class TelephoneNumberDetails extends TelephoneNumberDetail {
 
     public void setLata(String lata) {
         this.lata = lata;
+    }
+
+    public MessagingSettings getMessagingSettings() {
+        return messagingSettings;
+    }
+
+    public void setMessagingSettings(MessagingSettings messagingSettings) {
+        this.messagingSettings = messagingSettings;
     }
 
     public List<String> getServiceTypes() { return serviceTypes; }
