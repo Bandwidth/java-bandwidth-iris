@@ -19,6 +19,7 @@ public class TnTests extends BaseModelTests {
         TelephoneNumberDetails details = Tns.getTnDetails(getDefaultClient(), "9195551212");
         assertNotNull(details);
         assertEquals("9195551212", details.getFullNumber());
+        assertEquals("103775", details.getMessagingSettings().getAssignedNnRoute().getNnid());
     }
 
     @Test
