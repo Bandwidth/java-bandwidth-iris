@@ -1,6 +1,7 @@
 package com.bandwidth.iris.sdk;
 
 import com.bandwidth.iris.sdk.model.DldaOrder;
+import com.bandwidth.iris.sdk.model.DldaTnGroup;
 import com.bandwidth.iris.sdk.model.DldaOrderResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
 import org.junit.Test;
@@ -29,5 +30,17 @@ public class DldaOrderTests extends BaseModelTests {
         assertEquals(theOrder.getDldaTnGroups().size(), 1);
         assertEquals(theOrder.getDldaTnGroups().get(0).getTelephoneNumberList().get(0), "5202217754");
         assertEquals(theOrder.getProcessingStatus(), "RECEIVED");
+
     }
+
+ @Test
+    public void testCreate2() throws Exception {
+
+    DldaTnGroup dldaTnGroup = new DldaTnGroup();
+	dldaTnGroup.getTelephoneNumberList().add("9195551212");
+	dldaTnGroup.setAccountType("RESIDENTIAL");
+	dldaTnGroup.setListingType("LISTED");
+	dldaTnGroup.setSubscriberType("BUSINESS");
+        assertEquals(dldaTnGroup.getSubscriberType(), "BUSINESS");
+ }
 }

@@ -77,7 +77,7 @@ public class DldaTnGroup {
         this.address = address;
     }
 
-    public String getSubcsriberType() {
+    public String getSubscriberType() {
         return subscriberType;
     }
 
