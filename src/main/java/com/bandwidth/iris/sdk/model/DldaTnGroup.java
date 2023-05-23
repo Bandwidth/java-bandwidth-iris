@@ -26,6 +26,9 @@ public class DldaTnGroup {
     @XmlElement(name = "Address")
     private Address address;
 
+    @XmlElement(name = "SubscriberType")
+    private String subscriberType;
+
     public List<String> getTelephoneNumberList() {
         return telephoneNumberList;
     }
@@ -74,4 +77,11 @@ public class DldaTnGroup {
         this.address = address;
     }
 
+    public String getSubcsriberType() {
+        return subscriberType;
+    }
+
+    public void setSubscriberType(String subscriberType) {
+        this.subscriberType = subscriberType;
+    }
 }
