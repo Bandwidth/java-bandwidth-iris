@@ -14,7 +14,7 @@ public class DldaTnGroup {
     @XmlElement(name = "AccountType")
     private String accountType;
 
-    @XmlElement(name = "ListedType")
+    @XmlElement(name = "ListingType")
     private String listingType;
 
     @XmlElement(name = "ListingName")
