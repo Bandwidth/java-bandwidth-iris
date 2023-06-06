@@ -49,9 +49,8 @@ public class DldaOrder extends BaseModel {
     }
 
     public static DldaOrder get(IrisClient client, String orderId) throws Exception {
-        DldaOrderResponse orderResponse = client.get(client.buildAccountModelUri(
-                new String[] { IrisPath.DLDA_ORDER_URI_PATH, orderId }), DldaOrderResponse.class);
-        DldaOrder order = orderResponse.getOrder();
+        DldaOrder order = client.get(client.buildAccountModelUri(
+                new String[] { IrisPath.DLDA_ORDER_URI_PATH, orderId }), DldaOrder.class);
         order.setClient(client);
         return order;
     }
