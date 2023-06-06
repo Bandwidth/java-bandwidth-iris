@@ -4,7 +4,7 @@
 
     <groupId>com.bandwidth.sdk</groupId>
     <artifactId>bandwidth-java-iris-sdk</artifactId>
-    <version>3.2.3</version>
+    <version>4.0.0</version>
     <packaging>jar</packaging>
     <name>bandwidth-java-iris-sdk</name>
     <description>Java SDK for use with the IRIS API.</description>
@@ -193,7 +193,6 @@
                     </execution>
                 </executions>
                 <configuration>
-		  <skip>true</skip>
                     <gpgArguments>
                         <arg>--pinentry-mode</arg>
                         <arg>loopback</arg>
