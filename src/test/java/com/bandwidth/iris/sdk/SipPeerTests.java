@@ -191,9 +191,9 @@ public class SipPeerTests extends BaseModelTests {
     @Test
     public void testEnableSms() throws Exception {
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678/products/messaging/features/sms";
-        stubFor(get(urlMatching(url))
+        stubFor(post(urlMatching(url))
                 .willReturn(aResponse()
-                        .withStatus(200)));
+                        .withStatus(201).withHeader("Content-Type", "application/xml")));
 
         String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
@@ -211,7 +211,7 @@ public class SipPeerTests extends BaseModelTests {
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678/products/messaging/features/mms";
         stubFor(post(urlMatching(url))
                 .willReturn(aResponse()
-                        .withStatus(201)));
+                        .withStatus(201).withHeader("Content-Type", "application/xml")));
 
         String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
         stubFor(get(urlMatching(sipPeerUrl))
@@ -225,7 +225,7 @@ public class SipPeerTests extends BaseModelTests {
     @Test
     public void testUpdateSipPeerMessagingApplication() throws Exception {
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678/products/messaging/applicationSettings";
-        stubFor(put(urlMatching(url))
+        stubFor(post(urlMatching(url))
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.updateSipPeerApplicationSetting)));
 

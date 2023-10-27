@@ -217,7 +217,7 @@ public class SipPeer extends BaseModel {
     public void enableMms() throws Exception {
         SipPeerMmsFeature mmsSettings = new SipPeerMmsFeature();
         client.post(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
-                IrisPath.SIPPEERS_URI_PATH, peerId,"products", "messaging", "features", "mms" }), mmsSettings);
+                IrisPath.SIPPEERS_URI_PATH, peerId, "products", "messaging", "features", "mms" }), mmsSettings);
     }
 
     public void updateMessagingApplicationSettings (SipPeerMessagingApplicationsSettings settings) throws Exception {
