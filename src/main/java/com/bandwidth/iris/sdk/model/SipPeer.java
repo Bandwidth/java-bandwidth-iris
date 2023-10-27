@@ -208,4 +208,20 @@ public class SipPeer extends BaseModel {
                         IrisPath.SIPPEERS_URI_PATH, peerId, "tns" }),
                 SipPeerTelephoneNumbersResponse.class).getSipPeerTelephoneNumbers();
     }
+
+    public void enableSms(SipPeerSmsFeature smsSettings) throws Exception {
+        client.post(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
+                IrisPath.SIPPEERS_URI_PATH, peerId, "products", "messaging", "features", "sms" }), smsSettings);
+    }
+
+    public void enableMms() throws Exception {
+        SipPeerMmsFeature mmsSettings = new SipPeerMmsFeature();
+        client.post(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
+                IrisPath.SIPPEERS_URI_PATH, peerId,"products", "messaging", "features", "mms" }), mmsSettings);
+    }
+
+    public void updateMessagingApplicationSettings (SipPeerMessagingApplicationsSettings settings) throws Exception {
+        client.post(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
+                IrisPath.SIPPEERS_URI_PATH, peerId, "products", "messaging","applicationSettings" }), settings);
+    }
 }

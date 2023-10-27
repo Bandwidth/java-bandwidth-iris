@@ -16,6 +16,10 @@ public class BaseModelTests {
         return new IrisClient("http://localhost:8090", "accountId", "username", "password", "v1.0");
     }
 
+    protected IrisClient getPipedreamClient() {
+        return new IrisClient("https://d815f3b06d79650d7a886f0c2ce1955d.m.pipedream.net", "accountId", "username", "password", "v1.0");
+    }
+
     public void setMessage(String s) {
         this.message = s;
     }

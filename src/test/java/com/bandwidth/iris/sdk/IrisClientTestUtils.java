@@ -886,4 +886,24 @@ public class IrisClientTestUtils {
             "        </Error>\n" +
             "    </ErrorList>\n" +
             "</TnOptionOrder>";
+
+    public static String updateSipPeerSmsSetting = "";
+
+    public static String updateSipPeerMmsSetting = "<MmsFeatureResponse>\n" +
+            "    <MmsFeature>\n" +
+            "        <MmsSettings>\n" +
+            "            <Protocol>HTTP</Protocol>\n" +
+            "        </MmsSettings>\n" +
+            "        <Protocols>\n" +
+            "            <HTTP>\n" +
+            "                <HttpSettings>\n" +
+            "                    <ProxyPeerId>569238</ProxyPeerId>\n" +
+            "                </HttpSettings>\n" +
+            "            </HTTP>\n" +
+            "        </Protocols>\n" +
+            "    </MmsFeature>\n" +
+            "</MmsFeatureResponse>";
+
+    public static String updateSipPeerApplicationSetting = "";
+
 }
