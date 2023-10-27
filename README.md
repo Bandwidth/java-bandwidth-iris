@@ -328,6 +328,8 @@ peer.moveTns(sipPeerTelephoneNumbers);
 ```java
 // Zone1 for US & Canada enabled by default
 SipPeerSmsFeature settings = new SipPeerSmsFeature();
+settings.setTollFree(true);
+settings.setShortCode(true);
 peer.enableSms(settings);
 ```
 
