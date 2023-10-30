@@ -1,8 +1,6 @@
 package com.bandwidth.iris.sdk;
 
-import com.bandwidth.iris.sdk.model.SipPeer;
-import com.bandwidth.iris.sdk.model.SipPeerTelephoneNumber;
-import com.bandwidth.iris.sdk.model.SipPeerTelephoneNumbers;
+import com.bandwidth.iris.sdk.model.*;
 import org.junit.Test;
 
 import java.util.List;
@@ -188,6 +186,59 @@ public class SipPeerTests extends BaseModelTests {
         assertNotNull(numbers);
         assertEquals(2, numbers.size());
         assertEquals("9195551212", numbers.get(0).getFullNumber());
+    }
 
+    @Test
+    public void testEnableSms() throws Exception {
+        String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678/products/messaging/features/sms";
+        stubFor(post(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(201).withHeader("Content-Type", "application/xml")));
+
+        String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
+        stubFor(get(urlMatching(sipPeerUrl))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
+
+        SipPeer peer = SipPeer.get(getDefaultClient(), "1234", "5678");
+
+        SipPeerSmsFeature settings = new SipPeerSmsFeature();
+        peer.enableSms(settings);
+    }
+
+    @Test
+    public void testEnableMms() throws Exception {
+        String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678/products/messaging/features/mms";
+        stubFor(post(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(201).withHeader("Content-Type", "application/xml")));
+
+        String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
+        stubFor(get(urlMatching(sipPeerUrl))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
+
+        SipPeer peer = SipPeer.get(getDefaultClient(), "1234", "5678");
+        peer.enableMms();
+    }
+
+    @Test
+    public void testUpdateSipPeerMessagingApplication() throws Exception {
+        String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678/products/messaging/applicationSettings";
+        stubFor(post(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.updateSipPeerApplicationSetting)));
+
+        String sipPeerUrl = "/v1.0/accounts/accountId/sites/1234/sippeers/5678";
+        stubFor(get(urlMatching(sipPeerUrl))
+                .willReturn(aResponse()
+                        .withStatus(200).withBody(IrisClientTestUtils.validSipPeerResponseXml)));
+
+        SipPeer peer = SipPeer.get(getDefaultClient(), "1234", "5678");
+
+        SipPeerMessagingApplicationsSettings settings = new SipPeerMessagingApplicationsSettings();
+        settings.setApplicationId("abcd-1234");
+
+        peer.updateMessagingApplicationSettings(settings);
     }
 }

@@ -324,6 +324,28 @@ peer.getTn("number");
 peer.moveTns(sipPeerTelephoneNumbers);
 ```
 
+### Enable SMS Settings
+```java
+// Zone1 for US & Canada enabled by default
+SipPeerSmsFeature settings = new SipPeerSmsFeature();
+settings.setTollFree(true);
+settings.setShortCode(true);
+peer.enableSms(settings);
+```
+
+### Enable MMS 
+```java
+peer.enableMms();
+```
+
+### Associate a SipPeer with a Messaging Application
+```java
+SipPeerMessagingApplicationsSettings settings = new SipPeerMessagingApplicationsSettings();
+settings.setApplicationId("abcd-1234");
+
+peer.updateMessagingApplicationSettings(settings);
+```
+
 ## Sites
 
 ### Create A Site
