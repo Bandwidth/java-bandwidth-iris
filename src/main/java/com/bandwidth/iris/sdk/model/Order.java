@@ -49,6 +49,9 @@ public class Order extends BaseModel {
     private TollFreeWildCharSearchAndOrderType tollFreeWildCharSearchAndOrderType;
     @XmlElement(name = "ZIPSearchAndOrderType")
     private ZIPSearchAndOrderType zipSearchAndOrderType;
+    @XmlElement(name = "CombinedSearchAndOrderType")
+    private CombinedSearchAndOrderType combinedSearchAndOrderType;
+
 
     public static OrderResponse create(IrisClient client, Order order) throws Exception {
         OrderResponse orderResponse = client
@@ -206,6 +209,14 @@ public class Order extends BaseModel {
 
     public void setZipSearchAndOrderType(ZIPSearchAndOrderType zipSearchAndOrderType) {
         this.zipSearchAndOrderType = zipSearchAndOrderType;
+    }
+
+    public CombinedSearchAndOrderType getCombinedSearchAndOrderType() {
+        return combinedSearchAndOrderType;
+    }
+
+    public void setCombinedSearchAndOrderType(CombinedSearchAndOrderType combinedSearchAndOrderType) {
+        this.combinedSearchAndOrderType = combinedSearchAndOrderType;
     }
 
     public void addNote(Note note) throws Exception {

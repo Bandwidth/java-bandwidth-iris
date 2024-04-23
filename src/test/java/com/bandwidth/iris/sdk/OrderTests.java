@@ -152,4 +152,30 @@ public class OrderTests extends BaseModelTests {
         assertEquals(createdOrder.getOrder().getRateCenterSearchAndOrderType().getRateCenter(), "DOVER");
     }
 
+    @Test
+    public void CombinedSearchAndOrderTypeTestCreate() throws Exception {
+        String ordersUrl = "/v1.0/accounts/accountId/orders";
+        stubFor(post(urlMatching(ordersUrl))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/xml")
+                        .withBody(IrisClientTestUtils.validCombinedOrderResponseXml)));
+
+        Order order = new Order();
+        order.setName("Test CombinedSearchAndOrderType Order");
+
+        CombinedSearchAndOrderType combinedSearchAndOrderType = new CombinedSearchAndOrderType();
+        combinedSearchAndOrderType.setEnableLCA(false);
+        combinedSearchAndOrderType.setQuantity(1);
+        combinedSearchAndOrderType.setRateCenter("DOVER");    // No inventory available here 
+        combinedSearchAndOrderType.setState("NH");
+
+        order.setCombinedSearchAndOrderType(combinedSearchAndOrderType);
+
+        OrderResponse createdOrder = Order.create(getDefaultClient(), order);
+        assertEquals(createdOrder.getOrder().getName(), "Test CombinedSearchAndOrderType Order");
+        assertEquals(createdOrder.getOrder().getCombinedSearchAndOrderType().getRateCenter(), "DOVER");
+    }
+
+
 }
