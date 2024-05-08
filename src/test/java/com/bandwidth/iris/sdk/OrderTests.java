@@ -173,6 +173,7 @@ public class OrderTests extends BaseModelTests {
         order.setCombinedSearchAndOrderType(combinedSearchAndOrderType);
 
         OrderResponse createdOrder = Order.create(getDefaultClient(), order);
+        assertEquals(combinedSearchAndOrderType.isEndsIn(), null);
         assertEquals(createdOrder.getOrder().getName(), "Test CombinedSearchAndOrderType Order");
         assertEquals(createdOrder.getOrder().getCombinedSearchAndOrderType().getRateCenter(), "DOVER");
     }
