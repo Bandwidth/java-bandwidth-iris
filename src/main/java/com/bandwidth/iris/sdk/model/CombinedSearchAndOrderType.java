@@ -27,24 +27,24 @@ public class CombinedSearchAndOrderType extends BaseOrderType {
     }
 
     @XmlElement(name = "EnableLCA")
-    private boolean enableLCA;
+    private Boolean enableLCA;
 
-    public boolean isEnableLCA() {
+    public Boolean isEnableLCA() {
         return enableLCA;
     }
 
-    public void setEnableLCA(boolean enableLCA) {
+    public void setEnableLCA(Boolean enableLCA) {
         this.enableLCA = enableLCA;
     }
 
     @XmlElement(name = "EndsIn")
-    private boolean endsIn;
+    private Boolean endsIn;
 
-    public boolean isEndsIn() {
+    public Boolean isEndsIn() {
         return endsIn;
     }
 
-    public void setEndsIn(boolean endsIn) {
+    public void setEndsIn(Boolean endsIn) {
         this.endsIn = endsIn;
     }
 
