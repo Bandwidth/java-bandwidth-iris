@@ -79,7 +79,6 @@ public class IrisClient {
     }
 
     public <T> T get(String uri, Class<T> returnType) throws Exception {
-        System.out.println(uri);
         IrisResponse response = get(uri);
         return processResponse(response, returnType);
     }

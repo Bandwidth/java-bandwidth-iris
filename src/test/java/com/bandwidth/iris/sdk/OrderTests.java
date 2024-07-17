@@ -50,6 +50,21 @@ public class OrderTests extends BaseModelTests {
     }
 
     @Test
+    public void testGetWithCustomClient() throws Exception {
+        String url = "/v1.0/accounts/accountId/orders/someid";
+        stubFor(get(urlMatching(url))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody(IrisClientTestUtils.validOrderResponseXml)));
+
+        OrderResponse orderResponse = Order.get(getCustomClient(), "someid");
+        assertEquals(orderResponse.getOrder().getid(), "someid");
+        assertEquals(orderResponse.getOrder().getExistingTelephoneNumberOrderType().getTelephoneNumberList().get(0),
+                "2052865046");
+        assertEquals(orderResponse.getOrder().getName(), "A New Order");
+    }
+
+    @Test
     public void testGetError() throws Exception {
         String url = "/v1.0/accounts/accountId/orders/errorid";
         stubFor(get(urlMatching(url))
