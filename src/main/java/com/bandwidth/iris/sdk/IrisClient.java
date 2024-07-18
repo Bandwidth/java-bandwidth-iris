@@ -5,12 +5,14 @@ import com.bandwidth.iris.sdk.model.BaseResponse;
 import com.bandwidth.iris.sdk.utils.XmlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
@@ -45,6 +47,17 @@ public class IrisClient {
 
     public IrisClient(String accountId, String userName, String password) {
         this(defaultUri, accountId, userName, password, defaultVersion);
+    }
+
+    public IrisClient(DefaultHttpClient httpClient, String uri, String accountId, String username, String password) {
+        this.uri = uri;
+        this.baseUrl = "/" + defaultVersion + "/";
+        this.baseAccountUrl = this.baseUrl + "accounts/" + accountId + "/";
+
+        Credentials credentials = new UsernamePasswordCredentials(username, password);
+        httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, credentials);
+
+        this.httpClient = httpClient;
     }
 
     private void initHttpClient(String userName, String password) {
