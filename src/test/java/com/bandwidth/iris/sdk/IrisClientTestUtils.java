@@ -483,6 +483,7 @@ public class IrisClientTestUtils {
      * Order Xmls
      */
     public static String validOrderResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><OrderResponse><Order><Name>A New Order</Name><OrderCreateDate>2014-10-14T17:58:15.299Z</OrderCreateDate><BackOrderRequested>false</BackOrderRequested><id>someid</id><ExistingTelephoneNumberOrderType><TelephoneNumberList><TelephoneNumber>2052865046</TelephoneNumber></TelephoneNumberList></ExistingTelephoneNumberOrderType><PartialAllowed>false</PartialAllowed><SiteId>2858</SiteId></Order></OrderResponse>";
+    public static String validCombinedOrderResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><OrderResponse><Order><Name>Test CombinedSearchAndOrderType Order</Name><OrderCreateDate>2014-10-14T17:58:15.299Z</OrderCreateDate><BackOrderRequested>false</BackOrderRequested><id>someid</id><CombinedSearchAndOrderType><EnableLCA>false</EnableLCA><Quantity>1</Quantity><RateCenter>DOVER</RateCenter><State>NH</State></CombinedSearchAndOrderType><PartialAllowed>false</PartialAllowed><SiteId>2858</SiteId></Order></OrderResponse>";
     public static String validRateCenterOrderResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><OrderResponse><Order><Name>Test RateCenterSearchAndOrderType Order</Name><OrderCreateDate>2014-10-14T17:58:15.299Z</OrderCreateDate><BackOrderRequested>false</BackOrderRequested><id>someid</id><RateCenterSearchAndOrderType><EnableLCA>false</EnableLCA><Quantity>1</Quantity><RateCenter>DOVER</RateCenter><State>NH</State></RateCenterSearchAndOrderType><PartialAllowed>false</PartialAllowed><SiteId>2858</SiteId></Order></OrderResponse>";
     public static String validOrderResponseErrorXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><OrderResponse><CompletedQuantity>0</CompletedQuantity><CreatedByUser>testapi</CreatedByUser><ErrorList><Error><Code>5018</Code><Description>The entire quantity of telephone numbers ordered is unavailable</Description></Error></ErrorList><LastModifiedDate>2022-02-17T15:28:24.152Z</LastModifiedDate><OrderCompleteDate>2022-02-17T15:28:24.152Z</OrderCompleteDate><Order><id>errorid</id><CustomerOrderId>MyTestOrderId</CustomerOrderId><OrderCreateDate>2022-02-17T15:28:24.026Z</OrderCreateDate><PeerId>223787</PeerId><BackOrderRequested>false</BackOrderRequested><RateCenterSearchAndOrderType><EnableLCA>true</EnableLCA><Quantity>1</Quantity><RateCenter>DOVER</RateCenter><State>NH</State></RateCenterSearchAndOrderType><PartialAllowed>true</PartialAllowed><SiteId>56984</SiteId><TnAttributes/></Order><OrderStatus>FAILED</OrderStatus><CompletedNumbers/><Summary>1 number requested</Summary><FailedQuantity>1</FailedQuantity></OrderResponse>";
     public static String validOrderNotesResponseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Notes><Note><Id>178468</Id><UserId>user</UserId><Description>Adding a note</Description><LastDateModifier>2014-11-19T21:02:26.000Z</LastDateModifier></Note></Notes>";
@@ -886,4 +887,24 @@ public class IrisClientTestUtils {
             "        </Error>\n" +
             "    </ErrorList>\n" +
             "</TnOptionOrder>";
+
+    public static String updateSipPeerSmsSetting = "";
+
+    public static String updateSipPeerMmsSetting = "<MmsFeatureResponse>\n" +
+            "    <MmsFeature>\n" +
+            "        <MmsSettings>\n" +
+            "            <Protocol>HTTP</Protocol>\n" +
+            "        </MmsSettings>\n" +
+            "        <Protocols>\n" +
+            "            <HTTP>\n" +
+            "                <HttpSettings>\n" +
+            "                    <ProxyPeerId>569238</ProxyPeerId>\n" +
+            "                </HttpSettings>\n" +
+            "            </HTTP>\n" +
+            "        </Protocols>\n" +
+            "    </MmsFeature>\n" +
+            "</MmsFeatureResponse>";
+
+    public static String updateSipPeerApplicationSetting = "";
+
 }
