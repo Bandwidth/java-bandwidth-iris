@@ -1,8 +1,7 @@
 package com.bandwidth.iris.sdk.model;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @XmlRootElement(name = "ListOrderIdUserIdDate")
