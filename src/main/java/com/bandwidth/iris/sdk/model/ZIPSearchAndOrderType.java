@@ -1,8 +1,6 @@
 package com.bandwidth.iris.sdk.model;
 
-import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement(name = "ZIPSearchAndOrderType")
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -55,7 +55,7 @@ public class SiteTests extends BaseModelTests {
                         .withStatus(200)
                         .withBody(IrisClientTestUtils.validSiteResponseXml)));
 
-        Site s = Site.get(getDefaultClient(), "1234");
+        Site s = Site.get(getDefaultClient(), "2858");
         s.delete();
 
         expectedEx.expect(IrisClientException.class);
