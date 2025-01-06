@@ -4,7 +4,7 @@ import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.IrisPath;
 import com.bandwidth.iris.sdk.IrisResponse;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;

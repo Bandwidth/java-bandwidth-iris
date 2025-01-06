@@ -3,7 +3,7 @@ package com.bandwidth.iris.sdk.model;
 import com.bandwidth.iris.sdk.IrisClient;
 import com.bandwidth.iris.sdk.IrisPath;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;

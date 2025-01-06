@@ -1,6 +1,6 @@
 package com.bandwidth.iris.sdk.model;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement(name = "AssignedNnRoute")
 @XmlAccessorType(XmlAccessType.FIELD)

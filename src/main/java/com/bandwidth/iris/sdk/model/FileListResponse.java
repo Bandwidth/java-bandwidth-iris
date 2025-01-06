@@ -1,9 +1,6 @@
 package com.bandwidth.iris.sdk.model;
 
-import com.bandwidth.iris.sdk.IrisClient;
-import com.bandwidth.iris.sdk.IrisPath;
-
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 
 
 @XmlRootElement(name="fileListResponse")
