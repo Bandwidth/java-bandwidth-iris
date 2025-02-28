@@ -78,6 +78,7 @@ public class SipPeer extends BaseModel {
         sipPeers = tnSipPeersResponse.getSipPeers();
         for (SipPeer peer : sipPeers) {
             peer.setClient(client);
+            peer.setSiteId(siteId);
         }
         return sipPeers;
     }
