@@ -225,7 +225,7 @@ public class SipPeerTests extends BaseModelTests {
     @Test
     public void testUpdateSipPeerMessagingApplication() throws Exception {
         String url = "/v1.0/accounts/accountId/sites/1234/sippeers/5678/products/messaging/applicationSettings";
-        stubFor(post(urlMatching(url))
+        stubFor(put(urlMatching(url))
                 .willReturn(aResponse()
                         .withStatus(200).withBody(IrisClientTestUtils.updateSipPeerApplicationSetting)));
 
