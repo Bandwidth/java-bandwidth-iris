@@ -18,8 +18,11 @@ import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import javax.xml.stream.XMLInputFactory;
+import java.util.Optional;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -36,6 +39,11 @@ public class IrisClient {
     private final String uri;
     private final XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
     protected DefaultHttpClient httpClient;
+
+    private String accessToken;
+    private Long accessTokenExpiration;
+    private String clientId;
+    private String clientSecret;
 
     public IrisClient(String uri, String accountId,
             String userName, String password, String version) {
@@ -177,6 +185,7 @@ public class IrisClient {
 
     protected IrisResponse executeRequest(HttpUriRequest request) throws Exception {
         request.addHeader("User-Agent", USER_AGENT);
+        configureAuth(request);
 
         Map<String, String> headers = new HashMap<String, String>();
         IrisResponse irisResponse = new IrisResponse();
@@ -203,6 +212,61 @@ public class IrisClient {
             throw new IrisClientException(response.getStatusCode(),baseResponse.getResponseStatus().getErrorCode(),
                     baseResponse.getResponseStatus().getDescription());
         }
+    }
+
+    private void configureAuth (HttpUriRequest request) {
+        if (this.accessToken != null && (this.accessTokenExpiration == null || this.accessTokenExpiration > System.currentTimeMillis()/1000 + 60)) {
+            request.addHeader("Authorization", "Bearer " + this.accessToken);
+        } else if (this.clientId != null && this.clientSecret != null) {
+            System.out.println("Fetching new access token");
+            HttpPost tokenRequest = new HttpPost("https://api.bandwidth.com/api/v1/oauth2/token");
+            StringEntity tokenBody = new StringEntity("grant_type=client_credentials", "UTF-8");
+            tokenRequest.addHeader("Content-Type", "application/x-www-form-urlencoded");
+            tokenRequest.setEntity(tokenBody);
+            String auth = this.clientId + ":" + this.clientSecret;
+            String encodedAuth = java.util.Base64.getEncoder().encodeToString(auth.getBytes());
+            tokenRequest.addHeader("Authorization", "Basic " + encodedAuth);
+            try {
+                HttpResponse tokenResponse = httpClient.execute(tokenRequest);
+                String responseString = EntityUtils.toString(tokenResponse.getEntity());
+                JSONParser parser = new JSONParser();
+                JSONObject tokenData = (JSONObject) parser.parse(responseString);
+                this.accessToken = (String) tokenData.get("access_token");
+                Long expiresIn = (Long) tokenData.get("expires_in");
+                this.accessTokenExpiration = System.currentTimeMillis()/1000 + expiresIn;
+                request.addHeader("Authorization", "Bearer " + this.accessToken);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // String auth = this.clientId + ":" + this.clientSecret;
+            // String encodedAuth = java.util.Base64.getEncoder().encodeToString(auth.getBytes());
+            // request.addHeader("Authorization", "Basic " + encodedAuth);
+        }
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+    public Long getAccessTokenExpiration() {
+        return accessTokenExpiration;
+    }
+    public void setAccessTokenExpiration(Long accessTokenExpiration) {
+        this.accessTokenExpiration = accessTokenExpiration;
+    }
+    public String getClientId() {
+        return clientId;
+    }
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+    public String getClientSecret() {
+        return clientSecret;
+    }
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
 
 }
