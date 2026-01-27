@@ -78,6 +78,7 @@ public class SipPeer extends BaseModel {
         sipPeers = tnSipPeersResponse.getSipPeers();
         for (SipPeer peer : sipPeers) {
             peer.setClient(client);
+            peer.setSiteId(siteId);
         }
         return sipPeers;
     }
@@ -221,7 +222,7 @@ public class SipPeer extends BaseModel {
     }
 
     public void updateMessagingApplicationSettings (SipPeerMessagingApplicationsSettings settings) throws Exception {
-        client.post(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
+        client.put(client.buildAccountModelUri(new String[] { IrisPath.SITES_URI_PATH, siteId,
                 IrisPath.SIPPEERS_URI_PATH, peerId, "products", "messaging","applicationSettings" }), settings);
     }
 }

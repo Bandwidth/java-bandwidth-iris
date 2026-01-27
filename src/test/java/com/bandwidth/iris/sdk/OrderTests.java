@@ -24,12 +24,15 @@ public class OrderTests extends BaseModelTests {
         ExistingTelephoneNumberOrderType existingTelephoneNumberOrderType = new ExistingTelephoneNumberOrderType();
         existingTelephoneNumberOrderType.getTelephoneNumberList().add("2052865046");
         o.setExistingTelephoneNumberOrderType(existingTelephoneNumberOrderType);
+        o.setVoiceConfigurationPackageId("c7951e4f-6285-4b75-83e5-392558f59067");
 
         OrderResponse createdOrder = Order.create(getDefaultClient(), o);
         assertEquals(createdOrder.getOrder().getid(), "someid");
         assertEquals(createdOrder.getOrder().getExistingTelephoneNumberOrderType().getTelephoneNumberList().get(0),
                 "2052865046");
         assertEquals(createdOrder.getOrder().getName(), "A New Order");
+        assertEquals(createdOrder.getOrder().getVoiceConfigurationPackageId(),
+                "c7951e4f-6285-4b75-83e5-392558f59067");
 
     }
 
