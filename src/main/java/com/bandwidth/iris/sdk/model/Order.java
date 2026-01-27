@@ -51,6 +51,8 @@ public class Order extends BaseModel {
     private ZIPSearchAndOrderType zipSearchAndOrderType;
     @XmlElement(name = "CombinedSearchAndOrderType")
     private CombinedSearchAndOrderType combinedSearchAndOrderType;
+    @XmlElement(name = "VoiceConfigurationPackageId")
+    private String voiceConfigurationPackageId;
 
 
     public static OrderResponse create(IrisClient client, Order order) throws Exception {
@@ -217,6 +219,14 @@ public class Order extends BaseModel {
 
     public void setCombinedSearchAndOrderType(CombinedSearchAndOrderType combinedSearchAndOrderType) {
         this.combinedSearchAndOrderType = combinedSearchAndOrderType;
+    }
+
+    public String getVoiceConfigurationPackageId() {
+        return voiceConfigurationPackageId;
+    }
+
+    public void setVoiceConfigurationPackageId(String voiceConfigurationPackageId) {
+        this.voiceConfigurationPackageId = voiceConfigurationPackageId;
     }
 
     public void addNote(Note note) throws Exception {
