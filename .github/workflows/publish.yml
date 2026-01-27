@@ -8,15 +8,17 @@ jobs:
     if: ${{ !github.event.release.prerelease && github.event.release.target_commitish == 'main' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v5
+
     - name: Set up Apache Maven Central
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         distribution: 'adopt'
-        java-version: '11'
+        java-version: 11
         server-id: 'ossrh'
-        server-username: OSSRH_USERNAME
-        server-password: OSSRH_PASSWORD
+        server-username: PUBLISHER_USERNAME
+        server-password: PUBLISHER_PASSWORD
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
@@ -29,6 +31,6 @@ jobs:
     - name: Publish to Apache Maven Central
       run: mvn deploy
       env:
-        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        PUBLISHER_USERNAME: ${{ secrets.PUBLISHER_USERNAME }}
+        PUBLISHER_PASSWORD: ${{ secrets.PUBLISHER_PASSWORD }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
