@@ -20,7 +20,14 @@ import java.security.cert.X509Certificate;
 public class OAuthTests {
     
     @Rule
-    public WireMockRule wireMockRule = new WireMockRule(options().port(8090).enableBrowserProxying(true));
+    public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort().enableBrowserProxying(true));
+
+    /**
+     * Get the base URL for WireMock using the dynamic port.
+     */
+    private String getBaseUrl() {
+        return "http://localhost:" + wireMockRule.port();
+    }
 
     /**
      * Create an HTTP client configured to use WireMock as a proxy with SSL verification disabled.
@@ -28,7 +35,7 @@ public class OAuthTests {
     private DefaultHttpClient createProxyHttpClient() throws Exception {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         
-        HttpHost proxy = new HttpHost("localhost", 8090);
+        HttpHost proxy = new HttpHost("localhost", wireMockRule.port());
         httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
         
         // Disable SSL certificate verification
@@ -58,7 +65,7 @@ public class OAuthTests {
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v1.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v1.0/accounts/accountId/sites");
 
         // Should use Bearer token
         verify(getRequestedFor(urlPathEqualTo("/v1.0/accounts/accountId/sites"))
@@ -72,7 +79,7 @@ public class OAuthTests {
         DefaultHttpClient httpClient = createProxyHttpClient();
         
         // Client with client credentials only
-        IrisClient client = new IrisClient(httpClient, "http://localhost:8090", "accountId", "username", "password");
+        IrisClient client = new IrisClient(httpClient, getBaseUrl(), "accountId", "username", "password");
         client.setClientId("test-client-id");
         client.setClientSecret("test-client-secret");
 
@@ -89,7 +96,7 @@ public class OAuthTests {
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v1.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v1.0/accounts/accountId/sites");
 
         // Should fetch token and use it
         verify(postRequestedFor(urlEqualTo("/api/v1/oauth2/token"))
@@ -116,7 +123,7 @@ public class OAuthTests {
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v1.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v1.0/accounts/accountId/sites");
 
         // Should use existing token and not fetch new one
         verify(0, postRequestedFor(urlPathEqualTo("/api/v1/oauth2/token")));
@@ -130,7 +137,7 @@ public class OAuthTests {
     public void testConstructorWithAllFieldsFullCustomization() throws Exception {
         // Client with ALL fields customized
         long futureExpiration = System.currentTimeMillis() / 1000 + 3600;
-        IrisClient client = new IrisClient(new DefaultHttpClient(), "http://localhost:8090",
+        IrisClient client = new IrisClient(new DefaultHttpClient(), getBaseUrl(),
                 "accountId", "username", "password",
                 "v1.0", "test-client-id", "test-client-secret",
                 "full-custom-token", futureExpiration);
@@ -140,7 +147,7 @@ public class OAuthTests {
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v1.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v1.0/accounts/accountId/sites");
 
         // Should use existing token and not fetch new one
         verify(0, postRequestedFor(urlPathEqualTo("/api/v1/oauth2/token")));
@@ -155,7 +162,7 @@ public class OAuthTests {
         // Client with expired access token
         DefaultHttpClient httpClient = createProxyHttpClient();
         long pastExpiration = System.currentTimeMillis() / 1000 - 3600;
-        IrisClient client = new IrisClient(httpClient, "http://localhost:8090", "accountId",
+        IrisClient client = new IrisClient(httpClient, getBaseUrl(), "accountId",
                 "username", "password", "v1.0", "test-client-id",
                 "test-client-secret", "expired-token", pastExpiration);
 
@@ -170,7 +177,7 @@ public class OAuthTests {
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v1.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v1.0/accounts/accountId/sites");
 
         // Should fetch new token and use it
         verify(postRequestedFor(urlPathEqualTo("/api/v1/oauth2/token"))
@@ -193,7 +200,7 @@ public class OAuthTests {
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v1.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v1.0/accounts/accountId/sites");
 
         // Should NOT have Bearer token
         verify(0, postRequestedFor(urlPathEqualTo("/api/v1/oauth2/token")));
@@ -223,7 +230,7 @@ public class OAuthTests {
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v1.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v1.0/accounts/accountId/sites");
 
         // Should fetch new token and use it
         verify(postRequestedFor(urlPathEqualTo("/api/v1/oauth2/token"))
@@ -239,14 +246,14 @@ public class OAuthTests {
     @Test
     public void testConstructorWithCustomUriAndVersion() throws Exception {
         // Client with custom URI and version
-        IrisClient client = new IrisClient("http://localhost:8090", "accountId", "username", "password", "v2.0");
+        IrisClient client = new IrisClient(getBaseUrl(), "accountId", "username", "password", "v2.0");
 
         stubFor(get(urlPathEqualTo("/v2.0/accounts/accountId/sites"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v2.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v2.0/accounts/accountId/sites");
 
         // Should NOT have Bearer token
         verify(0, postRequestedFor(urlPathEqualTo("/api/v1/oauth2/token")));
@@ -260,7 +267,7 @@ public class OAuthTests {
     public void testConstructorWithCustomUriVersionAndToken() throws Exception {
         // Client with custom URI, version, and pre-configured token
         long futureExpiration = System.currentTimeMillis() / 1000 + 3600;
-        IrisClient client = new IrisClient("http://localhost:8090", "accountId", "username", "password",
+        IrisClient client = new IrisClient(getBaseUrl(), "accountId", "username", "password",
                 "v2.0", "custom-uri-token", futureExpiration);
 
         stubFor(get(urlPathEqualTo("/v2.0/accounts/accountId/sites"))
@@ -268,7 +275,7 @@ public class OAuthTests {
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v2.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v2.0/accounts/accountId/sites");
 
         // Should use existing token and not fetch new one
         verify(0, postRequestedFor(urlPathEqualTo("/api/v1/oauth2/token")));
@@ -282,7 +289,7 @@ public class OAuthTests {
     public void testConstructorWithHttpClientUriAndClientCredentials() throws Exception {
         // Client with custom httpClient, URI, and OAuth client credentials
         DefaultHttpClient httpClient = createProxyHttpClient();
-        IrisClient client = new IrisClient(httpClient, "http://localhost:8090", "accountId",
+        IrisClient client = new IrisClient(httpClient, getBaseUrl(), "accountId",
                 "username", "password", "http-client-id", "http-client-secret");
 
         stubFor(post(urlEqualTo("/api/v1/oauth2/token"))
@@ -297,7 +304,7 @@ public class OAuthTests {
                         .withStatus(200)
                         .withBody("<Sites></Sites>")));
 
-        IrisResponse response = client.get("http://localhost:8090/v1.0/accounts/accountId/sites");
+        IrisResponse response = client.get(getBaseUrl() + "/v1.0/accounts/accountId/sites");
 
         // Should fetch token and use it
         verify(postRequestedFor(urlEqualTo("/api/v1/oauth2/token"))
@@ -310,22 +317,22 @@ public class OAuthTests {
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorThrowsExceptionForNullAccountId() {
-        new IrisClient(new DefaultHttpClient(), "http://localhost:8090", null, "username", "password", "v1.0");
+        new IrisClient(new DefaultHttpClient(), getBaseUrl(), null, "username", "password", "v1.0");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorThrowsExceptionForEmptyAccountId() {
-        new IrisClient(new DefaultHttpClient(), "http://localhost:8090", "", "username", "password", "v1.0");
+        new IrisClient(new DefaultHttpClient(), getBaseUrl(), "", "username", "password", "v1.0");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorThrowsExceptionForNullUsername() {
-        new IrisClient(new DefaultHttpClient(), "http://localhost:8090", "accountId", null, "password", "v1.0");
+        new IrisClient(new DefaultHttpClient(), getBaseUrl(), "accountId", null, "password", "v1.0");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorThrowsExceptionForEmptyPassword() {
-        new IrisClient(new DefaultHttpClient(), "http://localhost:8090", "accountId", "username", "", "v1.0");
+        new IrisClient(new DefaultHttpClient(), getBaseUrl(), "accountId", "username", "", "v1.0");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -335,6 +342,6 @@ public class OAuthTests {
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorThrowsExceptionForEmptyVersion() {
-        new IrisClient(new DefaultHttpClient(), "http://localhost:8090", "accountId", "username", "password", "");
+        new IrisClient(new DefaultHttpClient(), getBaseUrl(), "accountId", "username", "password", "");
     }
 }

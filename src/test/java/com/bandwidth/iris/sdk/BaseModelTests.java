@@ -13,30 +13,32 @@ import org.apache.http.impl.client.ProxyAuthenticationStrategy;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+
 public class BaseModelTests {
 
     @Rule
-    public WireMockRule wireMockRule = new WireMockRule(8090); // No-args constructor defaults to port 8080
+    public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort());
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
     protected String message;
 
     protected IrisClient getDefaultClient() {
-        return new IrisClient("http://localhost:8090", "accountId", "username", "password", "v1.0");
+        return new IrisClient("http://localhost:" + wireMockRule.port(), "accountId", "username", "password", "v1.0");
     }
 
     protected IrisClient getCustomClient() {
         DefaultHttpClient client = new DefaultHttpClient();
-        HttpHost proxy = new HttpHost("localhost",8090);
-        client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+        HttpHost proxy = new HttpHost("localhost", wireMockRule.port());
+        client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 
         Credentials credentials = new UsernamePasswordCredentials("userName", "password");
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials( new AuthScope("localhost",8080), credentials);
+        credsProvider.setCredentials(new AuthScope("localhost", 8080), credentials);
 
         client.setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
 
-        return new IrisClient(client, "http://localhost:8090", "accountId", "username", "password");
+        return new IrisClient(client, "http://localhost:" + wireMockRule.port(), "accountId", "username", "password");
     }
 
     public void setMessage(String s) {
