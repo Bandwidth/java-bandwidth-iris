@@ -46,31 +46,92 @@ public class IrisClient {
     private String clientSecret;
 
     public IrisClient(String uri, String accountId,
-            String userName, String password, String version) {
-        this.uri = uri;
-        this.baseUrl = "/" + version + "/";
-        this.baseAccountUrl = this.baseUrl + "accounts/" + accountId + "/";
-        initHttpClient(userName, password);
+            String username, String password, String version) {
+        this(new DefaultHttpClient(), uri, accountId, username, password, version);
     }
 
-    public IrisClient(String accountId, String userName, String password) {
-        this(defaultUri, accountId, userName, password, defaultVersion);
+    public IrisClient(String accountId, String username, String password) {
+        this(defaultUri, accountId, username, password, defaultVersion);
     }
 
     public IrisClient(DefaultHttpClient httpClient, String uri, String accountId, String username, String password) {
+        this(httpClient, uri, accountId, username, password, defaultVersion);
+    }
+
+    // Constructor with custom httpClient
+    // should be base for all other constructors
+    public IrisClient(DefaultHttpClient httpClient, String uri, String accountId, String username, String password, String version) {
         this.uri = uri;
-        this.baseUrl = "/" + defaultVersion + "/";
+        this.baseUrl = "/" + version + "/";
         this.baseAccountUrl = this.baseUrl + "accounts/" + accountId + "/";
-
-        Credentials credentials = new UsernamePasswordCredentials(username, password);
-        httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, credentials);
-
+        initHttpClient(httpClient, username, password);
         this.httpClient = httpClient;
     }
 
-    private void initHttpClient(String userName, String password) {
-        httpClient = new DefaultHttpClient();
-        Credentials credentials = new UsernamePasswordCredentials(userName, password);
+    // Constructor with custom httpClient and OAuth client credentials
+    public IrisClient(DefaultHttpClient httpClient, String uri, String accountId, String username, String password,
+                      String clientId, String clientSecret) {
+        this(httpClient, uri, accountId, username, password);
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+    }
+
+    // Constructor with pre-configured access token
+    public IrisClient(String accountId, String username, String password,
+                      String accessToken, Long accessTokenExpiration) {
+        this(defaultUri, accountId, username, password, defaultVersion);
+        this.accessToken = accessToken;
+        this.accessTokenExpiration = accessTokenExpiration;
+    }
+
+    // Constructor with full URI customization and pre-configured access token
+    public IrisClient(String uri, String accountId, String username, String password, 
+                      String version, String accessToken, Long accessTokenExpiration) {
+        this(uri, accountId, username, password, version);
+        this.accessToken = accessToken;
+        this.accessTokenExpiration = accessTokenExpiration;
+    }
+
+    // Constructor with full URI customization and OAuth credentials
+    public IrisClient(String uri, String accountId, String username, String password, 
+                      String version, String clientId, String clientSecret) {
+        this(uri, accountId, username, password, version);
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+    }
+
+    // Constructor with all OAuth fields
+    public IrisClient(String accountId, String username, String password,
+                      String version, String clientId, String clientSecret,
+                      String accessToken, Long accessTokenExpiration) {
+        this(defaultUri, accountId, username, password, version);
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.accessToken = accessToken;
+        this.accessTokenExpiration = accessTokenExpiration;
+    }
+
+    // Constructor with custom httpClient and full OAuth fields
+    public IrisClient(DefaultHttpClient httpClient, String accountId, String username,
+                      String password, String version, String clientId, String clientSecret,
+                      String accessToken, Long accessTokenExpiration) {
+        this(httpClient, defaultUri, accountId, username, password, version, clientId,
+                clientSecret, accessToken, accessTokenExpiration);
+    }
+
+    // Constructor with ALL fields - full customization
+    public IrisClient(DefaultHttpClient httpClient, String uri, String accountId, String username,
+                      String password, String version, String clientId, String clientSecret,
+                      String accessToken, Long accessTokenExpiration) {
+        this(httpClient, uri, accountId, username, password, version);
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.accessToken = accessToken;
+        this.accessTokenExpiration = accessTokenExpiration;
+    }
+
+    private void initHttpClient(DefaultHttpClient httpClient, String username, String password) {
+        Credentials credentials = new UsernamePasswordCredentials(username, password);
         httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, credentials);
     }
 
@@ -218,7 +279,6 @@ public class IrisClient {
         if (this.accessToken != null && (this.accessTokenExpiration == null || this.accessTokenExpiration > System.currentTimeMillis()/1000 + 60)) {
             request.addHeader("Authorization", "Bearer " + this.accessToken);
         } else if (this.clientId != null && this.clientSecret != null) {
-            System.out.println("Fetching new access token");
             HttpPost tokenRequest = new HttpPost("https://api.bandwidth.com/api/v1/oauth2/token");
             StringEntity tokenBody = new StringEntity("grant_type=client_credentials", "UTF-8");
             tokenRequest.addHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -238,9 +298,6 @@ public class IrisClient {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            // String auth = this.clientId + ":" + this.clientSecret;
-            // String encodedAuth = java.util.Base64.getEncoder().encodeToString(auth.getBytes());
-            // request.addHeader("Authorization", "Basic " + encodedAuth);
         }
     }
 
