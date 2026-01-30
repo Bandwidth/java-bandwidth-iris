@@ -45,22 +45,68 @@ public class IrisClient {
     private String clientId;
     private String clientSecret;
 
+    /**
+     * Creates an IrisClient with custom URI and API version.
+     * @param uri Base URI for API requests
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     * @param version API version
+     */
     public IrisClient(String uri, String accountId,
             String username, String password, String version) {
         this(new DefaultHttpClient(), uri, accountId, username, password, version);
     }
 
+    /**
+     * Creates an IrisClient with default settings (dashboard.bandwidth.com, v1.0).
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     */
     public IrisClient(String accountId, String username, String password) {
         this(defaultUri, accountId, username, password, defaultVersion);
     }
 
+    /**
+     * Creates an IrisClient with custom HTTP client and URI.
+     * @param httpClient Custom HTTP client instance
+     * @param uri Base URI for API requests
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     */
     public IrisClient(DefaultHttpClient httpClient, String uri, String accountId, String username, String password) {
         this(httpClient, uri, accountId, username, password, defaultVersion);
     }
 
-    // Constructor with custom httpClient
-    // should be base for all other constructors
+    /**
+     * Base constructor with full configuration.
+     * @param httpClient Custom HTTP client instance
+     * @param uri Base URI for API requests
+     * @param accountId Bandwidth account ID (required)
+     * @param username API username (required)
+     * @param password API password (required)
+     * @param version API version
+     * @throws IllegalArgumentException if required parameters are null or empty
+     */
     public IrisClient(DefaultHttpClient httpClient, String uri, String accountId, String username, String password, String version) {
+        if (accountId == null || accountId.trim().isEmpty()) {
+            throw new IllegalArgumentException("accountId cannot be null or empty");
+        }
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("username cannot be null or empty");
+        }
+        if (password == null || password.trim().isEmpty()) {
+            throw new IllegalArgumentException("password cannot be null or empty");
+        }
+        if (uri == null || uri.trim().isEmpty()) {
+            throw new IllegalArgumentException("uri cannot be null or empty");
+        }
+        if (version == null || version.trim().isEmpty()) {
+            throw new IllegalArgumentException("version cannot be null or empty");
+        }
+        
         this.uri = uri;
         this.baseUrl = "/" + version + "/";
         this.baseAccountUrl = this.baseUrl + "accounts/" + accountId + "/";
@@ -68,15 +114,33 @@ public class IrisClient {
         this.httpClient = httpClient;
     }
 
-    // Constructor with custom httpClient and OAuth client credentials
+    /**
+     * Creates an IrisClient with custom HTTP client and OAuth client credentials.
+     * OAuth tokens will be automatically fetched when needed using client_credentials grant.
+     * @param httpClient Custom HTTP client instance
+     * @param uri Base URI for API requests
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     * @param clientId OAuth client ID for client_credentials grant
+     * @param clientSecret OAuth client secret for client_credentials grant
+     */
     public IrisClient(DefaultHttpClient httpClient, String uri, String accountId, String username, String password,
                       String clientId, String clientSecret) {
-        this(httpClient, uri, accountId, username, password);
+        this(httpClient, uri, accountId, username, password, defaultVersion);
         this.clientId = clientId;
         this.clientSecret = clientSecret;
     }
 
-    // Constructor with pre-configured access token
+    /**
+     * Creates an IrisClient with a pre-configured access token.
+     * Token will be used until expiration, no automatic refresh.
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     * @param accessToken Pre-configured OAuth access token
+     * @param accessTokenExpiration Token expiration time (Unix timestamp in seconds)
+     */
     public IrisClient(String accountId, String username, String password,
                       String accessToken, Long accessTokenExpiration) {
         this(defaultUri, accountId, username, password, defaultVersion);
@@ -84,7 +148,17 @@ public class IrisClient {
         this.accessTokenExpiration = accessTokenExpiration;
     }
 
-    // Constructor with full URI customization and pre-configured access token
+    /**
+     * Creates an IrisClient with custom URI and pre-configured access token.
+     * Token will be used until expiration, no automatic refresh.
+     * @param uri Base URI for API requests
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     * @param version API version
+     * @param accessToken Pre-configured OAuth access token
+     * @param accessTokenExpiration Token expiration time (Unix timestamp in seconds)
+     */
     public IrisClient(String uri, String accountId, String username, String password, 
                       String version, String accessToken, Long accessTokenExpiration) {
         this(uri, accountId, username, password, version);
@@ -92,7 +166,17 @@ public class IrisClient {
         this.accessTokenExpiration = accessTokenExpiration;
     }
 
-    // Constructor with full URI customization and OAuth credentials
+    /**
+     * Creates an IrisClient with custom URI and OAuth client credentials.
+     * OAuth tokens will be automatically fetched when needed using client_credentials grant.
+     * @param uri Base URI for API requests
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     * @param version API version
+     * @param clientId OAuth client ID for client_credentials grant
+     * @param clientSecret OAuth client secret for client_credentials grant
+     */
     public IrisClient(String uri, String accountId, String username, String password, 
                       String version, String clientId, String clientSecret) {
         this(uri, accountId, username, password, version);
@@ -100,7 +184,18 @@ public class IrisClient {
         this.clientSecret = clientSecret;
     }
 
-    // Constructor with all OAuth fields
+    /**
+     * Creates an IrisClient with all OAuth fields (client credentials + pre-configured token).
+     * Will use the provided token until expiration, then can fetch new tokens using client credentials.
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     * @param version API version
+     * @param clientId OAuth client ID for client_credentials grant
+     * @param clientSecret OAuth client secret for client_credentials grant
+     * @param accessToken Pre-configured OAuth access token
+     * @param accessTokenExpiration Token expiration time (Unix timestamp in seconds)
+     */
     public IrisClient(String accountId, String username, String password,
                       String version, String clientId, String clientSecret,
                       String accessToken, Long accessTokenExpiration) {
@@ -111,7 +206,19 @@ public class IrisClient {
         this.accessTokenExpiration = accessTokenExpiration;
     }
 
-    // Constructor with custom httpClient and full OAuth fields
+    /**
+     * Creates an IrisClient with custom HTTP client and all OAuth fields.
+     * Will use the provided token until expiration, then can fetch new tokens using client credentials.
+     * @param httpClient Custom HTTP client instance
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     * @param version API version
+     * @param clientId OAuth client ID for client_credentials grant
+     * @param clientSecret OAuth client secret for client_credentials grant
+     * @param accessToken Pre-configured OAuth access token
+     * @param accessTokenExpiration Token expiration time (Unix timestamp in seconds)
+     */
     public IrisClient(DefaultHttpClient httpClient, String accountId, String username,
                       String password, String version, String clientId, String clientSecret,
                       String accessToken, Long accessTokenExpiration) {
@@ -119,7 +226,20 @@ public class IrisClient {
                 clientSecret, accessToken, accessTokenExpiration);
     }
 
-    // Constructor with ALL fields - full customization
+    /**
+     * Creates an IrisClient with full customization of all parameters.
+     * Will use the provided token until expiration, then can fetch new tokens using client credentials.
+     * @param httpClient Custom HTTP client instance
+     * @param uri Base URI for API requests
+     * @param accountId Bandwidth account ID
+     * @param username API username
+     * @param password API password
+     * @param version API version
+     * @param clientId OAuth client ID for client_credentials grant
+     * @param clientSecret OAuth client secret for client_credentials grant
+     * @param accessToken Pre-configured OAuth access token
+     * @param accessTokenExpiration Token expiration time (Unix timestamp in seconds)
+     */
     public IrisClient(DefaultHttpClient httpClient, String uri, String accountId, String username,
                       String password, String version, String clientId, String clientSecret,
                       String accessToken, Long accessTokenExpiration) {
