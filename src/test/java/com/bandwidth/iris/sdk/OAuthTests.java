@@ -107,6 +107,21 @@ public class OAuthTests {
         verify(getRequestedFor(urlPathEqualTo("/v1.0/accounts/accountId/sites"))
                 .withHeader("Authorization", equalTo("Bearer fetched-token")));
 
+        // make second request to ensure token is reused
+        // Token endpoint mock
+        stubFor(post(urlEqualTo("/api/v1/oauth2/token"))
+            .withHost(equalTo("api.bandwidth.com"))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type", "application/json")
+                .withBody("{\"access_token\":\"not-this-token\",\"expires_in\":3600}")));
+
+        response = client.get(getBaseUrl() + "/v1.0/accounts/accountId/sites");
+
+        verify(1, postRequestedFor(urlPathEqualTo("/api/v1/oauth2/token")));
+        verify(getRequestedFor(urlPathEqualTo("/v1.0/accounts/accountId/sites"))
+                .withHeader("Authorization", equalTo("Bearer fetched-token")));
+
         assertEquals(200, response.getStatusCode());
     }
 
