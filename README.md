@@ -27,7 +27,18 @@ $ mvn install
 
 Creating the client
 ```Java
-IrisClient client = new IrisClient(accountId, username, password);
+// With Basic Auth
+IrisClient client = new IrisClient("<accountId>", "<username>", "<password>");
+
+// With A Bearer Token
+IrisClient client = new IrisClient("<accountId>", "<username>", "<password>", "<yourBearerToken>", <bearerTokenExpiration>);
+
+// With OAuth using Client Credentials
+IrisClient client = new IrisClient("<accountId>", "<username>", "<password>");
+client.setClientId("<yourClientId>");
+client.setClientSecret("<yourClientSecret>");
+
+// See IrisClient.java for all of the possible new OAuth constructors
 
 // You can then use the client to call a particular object's methods, e.g.
 Site s = new Site();
