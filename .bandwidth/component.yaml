@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  schemaVersion: v1.0.0
+  name: java-bandwidth-iris
+  description: Java Client Library for Bandwidth's Phone Number Dashboard (AKA Dashboard, Iris)
+  annotations:
+    github.com/project-slug: Bandwidth/java-bandwidth-iris
+    organization: BW
+    costCenter: Development - Software Infra
+spec:
+  type: Library
+  owner: github/band-swi
+  lifecycle: Available
