@@ -6,6 +6,7 @@ metadata:
   description: Java Client Library for Bandwidth's Phone Number Dashboard (AKA Dashboard, Iris)
   annotations:
     github.com/project-slug: Bandwidth/java-bandwidth-iris
+    bandwidth.com/languages: Java
     organization: BW
     costCenter: Development - Software Infra
 spec:
